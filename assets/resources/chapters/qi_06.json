@@ -1,0 +1,284 @@
+{
+  "chapter_id": "qi_06",
+  "title": "雨夜收簿",
+  "realm": "qi_01",
+  "start_node": "n601",
+  "background": "bg_inner_sect_archive",
+  "background_bundle": "map_inner_sect",
+  "bgm": "quiet_archive",
+  "required_power": 64,
+  "flags_on_start": [
+    "qi06_started"
+  ],
+  "nodes": {
+    "n601": {
+      "type": "narration",
+      "text": "黑根样本、旧记页脚和温棚外的封签被摊在一起，三枚星印的缺口恰好接上。最后那枚印泥还没干，雨里有人从内门走出来。",
+      "next": "n602"
+    },
+    "n602": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "这不是普通缺页。它记录的是三年前潮籍改制前的原规矩。有人想让后来的人只认现在这一版。",
+      "next": "n603"
+    },
+    "n603": {
+      "type": "say",
+      "speaker": "叶沉星",
+      "portrait": "portrait_ye_chen_xing_neutral",
+      "position": "right",
+      "text": "半张账页在我手里，另一半扣在门内。看我的眼神收一收，我不是来偷账的。我只想拿回父亲的炼器记录，也想弄清我的印记为什么会出现在黑根旧记上。",
+      "next": "n604"
+    },
+    "n604": {
+      "type": "choice",
+      "prompt": "半张账页在叶沉星手里，另一半在门内。程守墨的封印已经落下来，雨水正沿着纸缝往里渗。",
+      "options": [
+        {
+          "id": "rescue_couriers",
+          "text": "把半张账页递给叶沉星",
+          "next": "n605",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi06_saved_couriers",
+              "value": true
+            },
+            {
+              "op": "add_favor",
+              "key": "ye_chen_xing",
+              "value": 2
+            },
+            {
+              "op": "add_favor",
+              "key": "cheng_shou_mo",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "secure_ledger",
+          "text": "把账页交给程守墨登记",
+          "next": "n606",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi06_secured_ledger",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "insight",
+              "value": 1
+            },
+            {
+              "op": "add_favor",
+              "key": "ye_chen_xing",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n605": {
+      "type": "say",
+      "speaker": "叶沉星",
+      "text": "人你去救，账页给我。炼器师最擅长救快散架的东西，我不会把它藏进自己的炉底。",
+      "next": "n607"
+    },
+    "n606": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "封存能让它活下来，却不等于把它还给所有人。原始账页一旦进录司，就会变成少数人才能解释的证物。",
+      "next": "n607"
+    },
+    "n607": {
+      "type": "choice",
+      "prompt": "半张账页在两盏灯之间发白。程守墨的封印已经落下，叶沉星却没有伸手。",
+      "options": [
+        {
+          "id": "share_with_ye",
+          "text": "把半张账页递给叶沉星",
+          "next": "n608",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi06_shared_ledger",
+              "value": true
+            },
+            {
+              "op": "add_favor",
+              "key": "ye_chen_xing",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "official_record",
+          "text": "把账页交给程守墨登记",
+          "next": "n609",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi06_official_record",
+              "value": true
+            },
+            {
+              "op": "set_flag",
+              "key": "qi06_betrayed_ye_chen_xing",
+              "value": true
+            },
+            {
+              "op": "add_favor",
+              "key": "cheng_shou_mo",
+              "value": 2
+            }
+          ]
+        }
+      ]
+    },
+    "n608": {
+      "type": "say",
+      "speaker": "叶沉星",
+      "text": "行。你没把它变成掌事一个人能看的命令。今晚我替你开收簿庭，账页之后怎么走，我们当面盯着。",
+      "next": "battle_601"
+    },
+    "n609": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "登记只是让它暂时留在世上。闯过守卫，我让你看原始印记。叶沉星没有录司权限，却有资格作证。",
+      "next": "battle_601"
+    },
+    "battle_601": {
+      "type": "battle",
+      "stage_id": "stage_qi06_01_seal_warden",
+      "speaker": "封录守卫",
+      "enemy_art": "enemy_seal_warden",
+      "enemy_bundle": "map_inner_sect",
+      "prompt": "封录守卫只认携带原始记录的人。封条一抬，整座收簿庭的门都亮了。",
+      "win_next": "n610",
+      "lose_next": "ad_qi06_battle_revive"
+    },
+    "ad_qi06_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi06",
+      "dialogue_before": "封录守卫重新抬起封条。你还可以稳住伤势，再挑战一次。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "battle_601",
+      "next": "n610"
+    },
+    "n610": {
+      "type": "narration",
+      "text": "封条碎开，账页上的旧字没有消失，反而露出一行被后来规则覆盖的注记：见证必须出于自愿，并且要有独立证人。",
+      "next": "branch_ye_recruit"
+    },
+    "branch_ye_recruit": {
+      "type": "branch",
+      "branches": [
+        {
+          "conditions": [
+            {
+              "flag": "qi06_shared_ledger",
+              "equals": true
+            }
+          ],
+          "next": "n611"
+        }
+      ],
+      "fallback": "n612"
+    },
+    "n611": {
+      "type": "choice",
+      "prompt": "叶沉星把潮契放在招募台边，没有推过来。她看着你，像在等一句不会把人写成物件的话。",
+      "options": [
+        {
+          "id": "invite_ye",
+          "text": "把潮契收进名册",
+          "next": "n613",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi06_ye_contract_opened",
+              "value": true
+            },
+            {
+              "op": "unlock_summon",
+              "key": "ye_chen_xing",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "keep_cooperation",
+          "text": "让它先留在她手里",
+          "next": "n614",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi06_respected_boundary",
+              "value": true
+            },
+            {
+              "op": "add_favor",
+              "key": "ye_chen_xing",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n612": {
+      "type": "say",
+      "speaker": "叶沉星",
+      "text": "你选了官方封存，我不跟你走。等这页账能从抽屉里见光，我会自己判断这条路值不值得把命押上。",
+      "next": "n614"
+    },
+    "n613": {
+      "type": "say",
+      "speaker": "叶沉星",
+      "text": "说定了。潮契放在招募台上，但我不是谁名下的器物。同行与否听我的契印；你走偏一步，我当场停下。",
+      "next": "n614"
+    },
+    "n614": {
+      "type": "reward",
+      "settlement_id": "qi06_rain_ledger",
+      "item_bundle": "common_items",
+      "items": [
+        {
+          "id": "nameless_ledger_fragment",
+          "count": 1
+        },
+        {
+          "id": "archive_key",
+          "count": 1
+        },
+        {
+          "id": "tempering_stone",
+          "count": 2
+        }
+      ],
+      "next": "n615"
+    },
+    "n615": {
+      "type": "set_flag",
+      "flag": "qi06_inner_gate_open",
+      "value": true,
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "qi_06",
+      "text": "叶沉星没有把名字写进你的名册，只把半页账留在你手里。雨停前，内门深处又传来一次翻页声。",
+      "unlock": [
+        "qi06_inner_archive_followup"
+      ]
+    }
+  }
+}

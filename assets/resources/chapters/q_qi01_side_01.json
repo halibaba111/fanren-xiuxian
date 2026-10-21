@@ -1,0 +1,250 @@
+{
+  "chapter_id": "q_qi01_side_01",
+  "title": "药圃失物",
+  "realm": "qi_01",
+  "start_node": "s001",
+  "background": "bg_lanchuan_gate_dawn",
+  "bgm": "quiet_morning",
+  "required_power": 0,
+  "flags_on_start": [
+    "qi01_side_herb_started"
+  ],
+  "nodes": {
+    "s001": {
+      "type": "narration",
+      "text": "后山药圃比山门安静得多。安静到你能听见土里灵气缓慢回流的声音，也能听见有人在药架后面压着嗓子争吵。三株回气草不是被偷，而是沿着旧阵沟被什么东西“叫走”；它们正好长在缺口铜灯同源的旧阵边上。",
+      "next": "s002"
+    },
+    "s002": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "我没把消息送去药房。药圃一封，三天都别想开门。根须断得太齐，像有人摸准了它回气的时辰；而且它们全朝西，正对着山门那盏缺口铜灯。",
+      "next": "s003"
+    },
+    "s003": {
+      "type": "choice",
+      "prompt": "泥痕尽头留着一只干净的药囊，袋口刻着“七十三”。你可以先查现场，也可以先把失物报上去。两条路都会留下痕迹，只是之后会查到不同的东西。",
+      "options": [
+        {
+          "id": "inspect_trench",
+          "text": "先查看旧阵沟，不急着写结论",
+          "next": "s004",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_side_inspected_trench",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "report_loss",
+          "text": "按规矩登记，免得药圃背上私藏的嫌疑",
+          "next": "s005",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_side_reported_loss",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "s004": {
+      "type": "narration",
+      "text": "旧阵沟里没有脚印，只有一层被灵气烘干的细土。你用木棍拨开土层，看到三条细线从药根的位置延伸出去，最后汇进一块被人翻过的青石下面。青石背面刻着半个灯形印记，和你袖中的缺口铜灯同源，却少了一道横纹。",
+      "item_art": "item_copper_lamp_broken",
+      "next": "s006"
+    },
+    "s005": {
+      "type": "say",
+      "speaker": "关砚秋",
+      "portrait": "portrait_guan_yan_qiu_cold",
+      "position": "right",
+      "text": "你做得对。最怕好心人替药圃改口供。只是录司收走的登记册少了一页，有人比我们更早动过手。",
+      "next": "s006"
+    },
+    "s006": {
+      "type": "choice",
+      "prompt": "线索指向青石下方。那里可能藏着失物，也可能只是有人故意留下的引路标记。",
+      "options": [
+        {
+          "id": "lift_stone",
+          "text": "掀开青石，看看下面有没有药根",
+          "next": "s007",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_side_lifted_stone",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "wait_observe",
+          "text": "守在附近，等取东西的人出现",
+          "next": "s008",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_side_waited",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "s007": {
+      "type": "narration",
+      "text": "青石下没有回气草，只有一只用旧布包好的药囊。药囊里残留着很弱的寒气，里面的药材已经被碾碎一半，像是有人把药送给了一个不方便出面的人。最底下压着一截断掉的竹签，写着一个没有完成的编号：外院，七十三。",
+      "next": "s009"
+    },
+    "s008": {
+      "type": "battle",
+      "stage_id": "stage_qi01_side_01_herb_guardian",
+      "prompt": "夜色落下来后，旧阵沟里钻出一只被药气喂大的木土灵。它没有攻击药圃弟子，只死死护着青石下的药囊。",
+      "win_next": "s009",
+      "lose_next": "ad_qi01_side_battle_revive"
+    },
+    "ad_qi01_side_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi01_side",
+      "dialogue_before": "木土灵守住了药囊。你还可以稳住伤势，再确认它守护的东西。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "s008",
+      "next": "s010"
+    },
+    "s009": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "药囊里的“七十三”不是药圃编号。你看，外院登记号的笔路在这里。那栏写过“私自下山”，可袋口的药粉还新，像有人最近又来过。",
+      "next": "s011"
+    },
+    "s010": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "你退得及时。木土灵身上的阵纹和山门木傀同出一脉，偏偏都缺同一笔。有人把残阵埋进了不同地方。",
+      "next": "s011"
+    },
+    "s011": {
+      "type": "choice",
+      "prompt": "苏晚潮想把药囊交给你保管。她相信你，但她也知道，拿着它就等于承认你在追查外院七十三。",
+      "options": [
+        {
+          "id": "keep_pouch",
+          "text": "留下药囊，继续查外院七十三",
+          "next": "s012",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_side_kept_pouch",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "return_pouch",
+          "text": "把药囊交给苏晚潮，先保住药圃不被牵连",
+          "next": "s013",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_side_returned_pouch",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "s012": {
+      "type": "say",
+      "speaker": "关砚秋",
+      "portrait": "portrait_guan_yan_qiu_cold",
+      "position": "right",
+      "text": "你已经踩进旧账里了。有人靠空白活着，也有人靠记忆活着。你要追的，是哪一种？",
+      "next": "s014"
+    },
+    "s013": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "谢谢。药圃今晚还能照常开门。七十三我会记着；册子能抹掉一个人，土里的根不会。",
+      "next": "s014"
+    },
+    "s014": {
+      "type": "reward",
+      "settlement_id": "qi01_side_herb_clear",
+      "items": [
+        {
+          "id": "hui_qi_powder",
+          "count": 1
+        },
+        {
+          "id": "herb_garden_note",
+          "count": 1
+        }
+      ],
+      "next": "ad_qi01_side_reward_double"
+    },
+    "ad_qi01_side_reward_double": {
+      "type": "ad",
+      "ad_type": "double_reward",
+      "ad_placement": "reward_double_qi01_side",
+      "dialogue_before": "回气粉和药圃记录已经放进存档。",
+      "ad_reward_text": "完整观看广告后，本次结算道具数量翻倍。",
+      "reward": {
+        "settlement_id": "qi01_side_herb_clear",
+        "multiplier": 2
+      },
+      "next": "s015"
+    },
+    "s015": {
+      "type": "narration",
+      "text": "你离开药圃时，袖中的铜灯忽然发热。灯沿上那半个名字又多出一道细痕，像有人在黑暗里用指甲补完了一笔。你回头看向旧阵沟，那里没有人，只有三株新芽在风里同时朝着西边低下头。",
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "q_qi01_side_01",
+      "text": "药圃的失物回到了土里。七十三这个编号，却从药方末尾一路跟到了旧阵沟。",
+      "unlock": [
+        "qi_02",
+        "flag_qi01_side_herb_complete"
+      ]
+    }
+  }
+}

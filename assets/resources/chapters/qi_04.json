@@ -1,0 +1,268 @@
+{
+  "chapter_id": "qi_04",
+  "title": "空床有主",
+  "realm": "qi_01",
+  "start_node": "n401",
+  "background": "bg_lanchuan_gate_dawn",
+  "bgm": "quiet_archive",
+  "required_power": 42,
+  "flags_on_start": [
+    "qi04_started"
+  ],
+  "nodes": {
+    "n401": {
+      "type": "narration",
+      "text": "你和许照棠回到弟子居。她记得哥哥的饭碗、药包和床铺，偏偏每一样都像被人从纸上擦过一遍。",
+      "next": "n402"
+    },
+    "n402": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "我不求你把哥哥带回我面前。我只要一件事：证明这些记忆属于我，不是阵法塞进脑海里的假话。",
+      "next": "n403"
+    },
+    "n403": {
+      "type": "choice",
+      "prompt": "三件东西摊在灯下：一张调拨单、一张空床、半页被撕走的档案。你先把哪一样翻过来？",
+      "options": [
+        {
+          "id": "herb_allocation",
+          "text": "闻调拨单上的药味",
+          "next": "n404",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi04_evidence_herb",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "qi04_evidence_count",
+              "value": 1
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "empty_bed",
+          "text": "摸空床留下的磨痕",
+          "next": "n405",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi04_evidence_bed",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "qi04_evidence_count",
+              "value": 1
+            },
+            {
+              "op": "add",
+              "key": "xu_zhao_tang_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "archive_trace",
+          "text": "沿缺页的装订线找手印",
+          "next": "n406",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi04_evidence_archive",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "qi04_evidence_count",
+              "value": 1
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n404": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "药圃旧记里有许照野留下的手法。页角画着一株压不住的黑根，旁边是星形炼器印，只剩一个“沉”字。后半页被人整齐撕走了。",
+      "next": "n407"
+    },
+    "n405": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "床脚的磨痕还在，药屑也在。有人在这里过过日子，只是把自己的声音一并带走了。",
+      "next": "n407"
+    },
+    "n406": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "装订线被灵压烫过，页脚还留着同一枚星印，旁边是半个“沉”字。有人只准你看到纸面，不准你再往里看。",
+      "next": "n407"
+    },
+    "n407": {
+      "type": "choice",
+      "prompt": "药味、床脚和缺页在灯下各自发亮，门后的纸声却越来越近。",
+      "options": [
+        {
+          "id": "public_argument",
+          "text": "把手里的东西摊开",
+          "next": "n408",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi04_public_argument",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "xu_zhao_tang_favor",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "private_argument",
+          "text": "把纸页压住再开口",
+          "next": "n408",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi04_private_argument",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "insight",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n408": {
+      "type": "branch",
+      "branches": [
+        {
+          "conditions": [
+            {
+              "flag": "qi04_evidence_count",
+              "min": 2
+            }
+          ],
+          "next": "n409"
+        }
+      ],
+      "fallback": "n407"
+    },
+    "n409": {
+      "type": "say",
+      "speaker": "主角",
+      "portrait": "portrait_player_focused",
+      "position": "left",
+      "text": "药量和床脚的磨痕对上了。她的手停在星印上：我能证明他来过，却还说不出他去了哪里。",
+      "next": "battle_401"
+    },
+    "n410": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "纸页掠过灯下，边角沾着归名阵的冷灰。最后一笔没人落下，也没人敢承认是谁擦掉的。",
+      "next": "n407"
+    },
+    "battle_401": {
+      "type": "battle",
+      "stage_id": "stage_qi04_archive_guard",
+      "enemy_art": "enemy_paper_puppet_nameless",
+      "enemy_bundle": "map_library",
+      "prompt": "两页纸靠在一起，纸傀腹中的墨印忽然有了形。它扑向的不是你，而是那两张纸。",
+      "win_next": "n412",
+      "lose_next": "ad_qi04_battle_revive"
+    },
+    "ad_qi04_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi04",
+      "dialogue_before": "守档纸傀还没有撕完最后一页。你还可以稳住伤势，再保护证据一次。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "battle_401",
+      "next": "n413"
+    },
+    "n412": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "你护住的不是两张纸，是我还能相信自己的凭据。纸傀越想撕掉它，越说明有人怕这张空床被问起。",
+      "next": "n411"
+    },
+    "n411": {
+      "type": "reward",
+      "settlement_id": "qi04_empty_bed_proof",
+      "item_bundle": "common_items",
+      "items": [
+        {
+          "id": "herb_garden_note",
+          "count": 1
+        },
+        {
+          "id": "archive_key",
+          "count": 1
+        }
+      ],
+      "next": "ad_qi04_reward_double"
+    },
+    "ad_qi04_reward_double": {
+      "type": "ad",
+      "ad_type": "double_reward",
+      "ad_placement": "reward_double_qi04",
+      "dialogue_before": "药圃调拨单和空床档案已经放进存档。",
+      "ad_reward_text": "完整观看广告后，本次结算道具数量翻倍。",
+      "reward": {
+        "settlement_id": "qi04_empty_bed_proof",
+        "multiplier": 2
+      },
+      "next": "n413"
+    },
+    "n413": {
+      "type": "narration",
+      "item_art": "item_herb_garden_note",
+      "text": "夜半，缺口铜灯在许照棠面前亮起。灯影先有了侧脸，随后在眉骨处错开；它朝药圃偏了一下，像被什么牵住，转眼又散成一层薄铜光。",
+      "next": "n414"
+    },
+    "n414": {
+      "type": "set_flag",
+      "flag": "qi04_argument_complete",
+      "value": true,
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "qi_04",
+      "text": "许照棠把那两页纸折好，没有收进自己的袖袋。夜里，铜灯朝药圃亮了一次，灯沿又多出半个星形的刻痕。",
+      "unlock": [
+        "qi_05"
+      ]
+    }
+  }
+}

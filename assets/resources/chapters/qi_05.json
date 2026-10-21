@@ -1,0 +1,271 @@
+{
+  "chapter_id": "qi_05",
+  "title": "灯照旧声",
+  "realm": "qi_01",
+  "start_node": "n501",
+  "background": "bg_lanchuan_gate_dawn",
+  "bgm": "quiet_night",
+  "required_power": 52,
+  "flags_on_start": [
+    "qi05_started"
+  ],
+  "nodes": {
+    "n501": {
+      "type": "narration",
+      "text": "第四章旧记里提到的黑根幼苗果然在一夜之间疯长。染病的灵草会吸走人的灵力，三名杂役被困在温棚里，潮井方向还有一道潮影正在逃跑。",
+      "next": "n502"
+    },
+    "n502": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "它的声音太像哥哥了，像得让我不敢认。哥哥从不会拿那种语气求我。你进温棚时，我会跟着；门后的话，我要亲耳听见。",
+      "next": "n503"
+    },
+    "n503": {
+      "type": "choice",
+      "prompt": "黑根病正在扩散。你第一时间先救人，还是先留下样本？",
+      "options": [
+        {
+          "id": "rescue_disciples",
+          "text": "救出温棚里的弟子",
+          "next": "n504",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi05_rescued_disciples",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "xu_zhao_tang_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "secure_sample",
+          "text": "先封存黑根样本",
+          "next": "n505",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi05_secured_sample",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "insight",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n504": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_alert",
+      "position": "right",
+      "text": "三名杂役救出来了，可黑根已缠上温棚梁柱。它追着灵力长，样本必须留下，不然明天还会有人被它盯上。",
+      "next": "n506"
+    },
+    "n505": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "样本已经封住，温棚里还有人。旧药记录只能证明有人往潮井送过药，证明不了那就是哥哥。活人就在眼前，不能让一段旧声替他们开口。",
+      "next": "n506"
+    },
+    "n506": {
+      "type": "choice",
+      "prompt": "潮影越过药圃围墙，温棚里还困着一名弟子。你第二步先做什么？",
+      "options": [
+        {
+          "id": "free_trapped",
+          "text": "回头救最后一名弟子",
+          "next": "n507",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi05_freed_trapped",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "xu_zhao_tang_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "chase_shadow",
+          "text": "追潮影，别让它把病根带进外院",
+          "next": "n508",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi05_chased_shadow",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n507": {
+      "type": "say",
+      "speaker": "主角",
+      "portrait": "portrait_player_focused",
+      "position": "left",
+      "text": "把人带出温棚。样本在，潮影也在，黑根留下的脚印更不会消失。",
+      "next": "battle_501"
+    },
+    "n508": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_alert",
+      "position": "right",
+      "text": "潮影绕开了温棚。它不是冲着人来的，是把病根往无人经过的旧药沟引。",
+      "next": "battle_501"
+    },
+    "battle_501": {
+      "type": "battle",
+      "stage_id": "stage_qi05_01_tide_shadow",
+      "enemy_art": "enemy_memory_shell",
+      "enemy_bundle": "map_rear_mountain",
+      "prompt": "潮影披着熟悉的声音扑来，黑根里传出两种不同的呼吸。",
+      "win_next": "n509",
+      "lose_next": "ad_qi05_battle_revive"
+    },
+    "ad_qi05_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi05",
+      "dialogue_before": "潮影借着旧声再次逼近。你还可以稳住伤势，再追上它一次。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "battle_501",
+      "next": "n510"
+    },
+    "n510": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "灯光沿着黑根走了一遍，声音还在，影子却没有回头。纸上只记着进棚的时辰，没有留下名字。那句话像借来的，落地便轻了。",
+      "next": "n509"
+    },
+    "n509": {
+      "type": "choice",
+      "prompt": "铜灯只剩一回亮起。潮影在门外停住，声音却还贴着你的耳边。",
+      "options": [
+        {
+          "id": "use_truth_light",
+          "text": "让灯照过去",
+          "next": "n511",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi05_used_truth_light",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "xu_zhao_tang_favor",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "keep_lamp",
+          "text": "把灯收回袖中",
+          "next": "n512",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi05_kept_lamp",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "insight",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n511": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "灯光穿过潮影，胸口的字一亮便散。它借着哥哥的声音说话，却没有哥哥回头时那一下停顿。灯里只落下一句：“别带我回去。”",
+      "next": "n513"
+    },
+    "n512": {
+      "type": "say",
+      "speaker": "灯里的旧声",
+      "text": "潮井里还有路……照棠，别到这里来。",
+      "next": "n513"
+    },
+    "n513": {
+      "type": "reward",
+      "settlement_id": "qi05_lamp_awakened",
+      "item_bundle": "common_items",
+      "items": [
+        {
+          "id": "lamp_copper_shard",
+          "count": 1
+        },
+        {
+          "id": "black_root_sample",
+          "count": 1
+        },
+        {
+          "id": "awakened_copper_lamp",
+          "count": 1
+        }
+      ],
+      "next": "ad_qi05_reward_double"
+    },
+    "ad_qi05_reward_double": {
+      "type": "ad",
+      "ad_type": "double_reward",
+      "ad_placement": "reward_double_qi05",
+      "dialogue_before": "铜灯碎片、黑根样本和觉醒铜灯已经放进存档。",
+      "ad_reward_text": "完整观看广告后，本次结算道具数量翻倍。",
+      "reward": {
+        "settlement_id": "qi05_lamp_awakened",
+        "multiplier": 2
+      },
+      "next": "n514"
+    },
+    "n514": {
+      "type": "set_flag",
+      "flag": "artifact_awakened",
+      "value": true,
+      "next": "n515"
+    },
+    "n515": {
+      "type": "set_flag",
+      "flag": "artifact_second_affix_slot",
+      "value": true,
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "qi_05",
+      "text": "铜灯沿上的第二道纹路亮了。温棚外那枚封签被雨水泡开，露出“沉星”两个字，墨迹还没有干。",
+      "unlock": [
+        "qi_06"
+      ]
+    }
+  }
+}

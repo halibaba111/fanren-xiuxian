@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="900" viewBox="0 0 1280 900">
+  <rect width="1280" height="900" fill="#09141b"/>
+  <rect x="36" y="32" width="1208" height="836" rx="8" fill="#0f1d24" stroke="#36535a" stroke-width="2"/>
+  <text x="72" y="86" fill="#f3eddc" font-size="30" font-family="Microsoft YaHei, sans-serif" font-weight="700">装备美术资源清单</text>
+  <text x="72" y="120" fill="#82b8c2" font-size="15" font-family="Microsoft YaHei, sans-serif">豆包生成用 · 512 × 512 透明 PNG · 品质边框由前端绘制</text>
+  <text x="1180" y="86" fill="#65d19a" font-size="14" font-family="Microsoft YaHei, sans-serif" text-anchor="end">落盘：assets/resources/art/equipment/</text>
+
+  <g transform="translate(64 160)">
+    <rect width="360" height="198" rx="6" fill="#12262e" stroke="#e5a15d" stroke-width="2"/>
+    <text x="20" y="34" fill="#e5a15d" font-size="20" font-family="Microsoft YaHei, sans-serif" font-weight="700">01 武器</text>
+    <text x="20" y="66" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">4 张 · 攻击主轴</text>
+    <text x="20" y="100" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">old_array_sword</text>
+    <text x="20" y="126" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">wet_broken_blade</text>
+    <text x="20" y="152" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">six_lamp_patrol_blade</text>
+    <text x="20" y="178" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">record_seal_sword</text>
+    <path d="M300 68 L328 96 L300 124 L272 96 Z" fill="#2b4c4a" stroke="#e5a15d" stroke-width="2"/>
+    <path d="M300 72 L300 120 M276 96 L324 96" stroke="#65d19a" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(460 160)">
+    <rect width="360" height="198" rx="6" fill="#12262e" stroke="#65d19a" stroke-width="2"/>
+    <text x="20" y="34" fill="#65d19a" font-size="20" font-family="Microsoft YaHei, sans-serif" font-weight="700">02 法器</text>
+    <text x="20" y="66" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">4 张 · 灵力 / 洞察</text>
+    <text x="20" y="100" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">echo_copper_lamp</text>
+    <text x="20" y="126" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">archive_tag</text>
+    <text x="20" y="152" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">six_lamp_plate</text>
+    <text x="20" y="178" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">record_token</text>
+    <circle cx="300" cy="96" r="32" fill="#294047" stroke="#65d19a" stroke-width="3"/>
+    <circle cx="300" cy="96" r="11" fill="#e5a15d"/>
+    <path d="M300 64 V128 M268 96 H332" stroke="#82b8c2" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(856 160)">
+    <rect width="360" height="198" rx="6" fill="#12262e" stroke="#62a8ff" stroke-width="2"/>
+    <text x="20" y="34" fill="#62a8ff" font-size="20" font-family="Microsoft YaHei, sans-serif" font-weight="700">03 护身</text>
+    <text x="20" y="66" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">4 张 · 防御 / 气血</text>
+    <text x="20" y="100" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">garden_guard</text>
+    <text x="20" y="126" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">archive_guard</text>
+    <text x="20" y="152" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">mountain_cloak</text>
+    <text x="20" y="178" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">record_courtyard_armor</text>
+    <path d="M300 62 L334 80 L324 128 L300 146 L276 128 L266 80 Z" fill="#263c47" stroke="#62a8ff" stroke-width="3"/>
+    <path d="M300 78 V132 M278 98 H322" stroke="#82b8c2" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(64 398)">
+    <rect width="360" height="198" rx="6" fill="#12262e" stroke="#bd8bff" stroke-width="2"/>
+    <text x="20" y="34" fill="#bd8bff" font-size="20" font-family="Microsoft YaHei, sans-serif" font-weight="700">04 头冠</text>
+    <text x="20" y="66" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">3 张 · 洞察 / 防御</text>
+    <text x="20" y="108" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">nameless_crown</text>
+    <text x="20" y="136" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">lamp_circlet</text>
+    <text x="20" y="164" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">archive_paper_crown</text>
+    <path d="M270 126 L282 78 L300 98 L318 78 L330 126 Z" fill="#364052" stroke="#bd8bff" stroke-width="3"/>
+    <path d="M278 126 H322" stroke="#e5a15d" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(460 398)">
+    <rect width="360" height="198" rx="6" fill="#12262e" stroke="#f1c75b" stroke-width="2"/>
+    <text x="20" y="34" fill="#f1c75b" font-size="20" font-family="Microsoft YaHei, sans-serif" font-weight="700">05 戒指</text>
+    <text x="20" y="66" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">3 张 · 灵力 / 回气</text>
+    <text x="20" y="108" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">herb_jade</text>
+    <text x="20" y="136" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">copper_loop</text>
+    <text x="20" y="164" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">six_lamp_seal</text>
+    <circle cx="300" cy="112" r="34" fill="none" stroke="#f1c75b" stroke-width="10"/>
+    <circle cx="300" cy="112" r="16" fill="#294047"/>
+    <circle cx="300" cy="112" r="5" fill="#65d19a"/>
+  </g>
+
+  <g transform="translate(856 398)">
+    <rect width="360" height="198" rx="6" fill="#12262e" stroke="#ff6f72" stroke-width="2"/>
+    <text x="20" y="34" fill="#ff6f72" font-size="20" font-family="Microsoft YaHei, sans-serif" font-weight="700">06 行履</text>
+    <text x="20" y="66" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">3 张 · 回气 / 气血</text>
+    <text x="20" y="108" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">rain_step</text>
+    <text x="20" y="136" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">paper_ash</text>
+    <text x="20" y="164" fill="#a9bab6" font-size="13" font-family="Microsoft YaHei, sans-serif">sect_gate</text>
+    <path d="M270 82 L326 82 L334 126 L306 142 L270 132 Z" fill="#2d4145" stroke="#ff6f72" stroke-width="3"/>
+    <path d="M274 94 H322 M278 108 H326" stroke="#82b8c2" stroke-width="3"/>
+  </g>
+
+  <rect x="64" y="650" width="1152" height="164" rx="6" fill="#0b181e" stroke="#36535a"/>
+  <text x="88" y="688" fill="#e5a15d" font-size="17" font-family="Microsoft YaHei, sans-serif" font-weight="700">生成检查</text>
+  <text x="88" y="724" fill="#f3eddc" font-size="14" font-family="Microsoft YaHei, sans-serif">透明背景 · 单件居中 · 无文字无水印 · 不要品质边框 · 轮廓完整</text>
+  <text x="88" y="756" fill="#a9bab6" font-size="14" font-family="Microsoft YaHei, sans-serif">色彩：墨青 / 青铜 / 旧纸 / 赭金点缀；明度与现有地图和背包 UI 保持一致</text>
+  <text x="88" y="788" fill="#65d19a" font-size="14" font-family="Microsoft YaHei, sans-serif">文件输出：PNG 512×512，文件名严格按清单，统一放入 equipment 目录</text>
+</svg>

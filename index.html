@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
   <title>岚川院 · 修仙主循环预览</title>
-  <link rel="icon" href="./game_icon.png">
+  <link rel="icon" href="game_icon.png">
   <link rel="preload" as="image" href="assets/release/resources/art/bg_outer_courtyard_move.jpg" fetchpriority="high">
   <style>
     :root {
@@ -885,6 +885,283 @@
       animation: story-dialog-in 160ms ease-out both;
     }
 
+    .leaderboard-card {
+      display: flex;
+      width: min(100%, 372px);
+      max-height: min(86vh, 720px);
+      flex-direction: column;
+      overflow: hidden;
+      border-top-color: var(--jade);
+    }
+
+    .leaderboard-scroll {
+      min-height: 0;
+      margin: 13px -4px 0 0;
+      padding-right: 4px;
+      overflow-y: auto;
+      scrollbar-color: rgba(101, 200, 162, .5) transparent;
+    }
+
+    .leaderboard-note {
+      margin-top: 10px;
+      padding: 8px 9px;
+      background: rgba(229, 161, 93, .07);
+      border-left: 2px solid rgba(229, 161, 93, .64);
+    }
+
+    .leaderboard-note strong,
+    .leaderboard-note span {
+      display: block;
+    }
+
+    .leaderboard-note strong {
+      color: var(--amber);
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    .leaderboard-note span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    .leaderboard-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .leaderboard-summary-cell {
+      min-width: 0;
+      padding: 8px;
+      background: rgba(101, 200, 162, .07);
+      border: 1px solid rgba(101, 200, 162, .2);
+      border-radius: 3px;
+    }
+
+    .leaderboard-summary-cell span,
+    .leaderboard-summary-cell strong {
+      display: block;
+    }
+
+    .leaderboard-summary-cell span {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.3;
+    }
+
+    .leaderboard-summary-cell strong {
+      margin-top: 3px;
+      color: var(--ink);
+      font-size: 16px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+    }
+
+    .leaderboard-section-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .leaderboard-section-heading strong {
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .leaderboard-section-heading span {
+      color: var(--dim);
+      font-size: 9px;
+      line-height: 1.35;
+      text-align: right;
+    }
+
+    .leaderboard-rating-panel {
+      margin-top: 9px;
+      padding: 10px;
+      background: rgba(229, 161, 93, .08);
+      border: 1px solid rgba(229, 161, 93, .3);
+      border-left: 2px solid var(--amber);
+      border-radius: 3px;
+    }
+
+    .leaderboard-rating-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .leaderboard-rating-name {
+      min-width: 0;
+    }
+
+    .leaderboard-rating-name strong,
+    .leaderboard-rating-name span {
+      display: block;
+    }
+
+    .leaderboard-rating-name strong {
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .leaderboard-rating-name span {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.35;
+    }
+
+    .leaderboard-rating-total {
+      flex: 0 0 auto;
+      color: var(--amber);
+      font-size: 24px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+      text-align: right;
+    }
+
+    .leaderboard-rating-total small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.2;
+    }
+
+    .leaderboard-rating-breakdown {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 5px;
+      margin-top: 9px;
+    }
+
+    .leaderboard-rating-breakdown div {
+      padding: 6px 7px;
+      background: rgba(7, 17, 24, .4);
+      border: 1px solid rgba(243, 237, 220, .1);
+    }
+
+    .leaderboard-rating-breakdown span,
+    .leaderboard-rating-breakdown strong {
+      display: block;
+    }
+
+    .leaderboard-rating-breakdown span {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.3;
+    }
+
+    .leaderboard-rating-breakdown strong {
+      margin-top: 2px;
+      color: var(--ink);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+    }
+
+    .leaderboard-rating-action {
+      margin-top: 9px;
+    }
+
+    .leaderboard-rating-action .small-button {
+      width: 100%;
+    }
+
+    .leaderboard-status {
+      margin-top: 10px;
+      padding: 8px 9px;
+      color: var(--muted);
+      background: rgba(243, 237, 220, .035);
+      border: 1px solid rgba(243, 237, 220, .1);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .leaderboard-status.is-error {
+      color: #f0b2a8;
+      border-color: rgba(199, 109, 96, .44);
+    }
+
+    .leaderboard-list {
+      display: grid;
+      gap: 5px;
+      margin-top: 7px;
+    }
+
+    .leaderboard-row {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) 58px;
+      gap: 7px;
+      align-items: center;
+      min-width: 0;
+      min-height: 38px;
+      padding: 6px 8px;
+      background: rgba(243, 237, 220, .035);
+      border: 1px solid rgba(243, 237, 220, .1);
+      border-radius: 3px;
+    }
+
+    .leaderboard-row.is-current {
+      background: rgba(101, 200, 162, .1);
+      border-color: rgba(101, 200, 162, .48);
+    }
+
+    .leaderboard-rank {
+      color: var(--amber);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .leaderboard-row.is-top .leaderboard-rank {
+      color: var(--jade);
+      font-weight: 700;
+    }
+
+    .leaderboard-nickname {
+      min-width: 0;
+      overflow: hidden;
+      color: var(--ink);
+      font-size: 10px;
+      line-height: 1.35;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .leaderboard-nickname small {
+      color: var(--jade);
+      font-size: 8px;
+    }
+
+    .leaderboard-score {
+      color: var(--ink);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+      text-align: right;
+    }
+
+    .leaderboard-empty {
+      padding: 18px 10px;
+      color: var(--dim);
+      background: rgba(243, 237, 220, .025);
+      border: 1px dashed rgba(243, 237, 220, .14);
+      font-size: 10px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
     .announcement-overlay {
       padding: 12px;
       background: rgba(2, 8, 13, .82);
@@ -973,6 +1250,124 @@
       color: var(--muted);
       font-size: 11px;
       line-height: 1.6;
+    }
+
+    .map-adventure-card {
+      display: flex;
+      width: min(100%, 372px);
+      max-height: min(86vh, 680px);
+      flex-direction: column;
+      overflow: hidden;
+      border-top-color: #f08a35;
+    }
+
+    .map-adventure-scroll {
+      min-height: 0;
+      margin-top: 12px;
+      overflow-y: auto;
+      scrollbar-color: rgba(240, 138, 53, .58) transparent;
+    }
+
+    .map-adventure-scene {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      margin-top: 12px;
+      padding: 10px;
+      background: rgba(240, 138, 53, .08);
+      border: 1px solid rgba(240, 138, 53, .28);
+    }
+
+    .map-adventure-symbol {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      color: #ffe8c6;
+      background: rgba(240, 138, 53, .2);
+      border: 1px solid rgba(240, 138, 53, .58);
+      border-radius: 50%;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .map-adventure-scene strong,
+    .map-adventure-scene span {
+      display: block;
+    }
+
+    .map-adventure-scene strong {
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .map-adventure-scene span {
+      margin-top: 3px;
+      color: #f2bc7d;
+      font-size: 9px;
+      line-height: 1.45;
+    }
+
+    .map-adventure-detail {
+      margin: 10px 0 0;
+      padding: 8px 9px;
+      color: #d7dfd9;
+      background: rgba(243, 237, 220, .045);
+      border-left: 2px solid rgba(240, 138, 53, .68);
+      font-size: 10px;
+      line-height: 1.6;
+    }
+
+    .map-adventure-options {
+      display: grid;
+      gap: 7px;
+      margin-top: 11px;
+    }
+
+    .map-adventure-option {
+      display: block;
+      width: 100%;
+      padding: 9px 10px;
+      color: var(--ink);
+      text-align: left;
+      background: rgba(5, 13, 18, .62);
+      border: 1px solid rgba(243, 237, 220, .16);
+      border-radius: 3px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .map-adventure-option:hover,
+    .map-adventure-option:focus-visible {
+      background: rgba(240, 138, 53, .12);
+      border-color: rgba(240, 138, 53, .72);
+    }
+
+    .map-adventure-option strong,
+    .map-adventure-option span {
+      display: block;
+    }
+
+    .map-adventure-option strong {
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .map-adventure-option span {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.45;
+    }
+
+    .map-adventure-later {
+      margin-top: 11px;
+      color: #d7dfd9;
+      font-size: 9px;
+      line-height: 1.45;
+      text-align: center;
     }
 
     .modal-actions {
@@ -1262,6 +1657,133 @@
       font-size: 10px;
     }
 
+    .companion-gift-actions {
+      display: grid;
+      gap: 4px;
+      justify-items: stretch;
+    }
+
+    .companion-gift-row.is-exclusive {
+      border-color: rgba(229, 161, 93, .48);
+      background: rgba(67, 45, 28, .28);
+    }
+
+    .companion-gift-row.is-exclusive .companion-gift-copy strong {
+      color: var(--amber);
+    }
+
+    .companion-gift-row.is-exclusive .small-button {
+      border-color: rgba(229, 161, 93, .56);
+      color: var(--amber);
+    }
+
+    .companion-gift-row.is-exclusive .companion-ad-button {
+      color: #21160d;
+      background: var(--amber);
+      border-color: rgba(255, 246, 220, .72);
+      box-shadow: 0 0 0 1px rgba(229, 161, 93, .16);
+    }
+
+    .companion-gift-row.is-exclusive .companion-ad-button:hover,
+    .companion-gift-row.is-exclusive .companion-ad-button:focus-visible {
+      color: #21160d;
+      background: #f0b675;
+      border-color: #fff1d2;
+      filter: none;
+      outline: none;
+    }
+
+    .companion-gift-row.is-exclusive .companion-ad-button:disabled {
+      color: rgba(33, 22, 13, .78);
+      background: rgba(229, 161, 93, .56);
+      border-color: rgba(255, 246, 220, .42);
+    }
+
+    .companion-adventure-card {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 11px;
+      color: var(--muted);
+      background: rgba(78, 50, 28, .2);
+      border: 1px solid rgba(229, 161, 93, .35);
+      border-radius: 3px;
+    }
+
+    .companion-adventure-card.is-ready {
+      border-color: rgba(229, 161, 93, .75);
+      box-shadow: 0 0 0 1px rgba(229, 161, 93, .08);
+    }
+
+    .companion-adventure-card.is-complete {
+      background: rgba(101, 200, 162, .08);
+      border-color: rgba(101, 200, 162, .35);
+    }
+
+    .companion-adventure-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .companion-adventure-heading strong {
+      color: var(--ink);
+      font-size: 12px;
+    }
+
+    .companion-adventure-heading span {
+      color: var(--amber);
+      font-size: 9px;
+    }
+
+    .companion-adventure-card.is-complete .companion-adventure-heading span {
+      color: var(--jade);
+    }
+
+    .companion-adventure-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .companion-adventure-options {
+      display: grid;
+      gap: 6px;
+    }
+
+    .companion-adventure-option {
+      display: grid;
+      gap: 3px;
+      width: 100%;
+      padding: 8px 9px;
+      color: var(--ink);
+      background: rgba(243, 237, 220, .05);
+      border: 1px solid rgba(243, 237, 220, .18);
+      border-radius: 3px;
+      cursor: pointer;
+      font: inherit;
+      text-align: left;
+      touch-action: manipulation;
+    }
+
+    .companion-adventure-option:hover,
+    .companion-adventure-option:focus-visible {
+      border-color: var(--amber);
+      outline: none;
+    }
+
+    .companion-adventure-option strong {
+      font-size: 10px;
+    }
+
+    .companion-adventure-option span {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.4;
+    }
+
     .companion-cultivation-card.companion-scene-card {
       width: min(100%, 760px);
       max-height: min(94vh, 760px);
@@ -1307,6 +1829,8 @@
     .companion-scene-topbar-actions {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
       flex: 0 0 auto;
       gap: 6px;
     }
@@ -1424,6 +1948,69 @@
       pointer-events: none;
       transform: translateX(-50%);
       animation: companion-scene-character-in 360ms ease-out both;
+    }
+
+    .companion-scene-familiarity {
+      position: absolute;
+      z-index: 4;
+      top: 12px;
+      left: 50%;
+      display: grid;
+      gap: 5px;
+      width: min(70%, 300px);
+      padding: 7px 10px 8px;
+      color: var(--ink);
+      background: rgba(5, 18, 24, .84);
+      border: 1px solid rgba(101, 200, 162, .52);
+      border-radius: 4px;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, .32);
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+
+    .companion-scene-familiarity-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .companion-scene-familiarity-heading strong {
+      overflow: hidden;
+      color: var(--jade);
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .companion-scene-familiarity-heading span {
+      flex: 0 0 auto;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .companion-scene-familiarity-track {
+      height: 6px;
+      overflow: hidden;
+      background: rgba(243, 237, 220, .15);
+      border-radius: 999px;
+    }
+
+    .companion-scene-familiarity-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--jade), var(--amber));
+      border-radius: inherit;
+      box-shadow: 0 0 10px rgba(101, 200, 162, .3);
+      transition: width .24s ease;
+    }
+
+    .companion-scene-familiarity-next {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.3;
+      text-align: right;
     }
 
     .companion-scene-character {
@@ -1643,6 +2230,49 @@
       color: var(--jade);
     }
 
+    .companion-scene-partner {
+      display: grid;
+      gap: 5px;
+      padding: 8px 9px;
+      background: rgba(229, 161, 93, .08);
+      border: 1px solid rgba(229, 161, 93, .34);
+      border-left: 2px solid var(--amber);
+    }
+
+    .companion-scene-partner.is-partnered {
+      background: rgba(101, 200, 162, .09);
+      border-color: rgba(101, 200, 162, .38);
+      border-left-color: var(--jade);
+    }
+
+    .companion-scene-partner-copy {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .companion-scene-partner-copy strong {
+      color: var(--amber);
+      font-size: 10px;
+    }
+
+    .companion-scene-partner.is-partnered .companion-scene-partner-copy strong {
+      color: var(--jade);
+    }
+
+    .companion-scene-partner-copy span {
+      color: var(--muted);
+      font-size: 9px;
+      line-height: 1.4;
+    }
+
+    .companion-scene-partner .small-button {
+      justify-self: start;
+      min-height: 28px;
+      padding: 5px 8px;
+      font-size: 9px;
+    }
+
     .companion-scene-drawer {
       position: absolute;
       right: 0;
@@ -1713,6 +2343,27 @@
       max-height: min(370px, 58%);
     }
 
+    .companion-log-drawer {
+      top: 0;
+      bottom: auto;
+      max-height: min(360px, 58%);
+      border-top: 0;
+      border-bottom: 1px solid rgba(229, 161, 93, .35);
+      box-shadow: 0 20px 42px rgba(0, 0, 0, .42);
+      animation-name: companion-drawer-in-top;
+    }
+
+    @keyframes companion-drawer-in-top {
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .companion-persona-intro {
       margin: 0 0 11px;
       padding: 10px 11px;
@@ -1763,6 +2414,63 @@
     .companion-persona-stage strong {
       color: var(--amber);
       font-size: 10px;
+    }
+
+    .companion-log-list {
+      display: grid;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .companion-log-entry {
+      display: grid;
+      gap: 5px;
+      padding: 9px 10px;
+      background: rgba(243, 237, 220, .045);
+      border: 1px solid rgba(243, 237, 220, .12);
+      border-left: 2px solid rgba(101, 200, 162, .56);
+    }
+
+    .companion-log-entry-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .companion-log-entry-header strong {
+      color: var(--ink);
+      font-size: 10px;
+    }
+
+    .companion-log-entry-header time {
+      flex: 0 0 auto;
+      color: var(--dim);
+      font-size: 9px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .companion-log-entry p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.55;
+    }
+
+    .companion-log-entry small {
+      color: var(--jade);
+      font-size: 9px;
+    }
+
+    .companion-log-empty {
+      margin: 10px 0 4px;
+      padding: 12px 10px;
+      color: var(--muted);
+      background: rgba(243, 237, 220, .04);
+      border: 1px dashed rgba(243, 237, 220, .16);
+      font-size: 10px;
+      line-height: 1.5;
+      text-align: center;
     }
 
     @media (max-width: 560px) {
@@ -2459,6 +3167,7 @@
     }
 
     .nav-button {
+      position: relative;
       display: grid;
       place-items: center;
       min-width: 0;
@@ -2470,6 +3179,24 @@
       border-radius: 4px;
       cursor: pointer;
       gap: 2px;
+    }
+
+    .map-adventure-dot {
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      width: 7px;
+      height: 7px;
+      background: #f08a35;
+      border: 1px solid rgba(255, 232, 198, .92);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(240, 138, 53, .16), 0 0 10px rgba(240, 138, 53, .62);
+      animation: map-adventure-pulse 1.3s ease-in-out infinite;
+    }
+
+    @keyframes map-adventure-pulse {
+      0%, 100% { transform: scale(1); opacity: .88; }
+      50% { transform: scale(1.22); opacity: 1; }
     }
 
     .nav-button:hover,
@@ -3438,6 +4165,8 @@
       padding: 15px 14px 18px;
       scrollbar-width: thin;
       scrollbar-color: rgba(243, 237, 220, .24) transparent;
+      --tower-copy: #d3ddd6;
+      --tower-secondary: #b9c7be;
     }
 
     .tower-hero {
@@ -3468,7 +4197,7 @@
 
     .tower-hero-copy p {
       margin: 7px 0 0;
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 10px;
       line-height: 1.55;
     }
@@ -3485,14 +4214,14 @@
     .tower-floor-count span {
       display: block;
       margin-top: 4px;
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 9px;
       line-height: 1.2;
     }
 
     .tower-stat-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
       margin-top: 10px;
     }
@@ -3511,7 +4240,7 @@
     }
 
     .tower-stat span {
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 9px;
       line-height: 1.3;
     }
@@ -3527,10 +4256,48 @@
     .tower-stat strong small {
       display: block;
       margin-top: 3px;
-      color: var(--dim);
+      color: var(--tower-secondary);
       font-size: 9px;
       font-weight: 400;
       line-height: 1.3;
+    }
+
+    .tower-ad-reward {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+      padding: 9px 10px;
+      background: rgba(101, 200, 162, .1);
+      border: 1px solid rgba(101, 200, 162, .3);
+      border-radius: 4px;
+    }
+
+    .tower-ad-reward-copy {
+      min-width: 0;
+    }
+
+    .tower-ad-reward-copy strong,
+    .tower-ad-reward-copy span {
+      display: block;
+    }
+
+    .tower-ad-reward-copy strong {
+      color: var(--ink);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .tower-ad-reward-copy span {
+      margin-top: 3px;
+      color: var(--tower-copy);
+      font-size: 9px;
+      line-height: 1.4;
+    }
+
+    .tower-ad-reward .small-button {
+      min-width: 116px;
     }
 
     .tower-message {
@@ -3557,7 +4324,7 @@
     }
 
     .tower-section-heading span {
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 9px;
     }
 
@@ -3583,7 +4350,7 @@
     }
 
     .tower-floor-card.locked {
-      opacity: .58;
+      opacity: .78;
     }
 
     .tower-floor-card-copy {
@@ -3603,7 +4370,7 @@
 
     .tower-floor-card-copy span {
       margin-top: 3px;
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 9px;
       line-height: 1.4;
     }
@@ -3617,7 +4384,7 @@
 
     .tower-floor-meta {
       margin-top: 7px;
-      color: var(--dim);
+      color: var(--tower-secondary);
       font-size: 9px;
       line-height: 1.4;
     }
@@ -3671,7 +4438,7 @@
 
     .tower-adventure-text {
       margin: 8px 0;
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 10px;
       line-height: 1.55;
     }
@@ -3711,7 +4478,7 @@
 
     .tower-adventure-option span {
       margin-top: 3px;
-      color: var(--muted);
+      color: var(--tower-copy);
       font-size: 9px;
       line-height: 1.4;
     }
@@ -5633,9 +6400,9 @@
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
       gap: 6px;
-      align-items: end;
+      align-items: center;
       margin: 0 0 9px;
-      padding: 7px;
+      padding: 6px 7px;
       background: rgba(7, 17, 24, .58);
       border: 1px solid rgba(243, 237, 220, .12);
       border-radius: 4px;
@@ -5643,47 +6410,54 @@
 
     .equipment-filter-field {
       display: grid;
-      gap: 3px;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 5px;
       min-width: 0;
     }
 
     .equipment-filter-field span {
       color: var(--dim);
       font-size: 9px;
+      white-space: nowrap;
     }
 
-    .equipment-filter-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
+    .equipment-filter-select {
+      width: 100%;
       min-width: 0;
-    }
-
-    .equipment-filter-option {
-      min-height: 30px;
-      padding: 5px 7px;
-      color: var(--muted);
-      background: rgba(25, 42, 50, .94);
-      border: 1px solid rgba(243, 237, 220, .16);
+      min-height: 28px;
+      padding: 4px 24px 4px 7px;
+      color: #f5f1e7;
+      background: rgba(18, 42, 46, .98);
+      border: 1px solid rgba(101, 200, 162, .44);
       border-radius: 3px;
       cursor: pointer;
       font: inherit;
       font-size: 10px;
       line-height: 1.15;
-      white-space: nowrap;
+      outline: none;
     }
 
-    .equipment-filter-option:hover,
-    .equipment-filter-option:focus-visible,
-    .equipment-filter-option.is-selected {
-      color: var(--ink);
-      background: rgba(101, 200, 162, .14);
-      border-color: rgba(101, 200, 162, .58);
+    .equipment-filter-select option {
+      color: #102229;
+      background: #f3f7f4;
+    }
+
+    .equipment-filter-select option:checked {
+      color: #ffffff;
+      background: #1d5b4a;
+    }
+
+    .equipment-filter-select:hover,
+    .equipment-filter-select:focus-visible {
+      color: #ffffff;
+      background: rgba(29, 91, 74, .92);
+      border-color: #8de0bc;
     }
 
     .equipment-filter-reset {
-      min-height: 30px;
-      padding: 5px 7px;
+      min-height: 26px;
+      padding: 4px 7px;
       color: var(--muted);
       background: transparent;
       border: 1px solid rgba(243, 237, 220, .16);
@@ -5701,12 +6475,14 @@
 
     @media (max-width: 560px) {
       .equipment-filter-bar {
-        grid-template-columns: 1fr;
-        align-items: stretch;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+        gap: 4px;
+        padding: 5px 6px;
       }
 
       .equipment-filter-reset {
-        width: 100%;
+        width: auto;
+        align-self: end;
       }
     }
 
@@ -6143,7 +6919,7 @@
     .forge-banner {
       position: relative;
       overflow: hidden;
-      margin-top: 10px;
+      margin: 0 0 10px;
       padding: 12px;
       background:
         linear-gradient(90deg, rgba(7, 17, 24, .96), rgba(7, 17, 24, .68)),
@@ -6558,6 +7334,7 @@
     .battle-intent em { color: var(--jade); font-style: normal; white-space: nowrap; }
 
     .forge-screen {
+      position: relative;
       height: 100%;
       min-height: 0;
       padding: 18px 14px 26px;
@@ -6569,12 +7346,36 @@
       background: radial-gradient(circle at 50% 18%, rgba(61, 126, 103, .2), transparent 34%), #09141b;
     }
     .forge-kicker { color: var(--jade); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; }
-    .forge-title { margin: 5px 0 16px; font-size: 23px; line-height: 1.2; }
-    .forge-layout { display: grid; grid-template-columns: 142px minmax(0, 1fr); gap: 12px; align-items: start; max-width: 760px; margin: 0 auto; }
+    .forge-title-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(188px, auto); align-items: start; gap: 12px; margin: 5px 0 16px; }
+    .forge-title { margin: 0; font-size: 23px; line-height: 1.2; }
+    .forge-heading-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 7px; min-width: 188px; }
+    .forge-heading-actions .story-exit,
+    .forge-heading-actions .forge-guide-button { position: static; z-index: auto; width: 100%; min-width: 0; }
+    .forge-guide-button,
+    .forge-picker-button { min-height: 32px; padding: 7px 10px; color: var(--jade); background: rgba(101, 200, 162, .08); border: 1px solid rgba(101, 200, 162, .38); border-radius: 3px; cursor: pointer; font: inherit; font-size: 10px; white-space: nowrap; touch-action: manipulation; }
+    .forge-guide-button:disabled,
+    .forge-picker-button:disabled { opacity: .45; cursor: not-allowed; }
+    .forge-guide-button:hover,
+    .forge-guide-button:focus-visible,
+    .forge-picker-button:hover,
+    .forge-picker-button:focus-visible { color: #071118; background: var(--jade); border-color: var(--jade); outline: none; }
+    .forge-guide-button[aria-expanded="true"] { color: #071118; background: var(--jade); border-color: var(--jade); }
+    .forge-guide { display: grid; gap: 7px; max-width: 760px; margin: -4px auto 12px; padding: 11px 12px; color: var(--muted); background: rgba(9, 27, 31, .82); border: 1px solid rgba(101, 200, 162, .28); border-left: 2px solid var(--jade); border-radius: 4px; font-size: 11px; line-height: 1.55; }
+    .forge-guide strong { color: var(--ink); font-size: 12px; }
+    .forge-guide p { margin: 0; }
+    .forge-guide-list { display: grid; gap: 4px; margin: 0; padding-left: 16px; }
+    .forge-picker-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; max-width: 760px; margin: 0 auto 10px; padding: 9px 10px; background: rgba(25, 42, 50, .8); border: 1px solid rgba(243, 237, 220, .14); border-radius: 4px; }
+    .forge-picker-current { display: grid; gap: 3px; min-width: 0; }
+    .forge-picker-current strong { overflow: hidden; color: var(--ink); font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .forge-picker-current span { color: var(--muted); font-size: 10px; line-height: 1.35; }
+    .forge-picker-button { flex: 0 0 auto; }
+    .forge-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; align-items: start; max-width: 760px; margin: 0 auto; }
     .forge-item-list { display: grid; align-content: start; gap: 7px; }
     .forge-item-select { display: flex; align-items: center; gap: 7px; min-height: 42px; padding: 8px; color: var(--ink); background: rgba(25, 42, 50, .85); border: 1px solid rgba(243, 237, 220, .14); border-radius: 4px; text-align: left; cursor: pointer; }
     .forge-item-select.active { border-color: var(--jade); background: rgba(34, 90, 74, .55); }
-    .forge-item-select span:not(.quality-dot) { flex: 1; font-size: 12px; }
+    .forge-item-select-copy { display: grid; flex: 1; min-width: 0; gap: 3px; }
+    .forge-item-select-copy strong { overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+    .forge-item-select-copy small { overflow: hidden; color: var(--muted); font-size: 10px; line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
     .forge-item-select small { color: var(--muted); }
     .quality-dot { width: 9px; height: 9px; flex: 0 0 auto; border-radius: 50%; background: var(--quality); box-shadow: 0 0 8px var(--quality); }
     .forge-main { min-width: 0; min-height: 0; padding: 16px; background: rgba(15, 29, 36, .9); border: 1px solid rgba(243, 237, 220, .14); border-radius: 5px; }
@@ -6594,6 +7395,26 @@
     .forge-quality { position: absolute; right: 9px; top: 8px; color: var(--quality); font-size: 11px; font-weight: 700; }
     .forge-item-heading { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; }
     .forge-item-heading span, .forge-actions span, .forge-note { color: var(--muted); font-size: 11px; }
+    .forge-stat-panel { display: grid; gap: 6px; margin: 0 0 12px; padding: 9px 10px; background: rgba(4, 12, 17, .5); border: 1px solid rgba(243, 237, 220, .1); border-radius: 4px; }
+    .forge-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .forge-section-heading strong { color: var(--ink); font-size: 11px; }
+    .forge-section-heading span { color: var(--muted); font-size: 10px; }
+    .forge-stat-grid { display: grid; gap: 4px; }
+    .forge-stat-row { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 7px; align-items: center; min-height: 30px; padding: 5px 6px; background: rgba(255, 255, 255, .035); border-radius: 3px; font-size: 10px; }
+    .forge-stat-row > span:first-child { color: var(--ink); font-weight: 700; }
+    .forge-stat-row small { display: block; margin-bottom: 2px; color: var(--muted); font-size: 9px; line-height: 1; }
+    .forge-stat-row .forge-stat-base { color: #d7c9a6; font-variant-numeric: tabular-nums; }
+    .forge-stat-row .forge-stat-bonus { color: var(--jade); font-variant-numeric: tabular-nums; }
+    .forge-stat-row .forge-stat-total { color: var(--amber); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .forge-stat-row.is-zero-bonus .forge-stat-bonus { color: var(--muted); }
+    .forge-stat-row.is-empty { opacity: .68; }
+    .forge-picker-overlay { z-index: 20; }
+    .forge-picker-heading { margin: 3px 0 0; color: var(--ink); font-size: 17px; line-height: 1.2; }
+    .forge-picker-modal { width: min(460px, calc(100vw - 24px)); max-height: min(700px, calc(100dvh - 28px)); overflow: hidden; }
+    .forge-picker-modal .modal-copy { margin-bottom: 10px; }
+    .forge-picker-modal .forge-item-list { max-height: min(430px, 52dvh); padding: 2px 3px 2px 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+    .forge-picker-modal .forge-item-select { min-height: 46px; }
+    .forge-picker-modal .forge-item-select:disabled { cursor: not-allowed; opacity: .5; }
     .forge-affix-list { display: grid; gap: 5px; max-height: clamp(132px, 24vh, 224px); margin-top: 9px; padding-right: 4px; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
     .forge-existing-affix { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 7px 9px; color: var(--ink); background: rgba(255,255,255,.05); border: 0; border-left: 2px solid var(--jade); font: inherit; font-size: 12px; text-align: left; cursor: pointer; }
     .forge-existing-affix:hover, .forge-existing-affix:focus-visible, .forge-existing-affix.selected { color: var(--ink); background: rgba(84, 174, 143, .2); border-left-color: var(--amber); outline: none; }
@@ -6639,10 +7460,17 @@
     .forge-note { max-width: 760px; margin: 12px auto 0; line-height: 1.6; }
 
     @media (max-width: 560px) {
-      .forge-layout { grid-template-columns: minmax(0, 1fr); }
-      .forge-item-list { display: flex; align-items: stretch; overflow-x: auto; padding-bottom: 4px; overscroll-behavior: contain; scrollbar-gutter: stable; cursor: grab; }
-      .forge-item-select { flex: 0 0 156px; min-height: 48px; }
+      .forge-title-row { grid-template-columns: minmax(0, 1fr); gap: 9px; }
+      .forge-heading-actions { gap: 5px; }
+      .forge-heading-actions { width: 100%; min-width: 0; }
+      .forge-title { font-size: 21px; }
+      .forge-guide-button,
+      .forge-picker-button { padding-inline: 8px; }
+      .forge-picker-bar { align-items: stretch; }
+      .forge-picker-button { align-self: center; }
       .forge-main { padding: 12px; }
+      .forge-stat-row { grid-template-columns: minmax(0, 1fr) repeat(3, auto); gap: 5px; }
+      .forge-stat-row small { font-size: 8px; }
       .forge-decision-actions-fixed,
       .forge-actions { margin-right: -12px; margin-left: -12px; padding-right: 12px; padding-left: 12px; }
       .forge-primary-actions { width: 100%; }
@@ -7334,6 +8162,16 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
+    .panel-view[data-scroll-surface="bag"] > .bag-tabs {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      margin-top: -1px;
+      background: rgba(7, 17, 24, .96);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .2);
+      backdrop-filter: blur(8px);
+    }
+
     .summon-banner-tabs {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -7417,6 +8255,93 @@
       font-size: 10px;
       line-height: 1.4;
       text-align: center;
+    }
+
+    .summon-rate-toggle-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 10px;
+    }
+
+    .summon-rate-toggle-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 34px;
+      padding: 7px 10px;
+      color: var(--jade);
+      background: rgba(101, 200, 162, .08);
+      border: 1px solid rgba(101, 200, 162, .38);
+      border-radius: 3px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 10px;
+      touch-action: manipulation;
+    }
+
+    .summon-rate-toggle-button span {
+      color: var(--dim);
+      font-size: 9px;
+    }
+
+    .summon-rate-toggle-button:hover,
+    .summon-rate-toggle-button:focus-visible {
+      color: #071118;
+      background: var(--jade);
+      border-color: var(--jade);
+      outline: none;
+    }
+
+    .summon-rate-toggle-button:hover span,
+    .summon-rate-toggle-button:focus-visible span {
+      color: rgba(7, 17, 24, .72);
+    }
+
+    .summon-rate-details {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 5px;
+      margin-top: 8px;
+      padding: 9px 10px;
+      background: rgba(5, 13, 18, .62);
+      border: 1px solid rgba(101, 200, 162, .22);
+      border-radius: 3px;
+    }
+
+    .summon-rate-details-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .summon-rate-details-heading strong {
+      color: var(--ink);
+      font-size: 11px;
+    }
+
+    .summon-rate-details-heading span {
+      color: var(--dim);
+      font-size: 9px;
+    }
+
+    .summon-rate-details .summon-rate-note {
+      margin-top: 3px;
+      text-align: left;
+    }
+
+    .summon-archive-hint {
+      margin-top: 10px;
+      padding: 8px 9px;
+      color: var(--muted);
+      background: rgba(243, 237, 220, .04);
+      border-left: 2px solid rgba(101, 200, 162, .42);
+      font-size: 10px;
+      line-height: 1.45;
     }
 
     .summon-rate-grid span {
@@ -7918,9 +8843,6 @@
       }
     }
   </style>
-  <script src="lamps/reward-ad-config.js"></script>
-  <script src="lamps/reward-ad-bridge.js"></script>
-  <script src="lamps/reward-ad-platform.js"></script>
 </head>
 <body class="is-booting">
   <div class="boot-loader" id="bootLoader" role="status" aria-live="polite">
@@ -7946,6 +8868,7 @@
             </div>
             <div class="header-actions">
               <div class="header-tag" id="rootLabel">灵根待定</div>
+              <button class="icon-button" type="button" data-leaderboard-open title="查看爬塔榜" aria-label="查看爬塔榜">榜</button>
               <button class="icon-button" type="button" data-event-settings title="行程设置" aria-label="行程设置">⚙</button>
               <button class="icon-button" id="resetButton" type="button" title="重置预览" aria-label="重置预览">↻</button>
             </div>
@@ -7961,6 +8884,7 @@
           <button class="nav-button active" type="button" data-tab="map">
             <span class="nav-mark">图</span>
             <span class="nav-label">地图</span>
+            <span class="map-adventure-dot" aria-hidden="true" hidden></span>
           </button>
           <button class="nav-button" type="button" data-tab="character" title="角色、修炼与突破" aria-label="角色、修炼与突破">
             <span class="nav-mark">修</span>
@@ -7970,9 +8894,9 @@
             <span class="nav-mark">卷</span>
             <span class="nav-label">任务</span>
           </button>
-          <button class="nav-button" type="button" data-tab="summon" title="伙伴招募与好感" aria-label="伙伴招募与好感">
+          <button class="nav-button" type="button" data-tab="summon" title="伙伴管理、招募与好感" aria-label="伙伴管理、招募与好感">
             <span class="nav-mark">缘</span>
-            <span class="nav-label">招募</span>
+            <span class="nav-label">伙伴</span>
           </button>
           <button class="nav-button" type="button" data-tab="tower" title="爬塔与奇遇" aria-label="爬塔与奇遇">
             <span class="nav-mark">塔</span>
@@ -7989,9 +8913,11 @@
     </section>
   </main>
 
-  
-  
-  
+  <script src="./lamps-config.js"></script>
+  <script src="./lamps-bridge.js"></script>
+  <script src="./lamps-platform.js"></script>
+  <script src="./game-leaderboard-bridge.js"></script>
+  <script src="./game-leaderboard-platform.js"></script>
   <script src="./game-progress-bridge.js"></script>
   <script src="./game-progress-platform.js"></script>
   <script>
@@ -8009,7 +8935,7 @@
           : null;
       })();
       const PREVIEW_PLAYER_MOVE_SPEED = 0.018;
-      const CURRENT_ANNOUNCEMENT_VERSION = "2026-10-09-v4";
+      const CURRENT_ANNOUNCEMENT_VERSION = "2026-10-10-v5";
       const RELEASE_ART = "assets/release/resources/art/";
       const RELEASE_BUNDLES = "assets/release/bundles/";
       const RELEASE_AUDIO = "assets/release/audio/";
@@ -9483,9 +10409,16 @@
       });
 
       const SUMMON_PARTNER_PITY_LIMIT = 30;
+      const SUMMON_BEGINNER_GUARANTEE_DRAWS = 1;
+      const COMPANION_PARTNER_AFFECTION_THRESHOLD = 100;
+      const COMPANION_PARTNER_LINES = Object.freeze({
+        su_wan_chao: "她把药圃门边的位置留给你：以后不用先报名字，想来就来。她仍会提醒你别乱拔药根，也愿意把更多日常交给你一起照看。",
+        xu_zhao_tang: "许照棠没有替你作答，只把那盏灯推到你们之间。她说，若你愿意，往后的路可以并肩走，但每一次选择仍由你自己决定。",
+        ye_chen_xing: "叶沉星合上守录册，第一次没有把你留在门外。她说，记录可以继续写，名字也可以一起留下，今后不必再用沉默证明信任。",
+      });
       const SUMMON_GENDER_RATE_TARGETS = Object.freeze({
-        male: 0.06,
-        female: 0.03,
+        male: 0.03,
+        female: 0.01,
       });
       const SUMMON_BANNERS = [
         {
@@ -9495,7 +10428,7 @@
           description: "外院与药圃伙伴招募池。",
           unlockTask: "main_intro",
           companionIds: ["guan_yan_qiu", "cheng_shou_mo", "su_wan_chao"],
-          partnerRate: 0.06,
+          partnerRate: 0.03,
           genderRates: SUMMON_GENDER_RATE_TARGETS,
           companionRates: {
             guan_yan_qiu: 0.02,
@@ -9513,7 +10446,7 @@
           description: "内门档案伙伴招募池。",
           unlockTask: "main_chapter6",
           companionIds: ["xu_zhao_tang", "ye_chen_xing"],
-          partnerRate: 0.03,
+          partnerRate: 0.01,
           genderRates: {
             female: SUMMON_GENDER_RATE_TARGETS.female,
           },
@@ -9562,6 +10495,251 @@
           preferredIds: ["xu_zhao_tang"],
         },
       ];
+
+      const COMPANION_EXCLUSIVE_GIFTS = Object.freeze([
+        {
+          id: "companion_exclusive_guan_yan_qiu",
+          companionId: "guan_yan_qiu",
+          exclusiveFor: "guan_yan_qiu",
+          name: "未落阵签",
+          desc: "关砚秋亲手裁下的空白阵签，只留了一道等待判断的缺口。",
+          icon: COMMON_ITEM_ART.nameless_ledger_fragment,
+          favor: 4,
+        },
+        {
+          id: "companion_exclusive_cheng_shou_mo",
+          companionId: "cheng_shou_mo",
+          exclusiveFor: "cheng_shou_mo",
+          name: "无编号抄页",
+          desc: "程守墨从旧档夹层里取出的抄页，没有编号，也没有被改写过。",
+          icon: COMMON_ITEM_ART.nameless_ledger_fragment,
+          favor: 4,
+        },
+        {
+          id: "companion_exclusive_su_wan_chao",
+          companionId: "su_wan_chao",
+          exclusiveFor: "su_wan_chao",
+          name: "夜露药穗",
+          desc: "苏晚潮只在夜里采下的药穗，不能催熟，只能等它自己醒来。",
+          icon: COMMON_ITEM_ART.herb_garden_note,
+          favor: 4,
+        },
+        {
+          id: "companion_exclusive_xu_zhao_tang",
+          companionId: "xu_zhao_tang",
+          exclusiveFor: "xu_zhao_tang",
+          name: "回声铜扣",
+          desc: "许照棠留给你的旧铜扣，轻轻一碰，就会响起半句没有说完的话。",
+          icon: COMMON_ITEM_ART.lamp_copper_shard,
+          favor: 4,
+        },
+        {
+          id: "companion_exclusive_ye_chen_xing",
+          companionId: "ye_chen_xing",
+          exclusiveFor: "ye_chen_xing",
+          name: "封录灯芯",
+          desc: "叶沉星从封录灯里换下的旧灯芯，仍保留着一段没有删去的光。",
+          icon: COMMON_ITEM_ART.lamp_copper_shard,
+          favor: 4,
+        },
+      ]);
+
+      // 每名伙伴固定十句专属礼物回应，按赠送次数轮换，避免重复同一句。
+      const COMPANION_EXCLUSIVE_DIALOGUE = Object.freeze({
+        guan_yan_qiu: [
+          "你把未落阵签送给我，是想看我怎么补，还是想看我为什么不补？",
+          "这道空白留得正好。你没有替我填上，这比一张完整的阵图更难得。",
+          "别把它压在普通纸下面。它还没决定自己的方向，先让它透透气。",
+          "你记得我在意缺口。很好，至少你没有把我当成只会给答案的人。",
+          "这张阵签我会带在身上。要是它哪天自己落笔，我会第一个告诉你。",
+          "我收下了。不是因为它贵，而是因为你终于学会把判断还给我。",
+          "你挑礼物的眼光比看阵差一点，但这次没有碰到阵眼。",
+          "我不承诺它会换来结论。可它能提醒我，身边还有人愿意等我看完。",
+          "把它放到案角。你下次来时，我想让你看看它有没有改变。",
+          "谢谢。这个词我说得不熟，但这张阵签，我会留在最容易看见的地方。",
+        ],
+        cheng_shou_mo: [
+          "无编号的东西最容易被人拿走。你把它交给我，说明你愿意让它留下原样。",
+          "这页没有被改过。你挑礼物时，终于先看了纸边，而不是只看名字。",
+          "我会给它加一道封页，不加编号。不是藏起来，是不让别人替它安排归处。",
+          "你记得我最怕什么。旧纸怕潮，旧事怕有人急着替它下结论。",
+          "这份礼物不该放在案角。我会把它收进原件柜，等你来时一起看。",
+          "你不用用东西证明自己。可这张抄页，我确实愿意替你保管。",
+          "我原本以为你会送一块墨。现在看来，你比我想的更懂什么叫留下证据。",
+          "它没有编号，所以暂时没人能把它从记录里抹掉。谢谢你把这个麻烦交给我。",
+          "我会在页脚留一句注：此页由你带来，未经你同意不得改写。",
+          "如果今晚有人问起，我会说这张纸有主人。主人是你，不是档案室。",
+        ],
+        su_wan_chao: [
+          "夜露还在。你没有把它装进灵气瓶里催熟，这份耐心我收到了。",
+          "这穗药只肯在安静的时候开。你送来时没有惊动它，做得很好。",
+          "把它放到窗边，今晚别让灯照得太亮。它和人一样，也需要慢慢适应。",
+          "你记得我不喜欢拔根求快。那我也把一颗不急着开的种子送给你。",
+          "这不是贵重的药，却是我亲自等来的。你愿意收下，我就不算白等。",
+          "以后受伤别只带药回来。把人也带回来，我会先看你，再看伤口。",
+          "你挑到了夜露药穗，说明你开始分得清药材的脾气了。",
+          "它今晚不会替你解决什么，但会在窗边陪你熬过一段安静的时间。",
+          "我把最里面那株的穗子分给你一半。剩下的一半，留给它继续长。",
+          "谢谢你没有催我给出答案。来，手伸过来，我看看你是不是又把伤藏起来了。",
+        ],
+        xu_zhao_tang: [
+          "你把铜扣交给我时，没有先问它属于谁。谢谢你让我自己听。",
+          "它的回声还在，只是比以前轻了。也许这次我能听见里面属于我的那一部分。",
+          "别急着替我收好。让我再碰一次，我想记住它现在的声音。",
+          "你没有问我该不该留着，这份分寸比铜扣本身更重要。",
+          "它缺的那一角和旧灯一样。可这次，我不想替任何人把缺口补上。",
+          "我会带着它继续查，但不会再把它当成哥哥留下的唯一答案。",
+          "你听见了吗？不，那不是他的声音，是我终于敢说出口的那句谢谢。",
+          "把它放在我看得见的地方。等我准备好，我会告诉你它最后指向哪里。",
+          "这件礼物让我想起一件事：陪我走的人，不等于替我走的人。",
+          "我收下了。等回声散掉以后，我想请你陪我去一个没有灯的地方看看。",
+        ],
+        ye_chen_xing: [
+          "封录灯芯没有被销毁。你把它交给我，知道记录有时比规矩更需要被保护。",
+          "这段光没有留下编号，但我会按原样记下它的来处。",
+          "你可以把它放在门外，不必急着触碰封印。先学会看见，再决定是否回应。",
+          "我收下这份礼物，也收下它带来的责任。你不必替我承担，但可以见证。",
+          "灯芯还亮着，说明那段记录并没有真正消失。谢谢你没有把它当成旧物。",
+          "若有人问它是否重要，我会说重要的不是灯芯，是你没有让它被沉默带走。",
+          "你这次没有越过封线。很好，信任不是放开所有门，而是知道哪扇门要一起开。",
+          "我会把它放进内门原档，不做装饰。它留下的每一寸光都要有出处。",
+          "你送来的不是一截灯芯，是一次把判断交给我的机会。我会认真使用。",
+          "今晚封录会亮到最后。你若愿意，可以坐在门外，等我把这段记录抄完。",
+        ],
+      });
+
+      const COMPANION_ADVENTURES = Object.freeze({
+        guan_yan_qiu: {
+          id: "companion_adventure_guan_yan_qiu",
+          requiredFavor: 10,
+          kicker: "伙伴奇遇 · 未落的一笔",
+          title: "关砚秋的留白阵纸",
+          copy: "关砚秋在收拢阵纸时发现，缺口里多出了一道不属于旧阵的灵线。他没有替你解释，只把阵纸摊开，等你决定先看哪里。",
+          reward: {
+            id: "companion_adventure_reward_guan_yan_qiu",
+            name: "留白阵签",
+            desc: "关砚秋送你的空白阵签，适合记录尚未确定的判断。",
+            icon: COMMON_ITEM_ART.nameless_ledger_fragment,
+            count: 1,
+          },
+          options: [
+            {
+              id: "inspect_gap",
+              label: "先看阵纸的缺口",
+              result: "关砚秋把阵纸往你这边推了半寸：你先看见缺口，而不是急着问答案。很好，这样的判断值得留下。",
+            },
+            {
+              id: "watch_his_hand",
+              label: "先看他的落笔",
+              result: "关砚秋停了笔，却没有收起阵纸：你在看我的手，而不是替我决定。那就一起看完这道线。",
+            },
+          ],
+        },
+        cheng_shou_mo: {
+          id: "companion_adventure_cheng_shou_mo",
+          requiredFavor: 10,
+          kicker: "伙伴奇遇 · 无编号抄页",
+          title: "程守墨的未封档案",
+          copy: "程守墨在旧档夹层里找到一页无编号抄本。有人正在门外找它，他把纸递给你，自己转身去挡住那阵敲门声。",
+          reward: {
+            id: "companion_adventure_reward_cheng_shou_mo",
+            name: "无编号抄本",
+            desc: "程守墨留下的抄本，页脚仍保留着原始墨痕。",
+            icon: COMMON_ITEM_ART.nameless_ledger_fragment,
+            count: 1,
+          },
+          options: [
+            {
+              id: "keep_original",
+              label: "把原件留在他手里",
+              result: "程守墨没有接回抄本，只把封页压紧：你知道原件不该被随意带走，这份谨慎我记下了。",
+            },
+            {
+              id: "guard_door",
+              label: "替他守住档案室的门",
+              result: "门外的脚步停了。程守墨隔着门低声说：你没有拆开它，也没有把我一个人留在这里。",
+            },
+          ],
+        },
+        su_wan_chao: {
+          id: "companion_adventure_su_wan_chao",
+          requiredFavor: 10,
+          kicker: "伙伴奇遇 · 夜露药穗",
+          title: "苏晚潮的夜间药圃",
+          copy: "药圃里一株只在月落前开花的药穗突然折断。苏晚潮没有立刻拔掉它，而是请你陪她判断：先救根，还是先追留下的脚印。",
+          reward: {
+            id: "companion_adventure_reward_su_wan_chao",
+            name: "夜露药穗",
+            desc: "苏晚潮送你的夜露药穗，不能催熟，只能静置在阴凉处。",
+            icon: COMMON_ITEM_ART.herb_garden_note,
+            count: 1,
+          },
+          options: [
+            {
+              id: "save_root",
+              label: "先护住药穗的根",
+              result: "苏晚潮把药土轻轻覆回去：你先救它能继续生长的部分，这不是犹豫，是懂得不把活物当线索。",
+            },
+            {
+              id: "follow_footprints",
+              label: "先追药圃外的脚印",
+              result: "苏晚潮把一盏小灯交给你：去吧，别走太急。根我会护住，等你把留下脚印的人带回来。",
+            },
+          ],
+        },
+        xu_zhao_tang: {
+          id: "companion_adventure_xu_zhao_tang",
+          requiredFavor: 10,
+          kicker: "伙伴奇遇 · 回声铜扣",
+          title: "许照棠的半句回声",
+          copy: "旧灯里又响起半句许照野留下的声音。许照棠没有按下回放，只把铜扣放进你掌心，请你决定是陪她听完，还是先让这段声音安静下来。",
+          reward: {
+            id: "companion_adventure_reward_xu_zhao_tang",
+            name: "回声铜扣",
+            desc: "许照棠送你的旧铜扣，靠近灯火时会响起极轻的回声。",
+            icon: COMMON_ITEM_ART.lamp_copper_shard,
+            count: 1,
+          },
+          options: [
+            {
+              id: "listen_together",
+              label: "陪她把声音听完",
+              result: "声音停在最关键的地方。许照棠没有追问下一句，只说：谢谢你陪我听，而不是替我解释。",
+            },
+            {
+              id: "let_silence_stay",
+              label: "先让回声停在这里",
+              result: "许照棠关掉旧灯：你说得对，有些话要等我准备好再听。今天先把这份安静留给我。",
+            },
+          ],
+        },
+        ye_chen_xing: {
+          id: "companion_adventure_ye_chen_xing",
+          requiredFavor: 10,
+          kicker: "伙伴奇遇 · 封录余光",
+          title: "叶沉星的封录灯",
+          copy: "内门封录在夜里亮出一段被删去的余光。叶沉星没有立刻开门，而是把灯芯交给你，让你决定先照见记录，还是先照见门外的人。",
+          reward: {
+            id: "companion_adventure_reward_ye_chen_xing",
+            name: "封录灯芯",
+            desc: "叶沉星留下的旧灯芯，仍保留着一段没有被删去的光。",
+            icon: COMMON_ITEM_ART.lamp_copper_shard,
+            count: 1,
+          },
+          options: [
+            {
+              id: "light_record",
+              label: "先照见被删的记录",
+              result: "叶沉星让灯光落在缺页边缘：先确认留下了什么，才知道该为谁开门。你的选择有据可查。",
+            },
+            {
+              id: "light_person",
+              label: "先照见门外的人",
+              result: "叶沉星把灯移向门缝：记录可以等一刻，门外的人未必。你没有把规矩当成拒绝活人的借口。",
+            },
+          ],
+        },
+      });
 
       const FIRST_CHAPTER_STORY = {
         n001: {
@@ -11474,7 +12652,117 @@
             prompt: "门上的第一笔没有名字，但它一直在等你承认它存在。",
           },
         },
-      ];
+      ].concat(buildExtendedTowerFloors());
+
+      function buildExtendedTowerFloors() {
+        const portraitPaths = [
+          "assets/bundles/map_library/art/enemy_paper_puppet_nameless.png",
+          "assets/bundles/map_rear_mountain/art/enemy_memory_shell.png",
+          "assets/bundles/map_inner_sect/art/enemy_seal_warden.png",
+        ];
+        const backgroundPaths = [
+          STORY_BACKGROUNDS.library,
+          "assets/bundles/map_rear_mountain/art/bg_rear_mountain_action_map_v2.png",
+          "assets/bundles/map_inner_sect/art/bg_inner_sect_action_map_v2.png",
+        ];
+        const materialOptions = [
+          {
+            id: "tempering_sand",
+            name: "淬炼砂",
+            desc: "高层塔阵凝出的高纯度灵砂，可用于淬炼装备。",
+            icon: COMMON_ITEM_ART.lamp_copper_shard,
+          },
+          {
+            id: "nameless_stone",
+            name: "无名石",
+            desc: "高层无名塔留下的记录石，可作为稀有调查材料。",
+            icon: COMMON_ITEM_ART.nameless_stone,
+          },
+          {
+            id: "lamp_copper_shard",
+            name: "铜灯碎片",
+            desc: "被塔阵反复淬过的旧铜片，可用于淬炼装备。",
+            icon: COMMON_ITEM_ART.lamp_copper_shard,
+          },
+        ];
+        const floorNames = [
+          "回声断桥",
+          "失序药廊",
+          "封录深井",
+          "六灯反照室",
+          "无名潮汐台",
+          "空册镇关",
+          "借声遗庭",
+          "落笔悬台",
+          "旧阵回廊",
+          "无名终页",
+        ];
+        const slotCycles = [
+          ["weapon", "talisman", "boots"],
+          ["weapon", "clothing", "ring"],
+          ["weapon", "head", "talisman"],
+          ["weapon", "ring", "boots"],
+        ];
+
+        return Array.from({ length: 40 }, (_, index) => {
+          const floor = index + 11;
+          const cycle = index;
+          const phase = Math.floor(index / 10);
+          const material = materialOptions[cycle % materialOptions.length];
+          const dropSlots = slotCycles[cycle % slotCycles.length];
+          const isMilestone = floor % 5 === 0;
+          const qualityWeights = floor >= 41
+            ? [["white", .01], ["green", .04], ["blue", .14], ["purple", .34], ["gold", .36], ["red", .11]]
+            : floor >= 31
+              ? [["white", .01], ["green", .06], ["blue", .2], ["purple", .38], ["gold", .3], ["red", .05]]
+              : floor >= 21
+                ? [["white", .02], ["green", .1], ["blue", .25], ["purple", .38], ["gold", .22], ["red", .03]]
+                : [["white", .03], ["green", .13], ["blue", .29], ["purple", .37], ["gold", .16], ["red", .02]];
+          const weaponAttack = 48 + cycle * 4;
+          const title = floorNames[cycle % floorNames.length];
+          return {
+            id: `tower_${String(floor).padStart(2, "0")}_extended`,
+            floor,
+            title,
+            kicker: `登塔 · 第${floor}层`,
+            description: `第${phase + 2}段塔阵开始重叠，${title}会把前面楼层的机制重新组合，战斗节奏与装备质量都将决定能否继续向上。`,
+            dropHint: isMilestone ? "随机装备 · 节点首通" : "淬炼材料 / 灵石",
+            equipmentReward: isMilestone,
+            cost: 20 + Math.floor(cycle * .75),
+            stones: 210 + cycle * 22,
+            rewardEnergy: 10 + Math.floor(cycle / 8),
+            material: {
+              ...material,
+              count: 2 + Math.floor(cycle / 8),
+            },
+            dropSlots,
+            baseStats: {
+              weapon: { attack: weaponAttack, insight: 3 + Math.floor(cycle / 8) },
+              clothing: { defense: 24 + cycle * 2, maxHp: 70 + cycle * 5 },
+              head: { defense: 17 + cycle, insight: 22 + cycle, maxHp: 48 + cycle * 3 },
+              talisman: { insight: 24 + cycle, spirit: 40 + cycle * 2, recovery: 6 + Math.floor(cycle / 5) },
+              ring: { insight: 14 + Math.floor(cycle / 2), spirit: 46 + cycle * 2, recovery: 8 + Math.floor(cycle / 5) },
+              boots: { defense: 9 + Math.floor(cycle / 2), maxHp: 42 + cycle * 3, recovery: 7 + Math.floor(cycle / 6) },
+            },
+            qualityWeights,
+            unlocked: () => state.devAllMaps || isTaskCompleted("main_chapter2"),
+            battle: {
+              title,
+              enemyName: `${title}守阵体`,
+              enemyPortrait: portraitPaths[cycle % portraitPaths.length],
+              background: backgroundPaths[cycle % backgroundPaths.length],
+              maxHp: 1240 + cycle * 125,
+              attack: 108 + cycle * 5,
+              defense: 36 + Math.floor(cycle * 1.6),
+              insightWeakness: 1.94 + Math.min(.38, cycle * .01),
+              weaknessLabel: "重叠塔阵里唯一没有被复写的落点",
+              weaknessHint: "洞察可以拆开复写机制，稳定的攻击与回气属性决定长线容错。",
+              victoryText: `第${floor}层的塔阵暂时安静下来，下一段石阶从${title}的中心升起。`,
+              prompt: `${title}正在重排阵眼，下一次行动会把上一回合的节奏折返回来。`,
+            },
+          };
+        });
+      }
 
       // 塔层不设置淬炼等级或伙伴数量硬门槛，成长投入只通过战斗压力和奖励曲线体现。
       const TOWER_DIFFICULTY_PROFILE = Object.freeze({
@@ -11488,6 +12776,32 @@
         8: { hp: 1.33, attack: 1.23, defense: 1.23, danger: "极高", mechanic: "灯色锁定", stones: 112, energy: 9, materialCount: 4, rewardTier: "高品装备" },
         9: { hp: 1.40, attack: 1.28, defense: 1.28, danger: "极高", mechanic: "延迟惩罚", stones: 138, energy: 10, materialCount: 5, rewardTier: "高阶资源" },
         10: { hp: 1.48, attack: 1.34, defense: 1.34, danger: "灾厄", mechanic: "门关破护", stones: 170, energy: 12, materialCount: 6, rewardTier: "塔顶首通" },
+        ...Object.fromEntries(Array.from({ length: 40 }, (_, index) => {
+          const floor = index + 11;
+          const phase = Math.floor((floor - 1) / 10);
+          const danger = floor >= 41
+            ? "无名劫"
+            : floor >= 31
+              ? "绝境"
+              : floor >= 21
+                ? "天灾"
+                : "灾厄";
+          const mechanics = ["回声折返", "药阵侵蚀", "封录改写", "六灯错位"];
+          return [
+            floor,
+            {
+              hp: Number((1.54 + (floor - 10) * .044).toFixed(3)),
+              attack: Number((1.39 + (floor - 10) * .034).toFixed(3)),
+              defense: Number((1.39 + (floor - 10) * .029).toFixed(3)),
+              danger,
+              mechanic: mechanics[index % mechanics.length],
+              stones: 210 + index * 22,
+              energy: 10 + Math.floor(index / 8),
+              materialCount: 2 + Math.floor(index / 8),
+              rewardTier: floor % 5 === 0 ? "节点首通" : "高阶资源",
+            },
+          ];
+        })),
       });
 
       function getTowerDifficulty(floor) {
@@ -11634,6 +12948,259 @@
           ],
         },
       };
+
+      const MAP_ADVENTURES = Object.freeze({
+        map_ink_rain: {
+          id: "map_ink_rain",
+          kicker: "大地图奇遇 · 墨雨",
+          title: "落在空白处的名字",
+          speaker: "无名的纸伞客",
+          symbol: "墨",
+          copy: "你经过旧阵沟时，天上落下的不是雨，而是一粒粒没有晕开的墨。墨珠落地便写成字，最后一行恰好是你的名字。",
+          detail: "纸伞客把伞沿抬高半寸：这场雨只会写下一个还没有被记录的人。",
+          options: [
+            {
+              id: "hold_umbrella",
+              label: "替纸伞客撑住伞柄",
+              hint: "你决定先替一个陌生人挡住这场不该出现的雨。",
+              result: "伞下的墨雨停了一息，纸伞客把一缕回流灵气塞进你的袖口。你感觉塔路上的第一盏灯亮了。",
+              effects: { energy: 8, towerBlessing: 1 },
+            },
+            {
+              id: "read_name",
+              label: "低头读完地上的名字",
+              hint: "你没有擦掉它，先确认这行字究竟想把你送到哪里。",
+              result: "名字最后多出一个陌生偏旁，像有人在远处替你留了一盏灯。纸伞客留下灵石，转身走进墨雨。",
+              effects: { stones: 25, favor: 1 },
+            },
+          ],
+        },
+        map_lantern_child: {
+          id: "map_lantern_child",
+          kicker: "大地图奇遇 · 灯影",
+          title: "只照出半张脸的灯",
+          speaker: "抱灯的孩子",
+          symbol: "灯",
+          copy: "暮色刚压过山脊，一个孩子抱着没有灯芯的铜灯站在路边。他问你：如果灯亮起来，你希望它照见谁？",
+          detail: "孩子的影子比本人慢半拍，像还有另一个人站在他身后。",
+          options: [
+            {
+              id: "answer_self",
+              label: "说“先照见我自己”",
+              hint: "你不把答案交给别人，也不急着替这盏灯寻找主人。",
+              result: "铜灯亮起一瞬，孩子的影子终于跟上脚步。他把一小段暖光留在你心口，陌生的路也显得没有那么冷。",
+              effects: { favor: 2, energy: 4 },
+            },
+            {
+              id: "answer_lost",
+              label: "说“照见走丢的人”",
+              hint: "你把灯光指向山外，那里似乎有人等了很久。",
+              result: "灯芯重新出现，孩子朝山外跑去。地上留下几枚旧灵石，像是有人替他付过路费。",
+              effects: { stones: 38, energy: 4 },
+            },
+          ],
+        },
+        map_well_echo: {
+          id: "map_well_echo",
+          kicker: "大地图奇遇 · 井中回声",
+          title: "井里传来明天的答案",
+          speaker: "井底的第二个你",
+          symbol: "井",
+          copy: "荒废水井里传来你的声音，却比你早说出下一句话。它说：不要问我会不会赢，问你愿意失去什么。",
+          detail: "井水映出三种结局，只有一条没有你的脸。",
+          options: [
+            {
+              id: "ask_loss",
+              label: "问它“我会失去什么”",
+              hint: "你愿意先听代价，而不是先听一个漂亮的结局。",
+              result: "井水退到看不见底，回声只留下一句“别把沉默当成同意”。这句话让你的神识变得清醒。",
+              effects: { insight: 1, cultivation: 10 },
+            },
+            {
+              id: "seal_well",
+              label: "用灵石封住井口",
+              hint: "你拒绝让一个提前知道答案的声音继续影响你的路。",
+              result: "井口合拢，石缝里滚出一枚被岁月磨亮的灵石。你带走它，也带走了未知。",
+              effects: { stones: 45 },
+            },
+          ],
+        },
+        map_broken_sword: {
+          id: "map_broken_sword",
+          kicker: "大地图奇遇 · 残剑",
+          title: "断剑指向没有门的墙",
+          speaker: "剑中残念",
+          symbol: "剑",
+          copy: "一柄断剑插在山道中央，剑尖一直指向一面空墙。你拔不出它，却听见剑中有人问：你是来找出口，还是来找借口？",
+          detail: "墙面没有阵纹，只有一道刚刚留下的指痕，像有人从里面敲过。",
+          options: [
+            {
+              id: "pull_sword",
+              label: "握住断剑，再试一次",
+              hint: "你不相信打不开的门，也不相信已经断掉的路。",
+              result: "断剑没有出鞘，却把你的掌心烫出一枚剑形红痕。空墙裂开一线，里面的灵气足够支撑下一次硬仗。",
+              effects: { energy: 12, towerBlessing: 1 },
+            },
+            {
+              id: "mark_wall",
+              label: "在墙上留下记号后离开",
+              hint: "你把这里记下来，等自己更强时再回来问答案。",
+              result: "你刚转身，断剑便自行折成一块剑片。它没有认你为主，却愿意为你的背包增加一点重量。",
+              effects: { stones: 30, favor: 1 },
+            },
+          ],
+        },
+        map_red_thread: {
+          id: "map_red_thread",
+          kicker: "大地图奇遇 · 红线",
+          title: "系在古树上的红线",
+          speaker: "树后的低语",
+          symbol: "线",
+          copy: "古树上系着一根鲜红的线，另一端绕过山石，隐没在没有路的林间。有人在那头轻声说：别跟过来，我已经不是我了。",
+          detail: "红线每隔三息收紧一次，像另一头的人正在做最后的决定。",
+          options: [
+            {
+              id: "follow_thread",
+              label: "顺着红线走进林间",
+              hint: "你接受这句话可能是警告，也可能是求救。",
+              result: "林间没有人，只有一面写满改名痕迹的木牌。你记住了没有被留下的名字，神识因此多了一层锋利。",
+              effects: { favor: 1, insight: 1 },
+            },
+            {
+              id: "cut_thread",
+              label: "斩断红线，让它停止收紧",
+              hint: "你不替那个人做决定，只先让他不再被牵着走。",
+              result: "红线落地化成一缕热气，山风里传来一声很轻的“谢谢”。你捡到几枚被线缠住的灵石。",
+              effects: { stones: 26, energy: 6 },
+            },
+          ],
+        },
+        map_night_ferry: {
+          id: "map_night_ferry",
+          kicker: "大地图奇遇 · 夜渡",
+          title: "没有河的摆渡船",
+          speaker: "戴斗笠的船夫",
+          symbol: "舟",
+          copy: "山坳里停着一叶纸船，船夫站在干涸的河床上收渡资。他说，今晚要渡的不是人，是一段不该再继续的记忆。",
+          detail: "纸船里坐着三个看不清脸的人，他们都在等你先上船。",
+          options: [
+            {
+              id: "pay_fare",
+              label: "付出灵石，问船开往哪里",
+              hint: "你愿意为答案付费，但不承诺一定下船。",
+              result: "船夫收下灵石，只把船头转向你来时的方向。三个乘客逐一消失，你却记住了他们空出来的位置。",
+              effects: { stones: -20, energy: 10, insight: 1 },
+            },
+            {
+              id: "ask_name",
+              label: "不登船，只问船夫的名字",
+              hint: "你先确认摆渡者是谁，再决定要不要把记忆交出去。",
+              result: "船夫笑了一声，说他已经忘了名字。纸船在你脚边留下灵石，像是在感谢你没有追问。",
+              effects: { stones: 68, favor: 1 },
+            },
+          ],
+        },
+        map_moon_moth: {
+          id: "map_moon_moth",
+          kicker: "大地图奇遇 · 月蛾",
+          title: "翅膀上写着最后一封信",
+          speaker: "银翅月蛾",
+          symbol: "蛾",
+          copy: "一只银色月蛾撞在你的灯罩上，翅膀没有血，只有一行被反复擦掉的字：我不是逃走，我只是先替你看过了。",
+          detail: "它每振翅一次，字迹就少一笔，像信的主人正在犹豫是否还值得被等。",
+          options: [
+            {
+              id: "read_letter",
+              label: "护住月蛾，读完剩下的字",
+              hint: "你不急着把它放走，先替一个未能抵达的人把话听完。",
+              result: "最后只剩一个“回”字。月蛾化作微光落入你的识海，修为在沉默里向前推了一步。",
+              effects: { cultivation: 12, insight: 1 },
+            },
+            {
+              id: "release_moth",
+              label: "打开灯罩，让它自己飞走",
+              hint: "你相信有些信不需要读者，抵达本身就是答案。",
+              result: "月蛾绕你三圈后飞向月背，灯罩里留下一枚小小的灵石和一缕香气。",
+              effects: { stones: 35, favor: 1 },
+            },
+          ],
+        },
+        map_empty_stall: {
+          id: "map_empty_stall",
+          kicker: "大地图奇遇 · 空摊",
+          title: "给未来自己的摊位",
+          speaker: "没有脸的摊主",
+          symbol: "摊",
+          copy: "夜市尽头有一张空摊，摊主却向你展示了三件“未来才会用到”的东西。他说：你可以现在买，也可以等未来的你来付账。",
+          detail: "摊布下没有货箱，只有一张写着你名字的欠条。",
+          options: [
+            {
+              id: "buy_future",
+              label: "现在买下这份未知",
+              hint: "你用眼前的灵石，换一个未来可能会感谢你的选择。",
+              result: "摊主收走灵石，把一枚温热的铜扣按进你的掌心。它没有用途，却让你确信未来还会来。",
+              effects: { stones: -35, towerBlessing: 2, energy: 8 },
+            },
+            {
+              id: "leave_stall",
+              label: "把欠条撕掉，转身离开",
+              hint: "你不愿让未来的自己替现在的决定付账。",
+              result: "欠条碎成纸屑，纸屑里掉出一把灵石。摊主没有阻拦，只说：那就别忘了今天的你。",
+              effects: { stones: 70, favor: 1 },
+            },
+          ],
+        },
+        map_missing_steps: {
+          id: "map_missing_steps",
+          kicker: "大地图奇遇 · 无脚印",
+          title: "悬崖边少了一步",
+          speaker: "悬在半空的脚印",
+          symbol: "步",
+          copy: "山崖边的脚印一路走到边缘，最后一枚却悬在半空。你能听见有人在雾里奔跑，可每次回头，雾里都只剩你自己的脚印。",
+          detail: "那枚悬空的脚印正在缓慢下沉，像有人还在等你踏出同样的一步。",
+          options: [
+            {
+              id: "step_empty",
+              label: "踩向那枚不存在的落脚处",
+              hint: "你决定相信脚下还没有出现的路。",
+              result: "脚下浮出一块透明石阶，雾中奔跑声忽然停下。你没有找到那个人，却带走了两层稳固的登塔祝福。",
+              effects: { towerBlessing: 2, energy: 8 },
+            },
+            {
+              id: "wait_cliff",
+              label: "留在崖边等雾散",
+              hint: "你不把勇敢误认为鲁莽，先让时间替你看清悬崖。",
+              result: "雾散后脚印全部消失，石缝里却露出一枚回气符。慢一步，仍然可以有收获。",
+              effects: { energy: 16, stones: 18 },
+            },
+          ],
+        },
+        map_name_wall: {
+          id: "map_name_wall",
+          kicker: "大地图奇遇 · 留名",
+          title: "会吞掉名字的石墙",
+          speaker: "墙内的声音",
+          symbol: "名",
+          copy: "一面石墙挡在路中央，墙内有人请你留下姓名。前面已经刻着无数名字，但每一个最后都被磨成了同一个空白。",
+          detail: "墙内的声音说：留下名字，就能换一次被记住；不留下，就永远不会被找到。",
+          options: [
+            {
+              id: "write_name",
+              label: "写下自己的名字",
+              hint: "你接受被记录，也接受名字可能被别人拿去使用。",
+              result: "石墙吞下你的名字，却吐出一枚清亮的识印。你知道这不是祝福，而是一份未来会找上门的约定。",
+              effects: { insight: 2, towerBlessing: 1 },
+            },
+            {
+              id: "leave_blank",
+              label: "留下空白，继续赶路",
+              hint: "你宁愿暂时无人认识，也不把自己的来处交给墙内的声音。",
+              result: "石墙没有阻拦，墙根滚出一袋灵石。身后的空白像一双没有睁开的眼睛，仍在看着你。",
+              effects: { stones: 88, energy: 5 },
+            },
+          ],
+        },
+      });
 
       const HERB_GROWTH_INTERVALS = {
         sprout: 15000,
@@ -11866,6 +13433,11 @@
         rootLocked: false,
         location: "gate",
         regionLocationId: "entrance",
+        mapAdventureId: "",
+        mapAdventureOpen: false,
+        mapAdventureNextRollAt: 0,
+        mapAdventureTrigger: "",
+        mapAdventureHistory: [],
         moving: false,
         pendingLocation: null,
         moveAnimationId: 0,
@@ -11931,6 +13503,8 @@
         companionMessage: "",
         companionPanel: "main",
         companionInteractionCounter: 0,
+        companionInteractionLogs: [],
+        companionAdventureId: "",
         shardShopOpen: false,
         equipmentPickerSlot: "",
         eventTriggerMode: "confirm",
@@ -11938,18 +13512,27 @@
         soundEnabled: true,
         resetConfirmOpen: false,
         storyExitConfirmOpen: false,
-          forgeOpen: false,
-          forgeSelectedId: "",
-          forgePhase: "idle",
-          forgeResult: null,
-          forgeReplaceIndex: 0,
-          forgeMeltConfirmId: "",
-          marketModal: "",
-          herbPlot: { stage: 0, tended: 0, plantedAt: 0, nextActionAt: 0 },
-          nearbyGarden: false,
-          herbGardenOpen: false,
-          nearbyOuterLocationId: "",
-          nearbyRegionLocationId: "",
+        leaderboardOpen: false,
+        leaderboardLoading: false,
+        leaderboardSubmitting: false,
+        leaderboardError: "",
+        leaderboardList: [],
+        leaderboardRecord: null,
+        summonRateOpen: false,
+        forgeOpen: false,
+        forgePickerOpen: false,
+        forgeGuideOpen: false,
+        forgeSelectedId: "",
+        forgePhase: "idle",
+        forgeResult: null,
+        forgeReplaceIndex: 0,
+        forgeMeltConfirmId: "",
+        marketModal: "",
+        herbPlot: { stage: 0, tended: 0, plantedAt: 0, nextActionAt: 0 },
+        nearbyGarden: false,
+        herbGardenOpen: false,
+        nearbyOuterLocationId: "",
+        nearbyRegionLocationId: "",
         battleIntent: "strike",
         battleFocus: 0,
         battleExposed: false,
@@ -11959,6 +13542,9 @@
         towerBattleId: "",
         towerBlessing: 0,
         towerMessage: "",
+        towerFloorScores: {},
+        towerTotalScore: 0,
+        towerLastScore: null,
         activeAdventureId: "",
         adventureHistory: [],
         adBusy: false,
@@ -12098,6 +13684,7 @@
       let tutorialPositionFrame = 0;
       let navigationRenderFrame = 0;
       let previewTapLockUntil = 0;
+      let overlayMarkupSnapshot = null;
 
       function normalizePreviewSlot(value) {
         const slotIndex = Math.floor(Number(value));
@@ -12227,7 +13814,7 @@
           }
           state.activeSaveSlot = remoteSlot;
           if (!state.adBusy) {
-            restorePreviewState(remoteSlot);
+            restorePreviewState(remoteSlot, { preserveTransientUi: true });
             prepareInitialTutorialOffer();
             render();
           }
@@ -12241,7 +13828,7 @@
           && local
           && !state.adBusy
         ) {
-          restorePreviewState(remoteSlot);
+          restorePreviewState(remoteSlot, { preserveTransientUi: true });
           prepareInitialTutorialOffer();
           render();
         }
@@ -12513,6 +14100,7 @@
       const ENERGY_REGEN_INTERVAL_MS = 86400000 / ENERGY_REGEN_PER_DAY;
       const DAILY_ENERGY_AD_LIMIT = 3;
       const DAILY_ENERGY_AD_REWARD = 20;
+      const TOWER_SPIRIT_AD_REWARD = 15;
       const FORGE_AD_REWARD_COUNT = 3;
       function applyPassiveEnergyRegen(now = Date.now()) {
         const current = Math.max(0, Number(state.energy) || 0);
@@ -12649,6 +14237,10 @@
           rootLocked: state.rootLocked,
           location: state.location,
           regionLocationId: state.regionLocationId,
+          mapAdventureId: state.mapAdventureId,
+          mapAdventureNextRollAt: state.mapAdventureNextRollAt,
+          mapAdventureTrigger: state.mapAdventureTrigger,
+          mapAdventureHistory: state.mapAdventureHistory,
           playerX: state.playerX,
           playerY: state.playerY,
           mapPanInitialized: state.mapPanInitialized,
@@ -12681,6 +14273,9 @@
           towerBattleId: state.towerBattleId,
           towerBlessing: state.towerBlessing,
           towerMessage: state.towerMessage,
+          towerFloorScores: state.towerFloorScores,
+          towerTotalScore: state.towerTotalScore,
+          towerLastScore: state.towerLastScore,
           activeAdventureId: state.activeAdventureId,
           adventureHistory: state.adventureHistory,
           eventTriggerMode: state.eventTriggerMode,
@@ -12718,6 +14313,7 @@
           qi06SharedLedger: state.qi06SharedLedger,
           summon: state.summon,
           companions: state.companions,
+          companionInteractionLogs: state.companionInteractionLogs,
           starterCompanionGranted: state.starterCompanionGranted,
           cultivation: state.cultivation,
           cultivationNeed: state.cultivationNeed,
@@ -12771,7 +14367,10 @@
         }, 220);
       }
 
-      function restorePreviewState(slotIndex = state.activeSaveSlot) {
+      function restorePreviewState(slotIndex = state.activeSaveSlot, options = {}) {
+        const preserveTransientUi = options.preserveTransientUi === true;
+        const preserveLeaderboardOpen = preserveTransientUi && state.leaderboardOpen;
+        const preserveSettingsOpen = preserveTransientUi && state.settingsOpen;
         migratePreviewSave();
         const requestedSlot = normalizePreviewSlot(slotIndex) ?? getStoredPreviewSlot();
         const targetSlot = isPreviewSlotUnlocked(requestedSlot) ? requestedSlot : 0;
@@ -12816,6 +14415,19 @@
           state.regionLocationId = savedRegionLocations[saved.regionLocationId]
           ? saved.regionLocationId
           : (state.regionId === "library" ? "entrance" : "");
+        state.mapAdventureId = MAP_ADVENTURES[saved.mapAdventureId]
+          ? saved.mapAdventureId
+          : "";
+        state.mapAdventureOpen = false;
+        state.mapAdventureNextRollAt = Number.isFinite(Number(saved.mapAdventureNextRollAt))
+          ? Math.max(0, Number(saved.mapAdventureNextRollAt))
+          : 0;
+        state.mapAdventureTrigger = typeof saved.mapAdventureTrigger === "string"
+          ? saved.mapAdventureTrigger
+          : "";
+        state.mapAdventureHistory = Array.isArray(saved.mapAdventureHistory)
+          ? saved.mapAdventureHistory.slice(-30)
+          : [];
         state.nearbyRegionLocationId = "";
         state.nearbyGarden = false;
         state.herbGardenOpen = false;
@@ -12887,6 +14499,12 @@
           Math.min(3, Math.floor(Number(saved.towerBlessing) || 0)),
         );
         state.towerMessage = typeof saved.towerMessage === "string" ? saved.towerMessage : "";
+        state.towerFloorScores = normalizeTowerFloorScores(saved.towerFloorScores);
+        state.towerTotalScore = getTowerTotalScore();
+        state.towerLastScore = saved.towerLastScore
+          && typeof saved.towerLastScore === "object"
+          ? saved.towerLastScore
+          : null;
         state.activeAdventureId = ADVENTURE_EVENTS[saved.activeAdventureId]
           ? saved.activeAdventureId
           : "";
@@ -12908,6 +14526,12 @@
           : null;
         state.rewardSettlementOpen = saved.rewardSettlementOpen === true
           && Boolean(state.lastRewardSettlement);
+        state.leaderboardOpen = preserveLeaderboardOpen;
+        state.leaderboardLoading = false;
+        state.leaderboardSubmitting = false;
+        state.leaderboardError = "";
+        state.leaderboardList = [];
+        state.leaderboardRecord = null;
         state.guidesSeen = {
           ...state.guidesSeen,
           ...(saved.guidesSeen && typeof saved.guidesSeen === "object" ? saved.guidesSeen : {}),
@@ -12968,6 +14592,25 @@
         state.companionMessage = "";
         state.companionPanel = "main";
         state.companionInteractionCounter = 0;
+        state.companionInteractionLogs = Array.isArray(saved.companionInteractionLogs)
+          ? saved.companionInteractionLogs
+            .filter((entry) => getCompanionById(entry?.companionId))
+            .map((entry) => ({
+              id: typeof entry?.id === "string" ? entry.id : "",
+              companionId: entry.companionId,
+              type: typeof entry?.type === "string" ? entry.type : "interaction",
+              title: typeof entry?.title === "string" ? entry.title : "相处记录",
+              detail: typeof entry?.detail === "string" ? entry.detail : "",
+              favorBefore: Math.max(0, Math.floor(Number(entry?.favorBefore) || 0)),
+              favorAfter: Math.max(0, Math.floor(Number(entry?.favorAfter) || 0)),
+              createdAt: Math.max(0, Number(entry?.createdAt) || 0),
+            }))
+            .filter((entry) => entry.companionId && entry.detail)
+            .slice(-60)
+          : [];
+        state.summonRateOpen = false;
+        state.forgePickerOpen = false;
+        state.forgeGuideOpen = false;
         state.shardShopOpen = false;
         state.equipmentPickerSlot = "";
         state.herbPlot = saved.herbPlot && typeof saved.herbPlot === "object"
@@ -13056,8 +14699,19 @@
                     Math.floor(Number(record?.favor) || 0),
                   ),
                   active: record?.active === true,
+                  partnered: record?.partnered === true,
                   recruitedAt: Math.max(0, Number(record?.recruitedAt) || 0),
                   memory: Math.max(0, Math.floor(Number(record?.memory) || 0)),
+                  exclusiveGiftCount: Math.max(
+                    0,
+                    Math.floor(Number(record?.exclusiveGiftCount) || 0),
+                  ),
+                  adventureCompletedIds: Array.isArray(record?.adventureCompletedIds)
+                    ? record.adventureCompletedIds
+                      .filter((adventureId) => Object.values(COMPANION_ADVENTURES)
+                        .some((adventure) => adventure.id === adventureId))
+                      .slice(-20)
+                    : [],
                 },
               ]),
           )
@@ -13200,7 +14854,7 @@
         state.joystickVectorY = 0;
         state.joystickAnimationId = 0;
         state.mapPanInitialized = false;
-        state.settingsOpen = false;
+        state.settingsOpen = preserveSettingsOpen;
         state.resetConfirmOpen = false;
         state.adBusy = false;
         state.adPlacement = "";
@@ -14044,13 +15698,13 @@
         if (location.clueId && !state.clues.includes(location.clueId)) {
           state.clues.push(location.clueId);
           state.mapPanInitialized = false;
+          persistPreviewState();
           render();
           showToast(location.clueText || "调查完成，已获得线索");
           return;
         }
 
-        render();
-        showToast("已抵达：" + location.name);
+        finishMapArrival(location.name);
       }
 
       function updatePlayerMovementVisual(deltaTime, vectorX, vectorY) {
@@ -14288,6 +15942,17 @@
           button.classList.toggle("active", button.dataset.tab === state.tab);
           button.setAttribute("aria-current", button.dataset.tab === state.tab ? "page" : "false");
         });
+        const mapButton = bottomNav.querySelector("[data-tab='map']");
+        const mapAdventureDot = mapButton?.querySelector(".map-adventure-dot");
+        const hasMapAdventure = Boolean(state.mapAdventureId);
+        if (mapAdventureDot) {
+          mapAdventureDot.hidden = !hasMapAdventure;
+        }
+        if (mapButton) {
+          const mapLabel = hasMapAdventure ? "地图 · 有新的奇遇" : "地图";
+          mapButton.setAttribute("aria-label", mapLabel);
+          mapButton.title = mapLabel;
+        }
       }
 
       function getCompanionById(companionId) {
@@ -14297,6 +15962,17 @@
       function getCompanionRecord(companionId) {
         const existing = state.companions[companionId];
         if (existing && typeof existing === "object") {
+          existing.exclusiveGiftCount = Math.max(
+            0,
+            Math.floor(Number(existing.exclusiveGiftCount) || 0),
+          );
+          existing.partnered = existing.partnered === true;
+          existing.adventureCompletedIds = Array.isArray(existing.adventureCompletedIds)
+            ? existing.adventureCompletedIds
+              .filter((adventureId) => Object.values(COMPANION_ADVENTURES)
+                .some((adventure) => adventure.id === adventureId))
+              .slice(-20)
+            : [];
           return existing;
         }
         const record = {
@@ -14304,7 +15980,10 @@
           copies: 0,
           favor: 0,
           active: false,
+          partnered: false,
           memory: 0,
+          exclusiveGiftCount: 0,
+          adventureCompletedIds: [],
         };
         state.companions[companionId] = record;
         return record;
@@ -14482,6 +16161,62 @@
           || COMPANION_FAVOR_STAGES[0];
       }
 
+      function isCompanionPartnerEligible(companion, record) {
+        return Boolean(
+          companion
+          && record?.recruited
+          && companion.gender === "女"
+          && record.partnered !== true
+          && normalizeCompanionFavor(record.favor) >= COMPANION_PARTNER_AFFECTION_THRESHOLD,
+        );
+      }
+
+      function getCompanionPartnerLine(companion) {
+        return COMPANION_PARTNER_LINES[companion?.id]
+          || `${companion?.name || "她"}愿意把关系交给你们共同经营。`;
+      }
+
+      function getCompanionInteractionLogs(companionId) {
+        return (Array.isArray(state.companionInteractionLogs)
+          ? state.companionInteractionLogs
+          : []
+        ).filter((entry) => entry?.companionId === companionId);
+      }
+
+      function formatCompanionLogTime(timestamp) {
+        const value = Number(timestamp);
+        if (!Number.isFinite(value) || value <= 0) return "刚刚";
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return "刚刚";
+        return `${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+      }
+
+      function recordCompanionInteraction(
+        companionId,
+        type,
+        title,
+        detail,
+        favorBefore = 0,
+        favorAfter = favorBefore,
+      ) {
+        if (!getCompanionById(companionId) || !String(detail || "").trim()) return;
+        if (!Array.isArray(state.companionInteractionLogs)) {
+          state.companionInteractionLogs = [];
+        }
+        const createdAt = Date.now();
+        state.companionInteractionLogs.unshift({
+          id: `companion_log_${createdAt}_${state.companionInteractionLogs.length}`,
+          companionId,
+          type: String(type || "interaction"),
+          title: String(title || "相处记录"),
+          detail: String(detail),
+          favorBefore: Math.max(0, normalizeCompanionFavor(favorBefore)),
+          favorAfter: Math.max(0, normalizeCompanionFavor(favorAfter)),
+          createdAt,
+        });
+        state.companionInteractionLogs = state.companionInteractionLogs.slice(0, 60);
+      }
+
       function pickCompanionLine(lines, seed = 0) {
         if (!Array.isArray(lines) || !lines.length) return "";
         const normalizedSeed = Math.abs(Math.floor(Number(seed) || 0));
@@ -14551,6 +16286,142 @@
         return COMPANION_GIFT_CATALOG.find((gift) => gift.id === giftId) || null;
       }
 
+      function getCompanionExclusiveGiftById(giftId) {
+        return COMPANION_EXCLUSIVE_GIFTS.find((gift) => gift.id === giftId) || null;
+      }
+
+      function getCompanionExclusiveGift(companionId) {
+        return COMPANION_EXCLUSIVE_GIFTS.find(
+          (gift) => gift.companionId === companionId,
+        ) || null;
+      }
+
+      function getCompanionAdventure(companionId) {
+        return COMPANION_ADVENTURES[companionId] || null;
+      }
+
+      function hasCompletedCompanionAdventure(record, adventure) {
+        return Array.isArray(record?.adventureCompletedIds)
+          && record.adventureCompletedIds.includes(adventure?.id);
+      }
+
+      function isCompanionAdventureReady(companion, record) {
+        const adventure = getCompanionAdventure(companion?.id);
+        return Boolean(
+          adventure
+          && record?.recruited
+          && normalizeCompanionFavor(record.favor) >= adventure.requiredFavor
+          && !hasCompletedCompanionAdventure(record, adventure),
+        );
+      }
+
+      function getCompanionExclusiveGiftClaimId(companionId) {
+        return `companion_exclusive_gift_${companionId}_${getAdDayKey()}`;
+      }
+
+      function claimCompanionExclusiveGift(companionId) {
+        const companion = getCompanionById(companionId);
+        const record = getCompanionRecord(companionId);
+        const gift = getCompanionExclusiveGift(companionId);
+        if (!companion || !record.recruited || !gift) return;
+        if (!state.adClaims || typeof state.adClaims !== "object") {
+          state.adClaims = {};
+        }
+        const claimId = getCompanionExclusiveGiftClaimId(companionId);
+        if (state.adClaims[claimId]) {
+          showToast("这名伙伴今日的专属礼物已领取");
+          return;
+        }
+        void AdService.showRewarded({
+          placement: `companion_exclusive_gift_${companionId}`,
+          onReward: () => {
+            if (state.adClaims[claimId]) return;
+            state.adClaims[claimId] = true;
+            addReward({
+              ...gift,
+              gift: true,
+              exclusiveFor: companionId,
+              giftFavor: 4,
+              count: 1,
+            });
+            persistPreviewState();
+            render();
+          },
+        });
+      }
+
+      function getCompanionExclusiveGiftReaction(companion, record, gift, seed = 0) {
+        const lines = COMPANION_EXCLUSIVE_DIALOGUE[companion?.id] || [];
+        const fallback = `${companion?.name || "伙伴"}收下了${gift?.name || "这份礼物"}，没有急着说话。`;
+        return (
+          pickCompanionLine(
+            lines,
+            Number(seed) + Number(record?.favor || 0),
+          ) || fallback
+        ).replaceAll("{{gift}}", gift?.name || "礼物");
+      }
+
+      function openCompanionAdventure(companionId) {
+        const companion = getCompanionById(companionId);
+        const record = getCompanionRecord(companionId);
+        const adventure = getCompanionAdventure(companionId);
+        if (!companion || !adventure || !record.recruited) return;
+        if (hasCompletedCompanionAdventure(record, adventure)) {
+          showToast("这段奇遇已经完成");
+          return;
+        }
+        if (normalizeCompanionFavor(record.favor) < adventure.requiredFavor) {
+          showToast(`好感达到 ${adventure.requiredFavor} 点后才能触发这段奇遇`);
+          return;
+        }
+        state.companionCultivationId = companionId;
+        state.companionPanel = "main";
+        state.companionAdventureId = adventure.id;
+        state.companionMessage = "";
+        render();
+      }
+
+      function resolveCompanionAdventureChoice(companionId, optionId) {
+        const companion = getCompanionById(companionId);
+        const record = getCompanionRecord(companionId);
+        const adventure = getCompanionAdventure(companionId);
+        const option = adventure?.options?.find((entry) => entry.id === optionId);
+        if (
+          !companion
+          || !record.recruited
+          || !adventure
+          || !option
+          || state.companionAdventureId !== adventure.id
+          || hasCompletedCompanionAdventure(record, adventure)
+        ) {
+          return;
+        }
+        record.adventureCompletedIds = Array.from(new Set([
+          ...(Array.isArray(record.adventureCompletedIds)
+            ? record.adventureCompletedIds
+            : []),
+          adventure.id,
+        ])).slice(-20);
+        addReward({
+          ...adventure.reward,
+          count: Number(adventure.reward?.count) || 1,
+        });
+        state.companionAdventureId = "";
+        nextCompanionInteractionSeed();
+        state.companionMessage = option.result;
+        recordCompanionInteraction(
+          companionId,
+          "adventure",
+          `奇遇 · ${adventure.title}`,
+          `${option.result} 获得${adventure.reward.name} ×${Number(adventure.reward?.count) || 1}。`,
+          record.favor,
+          record.favor,
+        );
+        persistPreviewState();
+        render();
+        showToast(`${companion.name}送来礼物：${adventure.reward.name}`, "reward");
+      }
+
       function openCompanionCultivation(companionId) {
         const companion = getCompanionById(companionId);
         const record = getCompanionRecord(companionId);
@@ -14564,6 +16435,7 @@
         state.shardShopOpen = false;
         state.companionCultivationId = companionId;
         state.companionPanel = "main";
+        state.companionAdventureId = "";
         state.companionMessage = getCompanionInteractionLine(companion, record, "open");
         render();
       }
@@ -14572,6 +16444,7 @@
         state.companionCultivationId = "";
         state.companionMessage = "";
         state.companionPanel = "main";
+        state.companionAdventureId = "";
         render();
       }
 
@@ -14580,9 +16453,54 @@
         const record = getCompanionRecord(companionId);
         if (!companion || !record.recruited) return;
         nextCompanionInteractionSeed();
-        state.companionMessage = getCompanionInteractionLine(companion, record, "talk");
+        const message = getCompanionInteractionLine(companion, record, "talk");
+        state.companionMessage = message;
+        recordCompanionInteraction(
+          companionId,
+          "talk",
+          "一次交流",
+          message,
+          record.favor,
+          record.favor,
+        );
         persistPreviewState();
         render();
+      }
+
+      function formCompanionPartnership(companionId) {
+        const companion = getCompanionById(companionId);
+        const record = getCompanionRecord(companionId);
+        if (!companion || !record.recruited) return;
+        if (companion.gender !== "女") {
+          showToast("男性伙伴暂不开放伴侣关系");
+          return;
+        }
+        if (record.partnered === true) {
+          showToast("你们已经是伴侣");
+          return;
+        }
+        const favor = normalizeCompanionFavor(record.favor);
+        if (favor < COMPANION_PARTNER_AFFECTION_THRESHOLD) {
+          showToast(`好感达到 ${COMPANION_PARTNER_AFFECTION_THRESHOLD} 点后才能结为伴侣，还差 ${COMPANION_PARTNER_AFFECTION_THRESHOLD - favor} 点`);
+          return;
+        }
+        record.partnered = true;
+        state.companionCultivationId = companionId;
+        state.companionPanel = "main";
+        state.companionAdventureId = "";
+        nextCompanionInteractionSeed();
+        state.companionMessage = getCompanionPartnerLine(companion);
+        recordCompanionInteraction(
+          companionId,
+          "partnership",
+          "关系确认",
+          state.companionMessage,
+          favor,
+          favor,
+        );
+        persistPreviewState();
+        render();
+        showToast(`${companion.name}与你结为伴侣`, "reward");
       }
 
       function openShardShop() {
@@ -14592,6 +16510,7 @@
         state.companionCultivationId = "";
         state.companionMessage = "";
         state.companionPanel = "main";
+        state.companionAdventureId = "";
         state.shardShopOpen = true;
         render();
       }
@@ -14628,24 +16547,54 @@
       function giveCompanionGift(companionId, giftId) {
         const companion = getCompanionById(companionId);
         const record = getCompanionRecord(companionId);
-        const gift = getCompanionGift(giftId);
+        const gift = getCompanionGift(giftId) || getCompanionExclusiveGiftById(giftId);
         const item = getInventoryItem(giftId);
         if (!companion || !record.recruited || !gift || !item) return;
+        const exclusiveFor = gift.exclusiveFor || gift.companionId || item.exclusiveFor || "";
+        if (exclusiveFor && exclusiveFor !== companionId) {
+          showToast(`${gift.name}只能赠送给${getCompanionById(exclusiveFor)?.name || "指定伙伴"}`);
+          return;
+        }
         if (!removeInventoryItemCount(giftId)) {
           showToast(`库存不足：${gift.name}`);
           return;
         }
-        const fit = getCompanionGiftFit(companionId, gift);
-        const favorGain = fit.preferred
-          ? Number(gift.favor || 1) + 1
-          : fit.disliked
-            ? Math.max(1, Number(gift.favor || 1) - 1)
-            : Number(gift.favor || 1);
         const before = Math.max(0, Number(record.favor) || 0);
+        const isExclusive = exclusiveFor === companionId;
+        const exclusiveGiftCount = Math.max(
+          0,
+          Math.floor(Number(record.exclusiveGiftCount) || 0),
+        );
+        const fit = isExclusive ? null : getCompanionGiftFit(companionId, gift);
+        const favorGain = isExclusive
+          ? 4
+          : fit.preferred
+            ? Number(gift.favor || 1) + 1
+            : fit.disliked
+              ? Math.max(1, Number(gift.favor || 1) - 1)
+              : Number(gift.favor || 1);
         record.favor = before + favorGain;
+        if (isExclusive) {
+          record.exclusiveGiftCount = exclusiveGiftCount + 1;
+        }
         state.companionCultivationId = companionId;
         nextCompanionInteractionSeed();
-        state.companionMessage = getCompanionGiftReaction(companion, record, gift);
+        state.companionMessage = isExclusive
+          ? getCompanionExclusiveGiftReaction(
+            companion,
+            record,
+            gift,
+            exclusiveGiftCount,
+          )
+          : getCompanionGiftReaction(companion, record, gift);
+        recordCompanionInteraction(
+          companionId,
+          "gift",
+          `赠礼 · ${gift.name}`,
+          `${state.companionMessage} 好感 +${record.favor - before}。`,
+          before,
+          record.favor,
+        );
         persistPreviewState();
         render();
         showToast(`${companion.name} 好感 +${record.favor - before}`, "reward");
@@ -14748,7 +16697,8 @@
           const hasUndiscovered = pool.some(
             (companion) => !getCompanionRecord(companion.id).recruited,
           );
-          const beginnerGuarantee = drawStart + index < 3 && hasUndiscovered;
+          const beginnerGuarantee = drawStart + index < SUMMON_BEGINNER_GUARANTEE_DRAWS
+            && hasUndiscovered;
           const pityGuarantee = state.summon.pity >= SUMMON_PARTNER_PITY_LIMIT - 1;
           const partnerRate = Math.max(
             0,
@@ -14818,7 +16768,8 @@
             ? "广告五连完成"
             : `${drawCount === 10 ? "十连" : "单抽"}完成`,
           results.some((result, index) =>
-            result.type === "companion" && drawStart + index < 3,
+            result.type === "companion"
+              && drawStart + index < SUMMON_BEGINNER_GUARANTEE_DRAWS,
           )
             ? "新手保底已优先回应"
             : "",
@@ -15997,6 +17948,9 @@
       function setOverlayMarkup(markup, overlayKey = "") {
         if (!overlayRoot) return;
         const previousKey = overlayRoot.dataset.overlayKey || "";
+        const markupChanged = overlayMarkupSnapshot !== markup;
+        const keyChanged = previousKey !== overlayKey;
+        if (!markupChanged && !keyChanged) return;
         const hasPreviousOverlay = Boolean(overlayRoot.firstElementChild);
         const isSameOverlay = Boolean(
           hasPreviousOverlay
@@ -16006,6 +17960,7 @@
         );
         overlayRoot.classList.toggle("is-overlay-update", isSameOverlay);
         overlayRoot.dataset.overlayKey = overlayKey;
+        overlayMarkupSnapshot = markup;
         overlayRoot.innerHTML = markup;
       }
 
@@ -16329,7 +18284,7 @@
             <section class="modal-card announcement-card" role="dialog" aria-modal="true" aria-labelledby="announcementTitle" aria-describedby="announcementCopy">
               <div class="modal-kicker">本次更新 · 必看公告</div>
               <div class="modal-title" id="announcementTitle">岚川修行 · 更新公告</div>
-              <div class="announcement-date">公告版本 · 2026 年 10 月 9 日 · v4</div>
+              <div class="announcement-date">公告版本 · 2026 年 10 月 10 日 · v5</div>
               <div class="announcement-copy" id="announcementCopy">
                 <section class="announcement-section">
                   <div class="announcement-section-title">01 · 剧情新增</div>
@@ -16337,19 +18292,19 @@
                 </section>
                 <section class="announcement-section">
                   <div class="announcement-section-title">02 · 伙伴招募</div>
-                  <p>招募台独立开放，许照棠、苏晚潮、关砚秋、叶沉星会随剧情解锁。单抽 24 灵石，十连 216 灵石；人物分项出率为男性 6%、女性 3%，人物总出率取当前奖池最高档 6%，连续 29 抽未出人物时第 30 抽必得人物。</p>
+                  <p>招募台独立开放，许照棠、苏晚潮、关砚秋、叶沉星会随剧情解锁。单抽 24 灵石，十连 216 灵石；人物基础出率已调整为男性 3%、女性 1%，新存档第 1 抽优先回应 1 名未招募伙伴，连续 29 抽未出人物时第 30 抽必得人物。</p>
                 </section>
                 <section class="announcement-section">
                   <div class="announcement-section-title">03 · 伙伴培养</div>
-                  <p>角色面板支持静修、突破、好感成长和伙伴编队；最多 3 名伙伴出战，互动、礼物与支援会持续影响修行。</p>
+                  <p>角色面板支持静修、突破、好感成长和伙伴编队；赠送礼物可以提升伙伴好感，互动与支援会持续影响修行，最多 3 名伙伴可同时出战。</p>
                 </section>
                 <section class="announcement-section">
                   <div class="announcement-section-title">04 · 装备与挑战</div>
-                  <p>法宝词条、淬炼、无名塔奇遇、委托与坊市经济循环加入，探索与成长都有新的目标。</p>
+                  <p>装备支持按品类和品质快速筛选，淬炼台入口更醒目；无名塔新增灵气补给，塔中奇遇、委托与坊市循环也已开放，探索和成长都有新的目标。</p>
                 </section>
                 <section class="announcement-section">
-                  <div class="announcement-section-title">05 · 存档与体验</div>
-                  <p>三档本地存档、可用时的云端同步，以及移动端地图和资源分包体验同步优化。招募五连、静修、淬炼、复起和结算翻倍的广告奖励统一接入广告回调。</p>
+                  <div class="announcement-section-title">05 · 界面与操作优化</div>
+                  <p>背包内的导航栏固定显示，装备、线索、杂物和伙伴切换更方便；人物日志调整到上方，筛选下拉框和关键按钮提升了文字对比度，快速点击、页面切换与预览稳定性同步优化。</p>
                 </section>
                 <section class="announcement-section">
                   <div class="announcement-section-title">06 · 更新奖励</div>
@@ -16367,12 +18322,311 @@
         `;
       }
 
+      function renderMapAdventureOverlay() {
+        const event = MAP_ADVENTURES[state.mapAdventureId];
+        if (!event) return "";
+        return `
+          <div class="modal-overlay map-adventure-overlay" role="presentation">
+            <section class="modal-card map-adventure-card" role="dialog" aria-modal="true" aria-labelledby="mapAdventureTitle">
+              <div class="modal-header-row">
+                <div>
+                  <div class="modal-kicker">${escapeHtml(event.kicker)}</div>
+                  <div class="modal-title" id="mapAdventureTitle">${escapeHtml(event.title)}</div>
+                </div>
+                <button class="modal-close-button" type="button" data-map-adventure-later aria-label="暂存奇遇">稍后</button>
+              </div>
+              <div class="map-adventure-scroll">
+                <div class="map-adventure-scene">
+                  <div class="map-adventure-symbol" aria-hidden="true">${escapeHtml(event.symbol || "·")}</div>
+                  <div>
+                    <strong>${escapeHtml(event.speaker)}</strong>
+                    <span>发现方式：${escapeHtml(state.mapAdventureTrigger || "全局随机发现")}</span>
+                  </div>
+                </div>
+                <p class="modal-copy">${escapeHtml(event.copy)}</p>
+                <p class="map-adventure-detail">${escapeHtml(event.detail)}</p>
+                <div class="map-adventure-options" aria-label="奇遇选择">
+                  ${event.options.map((option) => `
+                    <button class="map-adventure-option" type="button" data-map-adventure-choice="${escapeHtml(`${event.id}::${option.id}`)}">
+                      <strong>${escapeHtml(option.label)}</strong>
+                      <span>${escapeHtml(option.hint || "")}</span>
+                    </button>
+                  `).join("")}
+                </div>
+                <div class="map-adventure-later">暂存后，地图栏橙点会保留，随时可以回来处理。</div>
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      let leaderboardRequestToken = 0;
+
+      function getLeaderboardPlatform() {
+        const platform = window.LampsPlatform;
+        if (
+          !platform
+          || typeof platform.getLeaderboard !== "function"
+          || typeof platform.getMyLeaderboardRecord !== "function"
+          || typeof platform.submitLeaderboardScore !== "function"
+        ) {
+          return null;
+        }
+        return platform;
+      }
+
+      function normalizeLeaderboardEntry(entry, index = 0) {
+        if (!entry || typeof entry !== "object") return null;
+        const parsedScore = Number(entry.score);
+        if (!Number.isFinite(parsedScore)) return null;
+        return {
+          rank: Math.max(1, Math.trunc(Number(entry.rank) || index + 1)),
+          nickname: String(entry.nickname || "无名修士").slice(0, 28),
+          score: Math.max(0, Math.trunc(parsedScore)),
+          isCurrentUser: entry.isCurrentUser === true,
+        };
+      }
+
+      function normalizeLeaderboardList(data) {
+        return (Array.isArray(data?.list) ? data.list : [])
+          .slice(0, 50)
+          .map((entry, index) => normalizeLeaderboardEntry(entry, index))
+          .filter(Boolean);
+      }
+
+      function normalizeLeaderboardRecord(data) {
+        return normalizeLeaderboardEntry(data?.record);
+      }
+
+      function renderLeaderboardRows() {
+        const list = Array.isArray(state.leaderboardList) ? state.leaderboardList : [];
+        if (!list.length) {
+          return `
+            <div class="leaderboard-empty">
+              当前暂无榜单记录，完成爬塔并提交评分后即可上榜。
+            </div>
+          `;
+        }
+        return `
+          <div class="leaderboard-list">
+            ${list.map((entry, index) => `
+              <div class="leaderboard-row ${entry.isCurrentUser ? "is-current" : ""} ${index < 3 ? "is-top" : ""}">
+                <span class="leaderboard-rank">#${entry.rank}</span>
+                <span class="leaderboard-nickname">${escapeHtml(entry.nickname)}${entry.isCurrentUser ? ' <small>我</small>' : ""}</span>
+                <span class="leaderboard-score">${entry.score} 分</span>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function renderLeaderboardOverlay() {
+        const totalScore = getTowerTotalScore();
+        const record = state.leaderboardRecord;
+        const statusMarkup = state.leaderboardError
+          ? `<div class="leaderboard-status is-error" role="alert">${escapeHtml(state.leaderboardError)}</div>`
+          : state.leaderboardLoading
+            ? `<div class="leaderboard-status" role="status">正在读取榜单…</div>`
+            : "";
+        const recordScore = record ? `${record.score} 分` : "未上榜";
+        const lastScoreMarkup = state.towerLastScore
+          ? `
+            <section class="leaderboard-rating-panel" aria-label="最近爬塔评分">
+              <div class="leaderboard-rating-head">
+                <div class="leaderboard-rating-name">
+                  <strong>第 ${state.towerLastScore.floor} 层 · ${escapeHtml(state.towerLastScore.title || "本层")}</strong>
+                  <span>${state.towerLastScore.improved ? "已计入累计榜分" : "本次未超过该层最高分"}</span>
+                </div>
+                <div class="leaderboard-rating-total" style="color:var(--amber)">
+                  ${state.towerLastScore.score}
+                  <small>本层评分</small>
+                </div>
+              </div>
+              <div class="leaderboard-rating-breakdown">
+                <div><span>剩余气血</span><strong>${state.towerLastScore.remainingHp}/${state.towerLastScore.maxHp}</strong></div>
+                <div><span>气血分</span><strong>${state.towerLastScore.hpScore}</strong></div>
+                <div><span>回合分</span><strong>${state.towerLastScore.roundScore}</strong></div>
+                <div><span>层数加成</span><strong>${state.towerLastScore.floorBonus}</strong></div>
+              </div>
+            </section>
+          `
+          : "";
+        return `
+          <div class="modal-overlay" role="presentation">
+            <section class="modal-card leaderboard-card" role="dialog" aria-modal="true" aria-labelledby="leaderboardTitle">
+              <div class="modal-header-row">
+                <div>
+                  <div class="modal-kicker">爬塔榜 · 前 50 名</div>
+                  <div class="modal-title" id="leaderboardTitle">爬塔榜</div>
+                </div>
+                <button class="modal-close-button" type="button" data-leaderboard-close aria-label="关闭爬塔榜">关闭</button>
+              </div>
+              <div class="leaderboard-note">
+                <strong>爬塔榜评分规则</strong>
+                <span>每层按通关时的剩余气血与战斗回合评分；剩余气血越多、回合越少得分越高，同一层只记录最高分，所有楼层评分累加后参与排名。</span>
+              </div>
+              <div class="leaderboard-scroll" data-scroll-surface="leaderboard">
+                <div class="leaderboard-summary">
+                  <div class="leaderboard-summary-cell">
+                    <span>累计爬塔评分</span>
+                    <strong>${totalScore} 分</strong>
+                  </div>
+                  <div class="leaderboard-summary-cell">
+                    <span>通关层数</span>
+                    <strong>${state.towerBestFloor}/${TOWER_FLOORS.length}</strong>
+                  </div>
+                  <div class="leaderboard-summary-cell">
+                    <span>我的最高记录</span>
+                    <strong>${recordScore}</strong>
+                  </div>
+                </div>
+                <div class="leaderboard-rating-action">
+                  <button class="small-button primary-button" type="button" data-leaderboard-submit-tower ${state.leaderboardSubmitting || totalScore <= 0 ? "disabled" : ""}>
+                    ${state.leaderboardSubmitting ? "正在提交…" : totalScore > 0 ? "提交累计爬塔评分" : "完成一层后可上榜"}
+                  </button>
+                </div>
+                ${lastScoreMarkup}
+                ${statusMarkup}
+                <div class="leaderboard-section-heading">
+                  <strong>爬塔榜记录</strong>
+                  <span>前 50 名记录</span>
+                </div>
+                ${renderLeaderboardRows()}
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      async function refreshLeaderboard() {
+        const token = ++leaderboardRequestToken;
+        const platform = getLeaderboardPlatform();
+        if (!platform) {
+          state.leaderboardLoading = false;
+          state.leaderboardError = "排行榜能力暂不可用";
+          state.leaderboardList = [];
+          state.leaderboardRecord = null;
+          if (state.leaderboardOpen) render();
+          return;
+        }
+
+        state.leaderboardLoading = true;
+        state.leaderboardError = "";
+        if (state.leaderboardOpen) render();
+
+        const invoke = (method) => {
+          try {
+            return Promise.resolve(method.call(platform));
+          } catch (error) {
+            return Promise.resolve({
+              ok: false,
+              message: error?.message || "排行榜读取失败",
+              data: null,
+            });
+          }
+        };
+        const [boardResult, recordResult] = await Promise.all([
+          invoke(platform.getLeaderboard),
+          invoke(platform.getMyLeaderboardRecord),
+        ]);
+        if (token !== leaderboardRequestToken || !state.leaderboardOpen) return;
+
+        if (boardResult?.ok) {
+          state.leaderboardList = normalizeLeaderboardList(boardResult.data);
+        } else {
+          state.leaderboardList = [];
+        }
+        state.leaderboardRecord = recordResult?.ok
+          ? normalizeLeaderboardRecord(recordResult.data)
+          : null;
+        state.leaderboardError = !boardResult?.ok
+          ? boardResult?.message || "读取排行榜失败"
+          : !recordResult?.ok
+            ? recordResult?.message || "读取个人榜单记录失败"
+            : "";
+        state.leaderboardLoading = false;
+        render();
+      }
+
+      function openLeaderboard() {
+        if (
+          state.storyActive
+          || state.battleActive
+          || state.rewardSettlementOpen
+        ) {
+          return;
+        }
+        state.leaderboardOpen = true;
+        state.leaderboardError = "";
+        state.leaderboardSubmitting = false;
+        render();
+        void refreshLeaderboard();
+      }
+
+      function closeLeaderboard() {
+        if (!state.leaderboardOpen) return;
+        leaderboardRequestToken += 1;
+        state.leaderboardOpen = false;
+        state.leaderboardLoading = false;
+        state.leaderboardSubmitting = false;
+        state.leaderboardError = "";
+        render();
+      }
+
+      async function submitTowerLeaderboardScore() {
+        const totalScore = getTowerTotalScore();
+        if (totalScore <= 0 || state.leaderboardSubmitting) {
+          if (totalScore <= 0) showToast("完成至少一层爬塔后才能上榜", "error");
+          return;
+        }
+        const platform = getLeaderboardPlatform();
+        if (!platform) {
+          state.leaderboardError = "排行榜能力暂不可用";
+          render();
+          return;
+        }
+        state.leaderboardSubmitting = true;
+        state.leaderboardError = "";
+        render();
+        let result;
+        try {
+          result = await platform.submitLeaderboardScore(totalScore);
+        } catch (error) {
+          result = { ok: false, message: error?.message || "爬塔评分上报失败" };
+        }
+        state.leaderboardSubmitting = false;
+        if (!result?.ok) {
+          state.leaderboardError = result?.message || "爬塔评分上报失败";
+          render();
+          showToast(state.leaderboardError, "error");
+          return;
+        }
+        state.leaderboardError = "";
+        render();
+        showToast(`爬塔评分已提交：${totalScore} 分`, "reward");
+        await refreshLeaderboard();
+      }
+
       function renderOverlayRoot() {
         if (!overlayRoot) return;
         const shouldShowAnnouncement = !announcementDismissedThisSession
           && state.announcementSeenVersion !== CURRENT_ANNOUNCEMENT_VERSION;
         if (shouldShowAnnouncement) {
           setOverlayMarkup(renderAnnouncementOverlay(), "announcement");
+          return;
+        }
+        if (state.mapAdventureOpen && MAP_ADVENTURES[state.mapAdventureId]) {
+          setOverlayMarkup(
+            renderMapAdventureOverlay(),
+            `map-adventure:${state.mapAdventureId}`,
+          );
+          return;
+        }
+        if (state.leaderboardOpen) {
+          setOverlayMarkup(
+            renderLeaderboardOverlay(),
+            "leaderboard:tower",
+          );
           return;
         }
         if (state.storyExitConfirmOpen) {
@@ -16984,6 +19238,107 @@
         return TOWER_FLOORS.find((floor) => floor.id === floorId) || null;
       }
 
+      function normalizeTowerFloorScores(value) {
+        if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+        const validFloors = new Map(TOWER_FLOORS.map((floor) => [floor.id, floor]));
+        return Object.entries(value).reduce((scores, [floorId, rawScore]) => {
+          const floor = validFloors.get(floorId);
+          if (!floor) return scores;
+          const source = rawScore && typeof rawScore === "object"
+            ? rawScore
+            : { score: rawScore };
+          const scoreValue = source.score;
+          const score = Math.max(0, Math.trunc(Number(scoreValue) || 0));
+          if (score <= 0) return scores;
+          scores[floorId] = {
+            floor: floor.floor,
+            title: String(source.title || floor.title || ""),
+            score,
+            remainingHp: Math.max(0, Math.trunc(Number(source.remainingHp) || 0)),
+            maxHp: Math.max(1, Math.trunc(Number(source.maxHp) || 1)),
+            rounds: Math.max(1, Math.trunc(Number(source.rounds) || 1)),
+            hpScore: Math.max(0, Math.trunc(Number(source.hpScore) || 0)),
+            roundScore: Math.max(0, Math.trunc(Number(source.roundScore) || 0)),
+            floorBonus: Math.max(0, Math.trunc(Number(source.floorBonus) || 0)),
+            at: Number(source.at) || 0,
+          };
+          return scores;
+        }, {});
+      }
+
+      function getTowerTotalScore() {
+        return Object.values(state.towerFloorScores || {}).reduce((total, rawScore) => {
+          const scoreValue = rawScore && typeof rawScore === "object"
+            ? rawScore.score
+            : rawScore;
+          return total + Math.max(0, Math.trunc(Number(scoreValue) || 0));
+        }, 0);
+      }
+
+      function getTowerFloorScore(floorOrId) {
+        const floor = typeof floorOrId === "number"
+          ? TOWER_FLOORS.find((entry) => entry.floor === floorOrId)
+          : typeof floorOrId === "string"
+            ? TOWER_FLOORS.find((entry) => entry.id === floorOrId)
+            : floorOrId;
+        return floor ? state.towerFloorScores?.[floor.id] || null : null;
+      }
+
+      function calculateTowerFloorScore(floor) {
+        const combat = getBattleCombatStats();
+        const maxHp = Math.max(1, Math.round(Number(combat.maxHp) || 1));
+        const remainingHp = clamp(
+          Math.round(Number(state.battlePlayerHp) || 0),
+          0,
+          maxHp,
+        );
+        const rounds = Math.max(1, Math.floor(Number(state.battleTurn) || 1));
+        const hpScore = Math.round(remainingHp / maxHp * 600);
+        const roundScore = Math.max(80, 520 - Math.max(0, rounds - 1) * 35);
+        const floorBonus = Math.max(0, Math.round(Number(floor?.floor) || 0) * 25);
+        return {
+          score: Math.max(1, hpScore + roundScore + floorBonus),
+          remainingHp,
+          maxHp,
+          rounds,
+          hpScore,
+          roundScore,
+          floorBonus,
+        };
+      }
+
+      function recordTowerFloorScore(floor) {
+        const metrics = calculateTowerFloorScore(floor);
+        const previous = getTowerFloorScore(floor?.id);
+        const improved = !previous || metrics.score > Number(previous.score || 0);
+        if (improved && floor?.id) {
+          state.towerFloorScores = {
+            ...(state.towerFloorScores || {}),
+            [floor.id]: {
+              floor: floor.floor,
+              title: floor.title,
+              ...metrics,
+              at: Date.now(),
+            },
+          };
+        }
+        state.towerTotalScore = getTowerTotalScore();
+        state.towerLastScore = floor?.id
+          ? {
+            floor: floor.floor,
+            title: floor.title,
+            ...metrics,
+            improved,
+          }
+          : null;
+        return { metrics, previous, improved };
+      }
+
+      function getTowerScorePreview() {
+        const floor = getActiveTowerFloor();
+        return floor ? calculateTowerFloorScore(floor) : null;
+      }
+
       function getTowerRewardBundle(floor) {
         if (!floor) {
           return {
@@ -17056,6 +19411,7 @@
           showToast("该层已通关，不可重复领取奖励");
           return;
         }
+        const scoreResult = recordTowerFloorScore(floor);
         const rewardBundle = getTowerRewardBundle(floor);
         const equipment = floor.equipmentReward ? createChallengeEquipment(floor) : null;
         const material = rewardBundle.material ? { ...rewardBundle.material } : null;
@@ -17079,7 +19435,7 @@
         state.battleGuardRounds = 0;
         state.battleEnemyGuardRounds = 0;
         state.battleGuardStreak = 0;
-        state.towerMessage = `第 ${floor.floor} 层首通完成：灵石 +${rewardBundle.stones}，灵力回流 +${rewardBundle.rewardEnergy}${equipment ? `，获得${equipment.name}` : "，本层奖励为资源与记录"}。`;
+        state.towerMessage = `第 ${floor.floor} 层首通完成：本层评分 ${scoreResult.metrics.score} 分（剩余气血 ${scoreResult.metrics.remainingHp}/${scoreResult.metrics.maxHp} · 第 ${scoreResult.metrics.rounds} 回合）；灵石 +${rewardBundle.stones}，灵力回流 +${rewardBundle.rewardEnergy}${equipment ? `，获得${equipment.name}` : "，本层奖励为资源与记录"}。`;
         if (floor.adventureId && !state.adventureHistory.some((entry) => entry.eventId === floor.adventureId)) {
           state.activeAdventureId = floor.adventureId;
         }
@@ -17087,7 +19443,7 @@
         state.tab = "tower";
         openRewardSettlement(
           `爬塔结算 · 第 ${floor.floor} 层`,
-          `你已完成第 ${floor.floor} 层首通；塔层不会重复开放，确认后可继续挑战下一层。装备刷取请前往地图 PVE 挑战点。`,
+          `你已完成第 ${floor.floor} 层首通，本层评分 ${scoreResult.metrics.score} 分（气血 ${scoreResult.metrics.remainingHp}/${scoreResult.metrics.maxHp} · 第 ${scoreResult.metrics.rounds} 回合）；评分会累加进入爬塔榜。确认后可继续挑战下一层。装备刷取请前往地图 PVE 挑战点。`,
           [
             { kind: "resource", key: "stones", label: "灵石", count: rewardBundle.stones },
             { kind: "resource", key: "energy", label: "灵力", count: rewardBundle.rewardEnergy },
@@ -17432,7 +19788,7 @@
       }
 
       function openForge(itemId = "") {
-        if (!state.completed.chapter2 && !state.devAllMaps) {
+        if (!isTaskCompleted("main_chapter2") && !state.devAllMaps) {
           showToast("完成第二章后开放淬炼台");
           return;
         }
@@ -17440,6 +19796,8 @@
         const first = state.inventory.find((item) => item.slot);
         state.forgeSelectedId = itemId || state.forgeSelectedId || first?.id || "";
         state.forgeOpen = true;
+        state.forgePickerOpen = false;
+        state.forgeGuideOpen = false;
         state.forgePhase = "idle";
         state.forgeResult = null;
         const affixCount = Number(state.inventory.find((entry) => entry.id === state.forgeSelectedId)?.affixes?.length || 0);
@@ -17774,6 +20132,8 @@
         const forgeAdDisabled = state.adBusy
           || (state.forgePhase !== "idle" && state.forgePhase !== "settled")
           || awaitingDecision;
+        const forgeSelectionLocked = (state.forgePhase !== "idle" && state.forgePhase !== "settled")
+          || awaitingDecision;
         const stageMarkup = [
           ["入池", 1],
           ["揭示", 2],
@@ -17793,11 +20153,59 @@
         `).join("");
         const itemButtons = state.inventory.filter((entry) => entry.slot).map((entry) => {
           const entryQuality = EQUIPMENT_QUALITIES[entry.quality || "white"] || EQUIPMENT_QUALITIES.white;
-          return `<button class="forge-item-select ${entry.id === item.id ? "active" : ""}" type="button" data-forge-select="${escapeHtml(entry.id)}" data-no-scroll-drag ${state.forgePhase !== "idle" && state.forgePhase !== "settled" ? "disabled" : ""}><span class="quality-dot" style="--quality:${entryQuality.color}"></span><span>${escapeHtml(entry.name)}</span><small>${entryQuality.label}</small></button>`;
+          const entrySlot = EQUIPMENT_SLOTS[entry.slot] || "装备";
+          const entryStats = getItemStatText(entry) || "暂无可见属性";
+          return `<button class="forge-item-select ${entry.id === item.id ? "active" : ""}" type="button" data-forge-select="${escapeHtml(entry.id)}" ${forgeSelectionLocked ? "disabled" : ""}><span class="quality-dot" style="--quality:${entryQuality.color}"></span><span class="forge-item-select-copy"><strong>${escapeHtml(entry.name)}</strong><small>${escapeHtml(entryQuality.label)} · ${escapeHtml(entrySlot)} · ${escapeHtml(entryStats)}</small></span></button>`;
         }).join("");
+        const baseStats = getItemBaseStatValues(item);
+        const totalStats = getItemStatValues(item);
+        const affixStatKeys = new Set(
+          (item.affixes || [])
+            .map((affix) => getAffixStatKey(affix))
+            .filter(Boolean),
+        );
+        const formatForgeStatNumber = (value) => {
+          const normalized = Math.round(Number(value) || 0);
+          return normalized > 0 ? `+${normalized}` : String(normalized);
+        };
+        const forgeStatRows = Object.entries(AFFIX_STAT_LABELS)
+          .filter(([key]) => {
+            const base = Number(baseStats[key] || 0);
+            const total = Number(totalStats[key] || 0);
+            return base !== 0 || total !== 0 || affixStatKeys.has(key);
+          })
+          .map(([key, label]) => {
+            const base = Number(baseStats[key] || 0);
+            const total = Number(totalStats[key] || 0);
+            const bonus = total - base;
+            return `
+              <div class="forge-stat-row ${bonus === 0 && affixStatKeys.has(key) ? "is-zero-bonus" : ""}">
+                <span>${escapeHtml(label)}</span>
+                <span class="forge-stat-base"><small>原本</small>${formatForgeStatNumber(base)}</span>
+                <span class="forge-stat-bonus"><small>词条</small>${formatForgeStatNumber(bonus)}</span>
+                <strong class="forge-stat-total"><small>当前</small>${formatForgeStatNumber(total)}</strong>
+              </div>
+            `;
+          })
+          .join("");
+        const currentStatsSummary = getItemStatText(item) || "暂无可见属性";
+        const forgeGuideMarkup = state.forgeGuideOpen
+          ? `
+            <section class="forge-guide" aria-label="淬炼说明">
+              <strong>淬炼说明</strong>
+              <p>淬炼是给装备增加或替换词条。每次消耗 1 个铜灯碎片；铜灯碎片不足时，改为消耗 1 个淬炼砂。</p>
+              <ul class="forge-guide-list">
+                <li>词条槽未满：新词条揭示后会自动追加，并直接写入装备。</li>
+                <li>词条槽已满：新词条揭示后，选择“替换原词条”或“保留原词条”。</li>
+                <li>“原本”是装备自带数值；“词条”是已保存词条带来的增量；“当前”是实际生效的总值。</li>
+                <li>词条显示为百分比时，会按对应的原本数值换算；原本数值为 0 时，该词条不会增加这一项属性。</li>
+                <li>词条颜色代表本次数值档位：绿、蓝、紫、金依次变强，不等于装备品质。</li>
+              </ul>
+            </section>
+          `
+          : "";
         const statKey = result?.affix?.stat || "";
-        const statLabels = { attack: "攻击", defense: "防御", insight: "洞察", spirit: "灵力", recovery: "回气", maxHp: "气血" };
-        const statLabel = statLabels[statKey] || "属性";
+        const statLabel = AFFIX_STAT_LABELS[statKey] || "属性";
         const targetValue = getAffixNumericValue(result?.affix);
         const displayValue = Number(result?.displayValue || 0);
         const resultMarkup = result && state.forgePhase !== "immersing"
@@ -17834,14 +20242,32 @@
           : "";
         content.innerHTML = `
           <section class="forge-screen" data-scroll-surface="forge">
-            <button class="story-exit" type="button" data-forge-close aria-label="关闭淬炼台">返回背包</button>
-            <div class="forge-kicker">装备 · 淬炼台</div>
-            <h1 class="forge-title">装备词条淬炼</h1>
+            <div class="forge-title-row">
+              <div>
+                <div class="forge-kicker">装备 · 淬炼台</div>
+                <h1 class="forge-title">装备词条淬炼</h1>
+              </div>
+              <div class="forge-heading-actions">
+                <button class="story-exit" type="button" data-forge-close aria-label="关闭淬炼台">返回背包</button>
+                <button class="forge-guide-button" type="button" data-forge-guide-toggle aria-expanded="${state.forgeGuideOpen}">${state.forgeGuideOpen ? "收起说明" : "淬炼说明"}</button>
+              </div>
+            </div>
+            ${forgeGuideMarkup}
+            <div class="forge-picker-bar">
+              <div class="forge-picker-current">
+                <strong>${escapeHtml(item.name)}</strong>
+                <span>${escapeHtml(quality.name)} · ${escapeHtml(currentStatsSummary)}</span>
+              </div>
+              <button class="forge-picker-button" type="button" data-forge-picker-open ${forgeSelectionLocked ? "disabled" : ""}>切换装备</button>
+            </div>
             <div class="forge-layout">
-              <aside class="forge-item-list" data-scroll-drag-surface="forge-items">${itemButtons}</aside>
               <main class="forge-main phase-${escapeHtml(state.forgePhase)}">
                 <div class="forge-stage-strip" aria-label="淬炼步骤">${stageMarkup}</div>
                 <div class="forge-phase-copy"><strong>${phaseMeta[0]}</strong><span>${phaseMeta[1]}</span></div>
+                <section class="forge-stat-panel" aria-label="装备数值对照">
+                  <div class="forge-section-heading"><strong>装备数值</strong><span>原本 · 词条 · 当前</span></div>
+                  <div class="forge-stat-grid">${forgeStatRows || `<div class="forge-empty">暂无可见属性</div>`}</div>
+                </section>
                 <div class="forge-vessel">
                   <div class="forge-ripple"></div>
                   ${renderEquipmentImage(item, "forge-item-image", item.name)}
@@ -17864,7 +20290,25 @@
                 </div>`}
               </main>
             </div>
-            <div class="forge-note">可重复淬炼装备。未达到品质上限时自动追加词条；达到上限后可选择替换或保留。装备基础属性与词条数值存在浮动。融化装备可回收淬炼砂。</div>
+            <div class="forge-note">原本是装备自带数值，词条是额外增量，当前是已经写入装备的实际总值；淬炼结果需要完成确认后才会生效。</div>
+            ${state.forgePickerOpen ? `
+              <div class="modal-overlay forge-picker-overlay">
+                <section class="modal-card forge-picker-modal" role="dialog" aria-modal="true" aria-labelledby="forge-picker-title">
+                  <div class="modal-header-row">
+                    <div>
+                      <div class="eyebrow">装备切换</div>
+                      <h2 class="forge-picker-heading" id="forge-picker-title">选择淬炼装备</h2>
+                    </div>
+                    <button class="modal-close-button" type="button" data-forge-picker-close>关闭</button>
+                  </div>
+                  <p class="modal-copy">选择后立即切换；淬炼进行中或待确认时，切换会暂时锁定。</p>
+                  <div class="forge-item-list" aria-label="可淬炼装备">${itemButtons}</div>
+                  <div class="modal-actions">
+                    <button class="small-button" type="button" data-forge-picker-close>返回淬炼台</button>
+                  </div>
+                </section>
+              </div>
+            ` : ""}
           </section>
         `;
       }
@@ -18623,6 +21067,9 @@
         const config = getActiveBattleConfig();
         const challenge = getActiveBattleChallenge();
         const towerFloor = getActiveTowerFloor();
+        const towerScorePreview = state.battleMode === "tower"
+          ? getTowerScorePreview()
+          : null;
         const node = state.battleMode === "story"
           ? getCurrentStoryNode()
           : {};
@@ -18719,7 +21166,7 @@
                 <div class="battle-title">${escapeHtml(config.title)}</div>
                 <span class="battle-round-badge">第 ${state.battleTurn} 回合</span>
               </div>
-              <div class="battle-round">${state.battleMode === "tower" ? `威胁 ${escapeHtml(getTowerDifficulty(towerFloor).danger)} · ${escapeHtml(getTowerDifficulty(towerFloor).mechanic)} · 首通奖励：${escapeHtml(towerFloor?.dropHint || "资源")} · 通关后关闭本层 · 失败可观看广告复起` : state.battleMode === "pve" ? `胜利掉落：${escapeHtml(challenge?.dropHint || "装备")} · 装备词条生效` : "装备词条生效；战斗法力与修炼灵力分开计算。"}</div>
+              <div class="battle-round">${state.battleMode === "tower" ? `威胁 ${escapeHtml(getTowerDifficulty(towerFloor).danger)} · ${escapeHtml(getTowerDifficulty(towerFloor).mechanic)} · 首通奖励：${escapeHtml(towerFloor?.dropHint || "资源")} · 通关后关闭本层 · 失败可观看广告复起 · 评分预估 ${towerScorePreview?.score || 0}（气血 ${state.battlePlayerHp}/${towerScorePreview?.maxHp || combat.maxHp} · 第 ${state.battleTurn} 回合）` : state.battleMode === "pve" ? `胜利掉落：${escapeHtml(challenge?.dropHint || "装备")} · 装备词条生效` : "装备词条生效；战斗法力与修炼灵力分开计算。"}</div>
               ${state.battleBriefOpen ? `
                 <div class="battle-brief" role="status">
                   <strong>战斗提示</strong>
@@ -20199,10 +22646,16 @@
         const companion = getCompanionById(state.companionCultivationId);
         const record = companion ? getCompanionRecord(companion.id) : null;
         if (!companion || !record?.recruited) return "";
+        const adClaims = state.adClaims && typeof state.adClaims === "object"
+          ? state.adClaims
+          : (state.adClaims = {});
         const favor = normalizeCompanionFavor(record.favor);
         const memory = Math.max(0, Number(record.memory) || 0);
         const bonusText = getCompanionBattleBonusSummary(companion.id);
         const persona = getCompanionPersona(companion.id);
+        const partnered = record.partnered === true;
+        const partnerEligible = isCompanionPartnerEligible(companion, record);
+        const interactionLogs = getCompanionInteractionLogs(companion.id);
         const favorStage = getCompanionFavorStage(favor);
         const nextFavorStage = COMPANION_FAVOR_STAGES.find(
           (stage) => stage.min > favor,
@@ -20217,6 +22670,27 @@
             ),
           )
           : 100;
+        const familiarityStageCurrent = nextFavorStage
+          ? Math.max(0, favor - favorStage.min)
+          : favor;
+        const familiarityStageTarget = nextFavorStage
+          ? Math.max(1, nextFavorStage.min - favorStage.min)
+          : 0;
+        const exclusiveGift = getCompanionExclusiveGift(companion.id);
+        const exclusiveGiftOwned = Number(
+          getInventoryItem(exclusiveGift?.id)?.count || 0,
+        );
+        const exclusiveGiftClaimed = Boolean(
+          adClaims[getCompanionExclusiveGiftClaimId(companion.id)],
+        );
+        const exclusiveGiftPlacement = `companion_exclusive_gift_${companion.id}`;
+        const companionAdventure = getCompanionAdventure(companion.id);
+        const adventure = companionAdventure;
+        const adventureComplete = hasCompletedCompanionAdventure(
+          record,
+          companionAdventure,
+        );
+        const adventureReady = isCompanionAdventureReady(companion, record);
         const giftMarkup = COMPANION_GIFT_CATALOG.map((gift) => {
           const owned = Number(getInventoryItem(gift.id)?.count || 0);
           const fit = getCompanionGiftFit(companion.id, gift);
@@ -20236,7 +22710,86 @@
             </div>
           `;
         }).join("");
-        const panel = ["gifts", "persona"].includes(state.companionPanel)
+        const exclusiveGiftMarkup = exclusiveGift
+          ? `
+            <div class="companion-gift-row is-exclusive">
+              <img src="${assetUrl(exclusiveGift.icon)}" alt="">
+              <div class="companion-gift-copy">
+                <strong>${escapeHtml(exclusiveGift.name)} · 专属礼物</strong>
+                <span>库存 ${exclusiveGiftOwned} · 每日可看广告领取 1 份，赠送固定好感 +4 并触发专属对白</span>
+              </div>
+              <div class="companion-gift-actions">
+                <button class="small-button companion-ad-button" type="button" data-companion-exclusive-ad="${escapeHtml(companion.id)}" ${exclusiveGiftClaimed || state.adBusy ? "disabled" : ""}>${
+                  state.adBusy && state.adPlacement === exclusiveGiftPlacement
+                    ? "广告加载中"
+                    : exclusiveGiftClaimed
+                      ? "今日已领"
+                      : "看广告领取"
+                }</button>
+                <button class="small-button" type="button" data-companion-gift="${escapeHtml(companion.id)}::${escapeHtml(exclusiveGift.id)}" ${exclusiveGiftOwned > 0 ? "" : "disabled"}>${exclusiveGiftOwned > 0 ? "赠送" : "缺少"}</button>
+              </div>
+            </div>
+          `
+          : "";
+        const adventureMarkup = companionAdventure
+          ? `
+            <section class="companion-adventure-card ${adventureReady || state.companionAdventureId === companionAdventure.id ? "is-ready" : ""} ${adventureComplete ? "is-complete" : ""}" aria-label="伙伴奇遇">
+              <div class="companion-adventure-heading">
+                <strong>${escapeHtml(adventureComplete ? "伙伴奇遇 · 已完成" : adventure.title)}</strong>
+                <span>${escapeHtml(adventureComplete ? "已收下赠礼" : adventure.kicker)}</span>
+              </div>
+              <p>${
+                adventureComplete
+                  ? `这段奇遇已经留下记录。${escapeHtml(adventure.reward.name)}已放入背包。`
+                  : state.companionAdventureId === companionAdventure.id
+                    ? `${escapeHtml(adventure.speaker || companion.name)}：${escapeHtml(adventure.copy)}`
+                    : adventureReady
+                      ? escapeHtml(adventure.copy)
+                      : `好感达到 ${adventure.requiredFavor} 点后触发，当前还差 ${Math.max(0, adventure.requiredFavor - favor)} 点。`
+              }</p>
+              ${
+                !adventureComplete && state.companionAdventureId === companionAdventure.id
+                  ? `
+                    <div class="companion-adventure-options">
+                      ${adventure.options.map((option) => `
+                        <button class="companion-adventure-option" type="button" data-companion-adventure-choice="${escapeHtml(`${companion.id}::${option.id}`)}">
+                          <strong>${escapeHtml(option.label)}</strong>
+                          <span>继续听${escapeHtml(companion.name)}把话说完</span>
+                        </button>
+                      `).join("")}
+                    </div>
+                  `
+                  : !adventureComplete
+                    ? `<button class="small-button" type="button" data-companion-adventure-start="${escapeHtml(companion.id)}" ${adventureReady ? "" : "disabled"}>${adventureReady ? "进入奇遇" : "好感未达标"}</button>`
+                    : ""
+              }
+            </section>
+          `
+          : "";
+        const partnerMarkup = companion.gender === "女"
+          ? `
+            <section class="companion-scene-partner ${partnered ? "is-partnered" : ""}" aria-label="伴侣关系">
+              <div class="companion-scene-partner-copy">
+                <strong>${partnered ? "已结为伴侣" : "伴侣关系"}</strong>
+                <span>${
+                  partnered
+                    ? "关系确认后仍可继续互动，好感没有上限。"
+                    : `女性伙伴好感达到 ${COMPANION_PARTNER_AFFECTION_THRESHOLD} 点后可结为伴侣；当前 ${favor} 点，好感仍可继续累积。`
+                }</span>
+              </div>
+              ${
+                partnered
+                  ? ""
+                  : `<button class="small-button" type="button" data-companion-partner="${escapeHtml(companion.id)}" ${partnerEligible ? "" : "disabled"}>${
+                    partnerEligible
+                      ? "确认结为伴侣"
+                      : `还需 ${Math.max(0, COMPANION_PARTNER_AFFECTION_THRESHOLD - favor)} 点`
+                  }</button>`
+              }
+            </section>
+          `
+          : "";
+        const panel = ["gifts", "persona", "logs"].includes(state.companionPanel)
           ? state.companionPanel
           : "main";
         const dialogue = state.companionMessage
@@ -20246,9 +22799,9 @@
             <section class="companion-scene-drawer" aria-label="伙伴礼物">
               <div class="companion-scene-drawer-header">
                 <strong>礼物</strong>
-                <span>偏好礼物可提升更多好感</span>
+                <span>专属礼物可看广告领取</span>
               </div>
-              <div class="companion-gift-list">${giftMarkup}</div>
+              <div class="companion-gift-list">${exclusiveGiftMarkup}${giftMarkup}</div>
               <button class="companion-scene-drawer-close" type="button" data-companion-panel="main">返回互动</button>
             </section>
           `
@@ -20287,6 +22840,35 @@
             </section>
           `
           : "";
+        const logPanelMarkup = panel === "logs"
+          ? `
+            <section class="companion-scene-drawer companion-log-drawer" aria-label="相处日志">
+              <div class="companion-scene-drawer-header">
+                <strong>相处日志</strong>
+                <span>共 ${interactionLogs.length} 条</span>
+              </div>
+              ${
+                interactionLogs.length
+                  ? `<div class="companion-log-list">${interactionLogs.map((entry) => `
+                    <article class="companion-log-entry">
+                      <div class="companion-log-entry-header">
+                        <strong>${escapeHtml(entry.title)}</strong>
+                        <time>${escapeHtml(formatCompanionLogTime(entry.createdAt))}</time>
+                      </div>
+                      <p>${escapeHtml(entry.detail)}</p>
+                      ${
+                        entry.favorAfter !== entry.favorBefore
+                          ? `<small>好感 ${entry.favorBefore} → ${entry.favorAfter}</small>`
+                          : ""
+                      }
+                    </article>
+                  `).join("")}</div>`
+                  : `<div class="companion-log-empty">还没有相处记录。交流、赠礼和伙伴奇遇都会留在这里。</div>`
+              }
+              <button class="companion-scene-drawer-close" type="button" data-companion-panel="main">返回互动</button>
+            </section>
+          `
+          : "";
         return `
           <div class="modal-overlay" role="presentation">
             <section class="modal-card companion-cultivation-card companion-scene-card" role="dialog" aria-modal="true" aria-labelledby="companionCultivationTitle">
@@ -20295,14 +22877,33 @@
                   <div class="companion-scene-heading">
                     <div class="modal-kicker">伙伴互动 · 好感培养</div>
                     <div class="modal-title" id="companionCultivationTitle">${escapeHtml(companion.name)}</div>
-                    <span class="companion-scene-role">${escapeHtml(companion.role)} · ${record.active ? "已编队" : "未编队"}</span>
+                    <span class="companion-scene-role">${escapeHtml(companion.role)} · ${record.active ? "已编队" : "未编队"}${partnered ? " · 伴侣" : ""}</span>
                   </div>
                   <div class="companion-scene-topbar-actions">
                     <button class="companion-scene-persona-button" type="button" data-companion-panel="persona" aria-expanded="${panel === "persona"}" aria-label="查看${escapeHtml(companion.name)}人物卡">人物卡</button>
+                    <button class="companion-scene-persona-button" type="button" data-companion-panel="logs" aria-expanded="${panel === "logs"}" aria-label="查看相处日志">相处日志</button>
                     <button class="companion-scene-close" type="button" data-companion-close aria-label="关闭伙伴培养">×</button>
                   </div>
                 </div>
                 <div class="companion-scene-stage">
+                  <div class="companion-scene-familiarity" aria-label="相处熟悉度 ${escapeHtml(favorStage.label)}，好感 ${favor} 点">
+                    <div class="companion-scene-familiarity-heading">
+                      <strong>相处熟悉度 · ${escapeHtml(favorStage.label)}</strong>
+                      <span>${
+                        nextFavorStage
+                          ? `${familiarityStageCurrent} / ${familiarityStageTarget} 点`
+                          : "已满"
+                      }</span>
+                    </div>
+                    <div class="companion-scene-familiarity-track">
+                      <div class="companion-scene-familiarity-fill" style="width:${favorProgress}%"></div>
+                    </div>
+                    <span class="companion-scene-familiarity-next">${
+                      nextFavorStage
+                        ? `下一阶段：${escapeHtml(nextFavorStage.label)}`
+                        : "相处已达到当前上限"
+                    }</span>
+                  </div>
                   <div class="companion-scene-character-shell">
                     ${getCompanionPortraitMarkup(companion, "companion-scene-character")}
                   </div>
@@ -20343,9 +22944,12 @@
                   <div class="companion-scene-bonus">
                     <strong>${record.active ? "战斗支援" : "编队后支援"}</strong> · ${escapeHtml(bonusText)} · ${escapeHtml(getCompanionFavorMilestoneText(favor))}
                   </div>
+                  ${partnerMarkup}
+                  ${adventureMarkup}
                 </div>
                 ${giftPanelMarkup}
                 ${personaPanelMarkup}
+                ${logPanelMarkup}
               </div>
             </section>
           </div>
@@ -20369,27 +22973,33 @@
           0,
           Math.min(1, Number(activeBanner.partnerRate) || 0),
         );
-        const summonGenderRateDetails = Object.entries(activeBanner.genderRates || {})
-          .map(([gender, rate]) => {
-            const numericRate = Number(rate);
-            if (!Number.isFinite(numericRate)) return "";
-            const label = gender === "male"
-              ? "男性"
-              : gender === "female"
-                ? "女性"
-                : gender;
-            return `${label} ${Math.round(numericRate * 100)}%`;
-          })
-          .filter(Boolean)
-          .join(" · ");
+        const formatSummonPercent = (rate) => {
+          const percent = Math.max(0, Number(rate) || 0) * 100;
+          return `${Number.isInteger(percent) ? percent.toFixed(0) : percent.toFixed(1)}%`;
+        };
+        const summonCompanionWeights = bannerPool.map((companion) => ({
+          companion,
+          weight: Math.max(
+            0.001,
+            Number(activeBanner?.companionRates?.[companion.id])
+              || (activeBanner?.featuredIds?.includes(companion.id) ? 0.03 : 0.01),
+          ),
+        }));
+        const summonCompanionWeightTotal = summonCompanionWeights.reduce(
+          (sum, entry) => sum + entry.weight,
+          0,
+        );
+        const summonCompanionRateDetails = summonCompanionWeightTotal > 0
+          ? summonCompanionWeights
+            .map((entry) => `${entry.companion.name} ${formatSummonPercent(activePartnerRate * entry.weight / summonCompanionWeightTotal)}`)
+            .join(" · ")
+          : "";
         const summonRateNote = [
-          summonGenderRateDetails ? `人物分项出率：${summonGenderRateDetails}` : "",
-          `人物总出率取当前奖池最高档：${Math.round(activePartnerRate * 100)}%`,
+          `人物基础总出率：${formatSummonPercent(activePartnerRate)}`,
+          summonCompanionRateDetails ? `单名折算：${summonCompanionRateDetails}` : "",
+          `新存档第 ${SUMMON_BEGINNER_GUARANTEE_DRAWS} 抽优先回应未招募伙伴；之后连续 ${SUMMON_PARTNER_PITY_LIMIT - 1} 抽未出人物，第 ${SUMMON_PARTNER_PITY_LIMIT} 抽必得`,
         ].filter(Boolean).join(" · ");
-        const recruitedCount = COMPANION_POOL.filter((companion) =>
-          state.companions[companion.id]?.recruited === true
-        ).length;
-        const activeCount = getActiveCompanions().length;
+        const summonRateOpen = state.summonRateOpen === true;
         const summonVideoBusy = state.adBusy && state.adPlacement === "summon_five_pull";
         const summonLocked = summonAnimation.active || state.adBusy;
         const freeTenDraws = Math.max(
@@ -20420,87 +23030,53 @@
             <strong>${escapeHtml(banner.name)}</strong>
           </button>
         `).join("");
-        const cards = COMPANION_POOL.map((companion) => {
-          const unlocked = isCompanionPoolUnlocked(companion);
-          const inBanner = bannerPool.some((entry) => entry.id === companion.id);
-          const featured = activeBanner.featuredIds?.includes(companion.id);
-          const record = state.companions[companion.id] || {
-            recruited: false,
-            copies: 0,
-            favor: 0,
-            active: false,
-          };
-          const recruited = record.recruited === true;
-          const active = recruited && record.active === true;
-          const favor = normalizeCompanionFavor(record.favor);
-          const favorStage = getCompanionFavorStage(favor);
-          const status = recruited ? (active ? "已编队" : "已招募") : unlocked ? "可招募" : "未解锁";
-          const statusDetail = recruited
-            ? `好感 ${favor} 点 · ${favorStage.label} · 契片 ${Math.max(0, Number(record.memory) || 0)}`
-            : inBanner && unlocked
-              ? "当前奖池"
-              : unlocked
-                ? "已招募 · 当前奖池不可再次获得"
-              : companion.id === "ye_chen_xing"
-                ? "第六章完成后解锁"
-                : `完成「${TASKS[companion.unlockTask]?.title || "前置任务"}」后解锁`;
-          const rarityClass = companion.rarity === "传承" ? "is-heritage" : "is-rare";
-          return `
-            <article class="summon-card ${rarityClass} ${recruited ? "is-recruited" : ""} ${active ? "is-active" : ""} ${unlocked ? "" : "is-locked"}">
-              <span class="summon-card-portrait-wrap">
-                ${getCompanionPortraitMarkup(companion, "summon-portrait")}
-              </span>
-              <div class="summon-card-copy">
-                <strong class="summon-card-name">${escapeHtml(companion.name)}</strong>
-                <span class="summon-card-role">${escapeHtml(companion.rarity)} · ${escapeHtml(companion.role)}${featured ? " · UP" : ""}</span>
-                <span class="summon-card-desc">${escapeHtml(companion.intro)}</span>
-              </div>
-              <div class="summon-card-status">
-                <strong>${escapeHtml(status)}</strong>
-                <span>${escapeHtml(statusDetail)}</span>
-                ${recruited ? `
-                  <button class="small-button summon-card-toggle" type="button" data-companion-cultivate="${escapeHtml(companion.id)}">
-                    伙伴培养
-                  </button>
-                  <button class="small-button summon-card-toggle" type="button" data-companion-toggle="${escapeHtml(companion.id)}">
-                    ${active ? "移出队伍" : "编入队伍"}
-                  </button>
-                ` : ""}
-              </div>
-            </article>
-          `;
-        }).join("");
         content.innerHTML = `
           <div class="summon-view" data-scroll-surface="summon">
             <section class="summon-hero ${summonAnimation.active ? "is-drawing" : ""}" style="--summon-background:url('${GENERATED_ART.summonBackground}')" aria-label="伙伴招募" aria-busy="${summonAnimation.active}">
               <img class="summon-hero-light" src="${GENERATED_ART.summonLight}" alt="" aria-hidden="true">
               <div class="eyebrow">伙伴招募 · 获取与编队</div>
               <div class="summon-hero-title">伙伴招募</div>
-              <p class="summon-hero-copy">招募可获得人物或同契记忆。人物分项出率：${escapeHtml(summonGenderRateDetails || "按当前奖池配置")}；人物总出率取当前奖池最高档 ${Math.round(activePartnerRate * 100)}%；连续 ${SUMMON_PARTNER_PITY_LIMIT - 1} 抽未出人物时，第 ${SUMMON_PARTNER_PITY_LIMIT} 抽必得人物；重复招募将转化为契片与好感。</p>
+              <p class="summon-hero-copy">招募可获得人物或同契记忆；重复招募会转化为契片与好感。</p>
               <div class="summon-banner-tabs" role="tablist" aria-label="招募奖池">
                 ${bannerTabs}
               </div>
               <div class="summon-banner-copy">
                 <strong>${escapeHtml(activeBanner.name)}</strong>
-                <span>${escapeHtml(activeBanner.description)} · 本池伙伴：${activeBanner.featuredIds.map((id) => getCompanionById(id)?.name || id).join("、")}</span>
+                <span>${escapeHtml(activeBanner.description)}</span>
               </div>
-              <div class="summon-rate-note summon-unlock-note" role="note">${escapeHtml(summonUnlockNotice)}</div>
               <div class="summon-hero-meta">
-                <span class="summon-meta-chip">奖池伙伴 ${bannerPool.length} 名</span>
-                <span class="summon-meta-chip">已招募 ${recruitedCount} 名</span>
-                <span class="summon-meta-chip">编队 ${activeCount}/3</span>
                 <span class="summon-meta-chip">保底进度 ${state.summon.pity}/${SUMMON_PARTNER_PITY_LIMIT}</span>
                 <span class="summon-meta-chip">记忆 ${state.summon.memory}</span>
                 <span class="summon-meta-chip">契片 ${state.summon.shards}</span>
                 <span class="summon-meta-chip">灵石 ${state.stones}</span>
                 ${freeTenDraws > 0 ? `<span class="summon-meta-chip">免费十连券 ${freeTenDraws}</span>` : ""}
               </div>
-              <div class="summon-rate-grid" aria-label="奖池概率">
-                <div><span>人物总出率</span><strong>${Math.round(activePartnerRate * 100)}%</strong></div>
-                <div><span>同契记忆</span><strong>${Math.round((1 - activePartnerRate) * 100)}%</strong></div>
-                <div><span>人物保底</span><strong>${SUMMON_PARTNER_PITY_LIMIT} 抽</strong></div>
+              <div class="summon-rate-toggle-row">
+                <button class="summon-rate-toggle-button" type="button" data-summon-rates-toggle aria-expanded="${summonRateOpen}">
+                  <strong>奖池说明</strong>
+                  <span>${summonRateOpen ? "收起详情" : "点击查看概率与解锁条件"}</span>
+                </button>
               </div>
-              ${summonRateNote ? `<div class="summon-rate-note">${escapeHtml(summonRateNote)}</div>` : ""}
+              ${
+                summonRateOpen
+                  ? `
+                    <section class="summon-rate-details" aria-label="奖池说明">
+                      <div class="summon-rate-details-heading">
+                        <strong>当前奖池说明</strong>
+                        <span>${bannerPool.length} 名伙伴可进入本池</span>
+                      </div>
+                      <div class="summon-rate-note summon-unlock-note" role="note">${escapeHtml(summonUnlockNotice)}</div>
+                      <div class="summon-rate-grid" aria-label="奖池概率">
+                        <div><span>人物基础出率</span><strong>${formatSummonPercent(activePartnerRate)}</strong></div>
+                        <div><span>同契记忆</span><strong>${formatSummonPercent(1 - activePartnerRate)}</strong></div>
+                        <div><span>人物保底</span><strong>${SUMMON_PARTNER_PITY_LIMIT} 抽</strong></div>
+                      </div>
+                      ${summonRateNote ? `<div class="summon-rate-note">${escapeHtml(summonRateNote)}</div>` : ""}
+                      <div class="summon-rate-note">本池人物：${escapeHtml(bannerPool.map((entry) => entry.name).join("、") || "暂无")}</div>
+                    </section>
+                  `
+                  : ""
+              }
               ${renderSummonRitual(activeBanner, latestResults)}
               <div class="summon-actions">
                 <button class="summon-action primary" type="button" data-summon-draw="1" ${bannerPool.length && state.stones >= activeBanner.singleCost && !summonLocked ? "" : "disabled"}>
@@ -20526,11 +23102,7 @@
               </div>
               ${latestResult ? `<div class="summon-result">最近结果：${escapeHtml(latestResult)}</div>` : ""}
             </section>
-            <div class="summon-section-heading">
-              <strong>伙伴档案</strong>
-              <span>已招募伙伴 · 最多编入 3 名</span>
-            </div>
-            <div class="summon-grid">${cards}</div>
+            <div class="summon-archive-hint">已招募伙伴请前往“背包 · 伙伴”进行培养与编队。</div>
           </div>
         `;
       }
@@ -20589,6 +23161,7 @@
           const locked = floor.floor > state.towerCurrentFloor;
           const cost = Math.max(1, floor.cost - Math.min(3, state.towerBlessing));
           const rewardBundle = getTowerRewardBundle(floor);
+          const floorScore = getTowerFloorScore(floor.id);
           const actionMarkup = cleared
             ? `<span class="tower-floor-badge">已通关 · 不可重复挑战</span>`
             : current
@@ -20608,6 +23181,9 @@
                 · 花费灵力 ${cost} · 首通灵石 +${rewardBundle.stones} · 灵力回流 +${rewardBundle.rewardEnergy}
                 · ${escapeHtml(getTowerDifficulty(floor).rewardTier)}：${escapeHtml(floor.dropHint)}
                 · 材料：${escapeHtml(rewardBundle.material?.name || "无")} ×${rewardBundle.material?.count || 0}
+                · 本层评分：${floorScore
+                  ? `${floorScore.score} 分（${floorScore.remainingHp}/${floorScore.maxHp} 气血 · ${floorScore.rounds} 回合）`
+                  : "未完成"}
               </div>
               <div class="tower-floor-action">${actionMarkup}</div>
             </article>
@@ -20628,7 +23204,7 @@
                 <div class="tower-hero-copy">
                   <div class="eyebrow">当前进度</div>
                   <div class="screen-title">${towerComplete ? "塔顶已达成" : currentFloor ? `第 ${currentFloor.floor} 层 · ${escapeHtml(currentFloor.title)}` : "等待新的登塔记录"}</div>
-                  <p>失败后可重新挑战；敌方气血、攻势与战斗机制会逐层加压，装备词条、淬炼属性和伙伴协同会影响通关容错。楼层奖励仅可领取一次。</p>
+                  <p>失败后可重新挑战；敌方气血、攻势与战斗机制会逐层加压，装备词条、淬炼属性和伙伴协同会影响通关容错。每层通关按剩余气血和战斗回合计算评分，同一层只记录最高分，全部楼层评分累加进入爬塔榜。</p>
                 </div>
                 <div class="tower-floor-count">${state.towerBestFloor}<span>/ ${TOWER_FLOORS.length} 层</span></div>
               </div>
@@ -20636,6 +23212,14 @@
                 <div class="tower-stat"><span>当前灵力</span><strong>${state.energy}<small>低于 ${MAX_ENERGY} 时自动恢复</small></strong></div>
                 <div class="tower-stat"><span>登塔祝福</span><strong>${state.towerBlessing}</strong></div>
                 <div class="tower-stat"><span>灵石</span><strong>${state.stones}</strong></div>
+                <div class="tower-stat"><span>累计爬塔评分</span><strong>${getTowerTotalScore()}<small>每层最高分累加</small></strong></div>
+              </div>
+              <div class="tower-ad-reward" aria-label="观看广告获得灵气">
+                <div class="tower-ad-reward-copy">
+                  <strong>登塔回气 · 灵气 +${TOWER_SPIRIT_AD_REWARD}</strong>
+                  <span>完整观看广告立即获得灵气，不设次数上限，可反复使用。</span>
+                </div>
+                <button class="small-button" type="button" data-tower-spirit-ad ${state.adBusy ? "disabled" : ""}>${state.adBusy && state.adPlacement === "tower_spirit" ? "广告加载中" : `观看广告 · 灵气 +${TOWER_SPIRIT_AD_REWARD}`}</button>
               </div>
               ${state.towerMessage ? `<div class="tower-message">${escapeHtml(state.towerMessage)}</div>` : ""}
             </section>
@@ -20649,12 +23233,16 @@
         `;
       }
 
-      function getItemStatValues(item) {
+      function getItemBaseStatValues(item) {
         const catalog = EQUIPMENT_CATALOG[item?.id] || {};
-        const baseStats = {
+        return {
           ...(catalog.baseStats || {}),
           ...(item?.baseStats || {}),
         };
+      }
+
+      function getItemStatValues(item) {
+        const baseStats = getItemBaseStatValues(item);
         const values = {
           ...baseStats,
         };
@@ -20973,24 +23561,22 @@
             ? `<div class="empty-state">暂无符合当前筛选条件的装备。</div>`
             : `<div class="empty-state">暂无可穿戴装备。</div>`;
 
-        const renderEquipmentFilterOptions = (filterType, selectedValue, options) => `
-          <div class="equipment-filter-options" role="group" aria-label="${filterType === "slot" ? "品类筛选" : "品质筛选"}">
+        const renderEquipmentFilterSelect = (filterType, selectedValue, options) => `
+          <select
+            class="equipment-filter-select"
+            data-equipment-filter="${filterType}"
+            aria-label="${filterType === "slot" ? "品类筛选" : "品质筛选"}"
+          >
             ${options.map(([value, label]) => `
-              <button
-                class="equipment-filter-option ${selectedValue === value ? "is-selected" : ""}"
-                type="button"
-                data-equipment-filter="${filterType}"
-                data-equipment-filter-value="${escapeHtml(value)}"
-                aria-pressed="${selectedValue === value}"
-              >${escapeHtml(label)}</button>
+              <option value="${escapeHtml(value)}" ${selectedValue === value ? "selected" : ""}>${escapeHtml(label)}</option>
             `).join("")}
-          </div>
+          </select>
         `;
         const equipmentFilterMarkup = `
           <div class="equipment-filter-bar" aria-label="装备筛选">
             <div class="equipment-filter-field">
               <span>品类</span>
-              ${renderEquipmentFilterOptions(
+              ${renderEquipmentFilterSelect(
                 "slot",
                 state.equipmentFilterSlot,
                 [["all", "全部品类"], ...Object.entries(EQUIPMENT_SLOTS)],
@@ -20998,7 +23584,7 @@
             </div>
             <div class="equipment-filter-field">
               <span>品质</span>
-              ${renderEquipmentFilterOptions(
+              ${renderEquipmentFilterSelect(
                 "quality",
                 state.equipmentFilterQuality,
                 [
@@ -21062,15 +23648,6 @@
               <strong>装备</strong>
               <span>${filteredEquipmentItems.length}/${equipmentItems.length} 件 · 选择物品查看详情</span>
             </div>
-            ${equipmentFilterMarkup}
-            <div class="equipment-bag-grid">${equipmentMarkup}</div>
-            <section class="info-panel equipment-bag-panel">
-              <div class="panel-label">当前装备加成</div>
-              <div class="equipment-summary">
-                ${renderEquipmentSummary(equipmentStats)}
-              </div>
-              <p class="quest-copy">装备影响攻击、破阵与回气属性。</p>
-            </section>
             <section class="forge-banner">
               <strong>${forgeUnlocked ? "淬炼台 · 已开放" : "淬炼台 · 第二章开放"}</strong>
               <span>${forgeUnlocked ? "消耗材料为装备添加词条；词条将影响战斗属性。" : "完成第二章“灯下无名”后开放淬炼台。可生成锋锐、回气、定心与护身词条。"}</span>
@@ -21081,6 +23658,15 @@
                 <div class="forge-affix"><img src="assets/bundles/system_forge/art/icon_affix_trace_light.png" alt=""><span>寻迹</span></div>
               </div>
               <button class="forge-enter-button" type="button" data-forge-open="" ${forgeUnlocked ? "" : "disabled"}>${forgeUnlocked ? "进入淬炼台" : "完成第二章后开放"}</button>
+            </section>
+            ${equipmentFilterMarkup}
+            <div class="equipment-bag-grid">${equipmentMarkup}</div>
+            <section class="info-panel equipment-bag-panel">
+              <div class="panel-label">当前装备加成</div>
+              <div class="equipment-summary">
+                ${renderEquipmentSummary(equipmentStats)}
+              </div>
+              <p class="quest-copy">装备影响攻击、破阵与回气属性。</p>
             </section>
           </section>
         `;
@@ -21292,6 +23878,144 @@
         return wasMoving;
       }
 
+      function getNextMapAdventure() {
+        const history = Array.isArray(state.mapAdventureHistory)
+          ? state.mapAdventureHistory
+          : [];
+        const seen = new Set(history.map((entry) => entry?.eventId));
+        const events = Object.values(MAP_ADVENTURES);
+        const unseen = events.filter((event) => !seen.has(event.id));
+        if (unseen.length) return unseen[0];
+        return events[history.length % Math.max(1, events.length)] || null;
+      }
+
+      function triggerMapAdventure(trigger = "全局随机发现") {
+        if (
+          !state.rootLocked
+          || state.mapAdventureId
+          || state.activeAdventureId
+          || state.storyActive
+          || state.battleActive
+          || state.rewardSettlementOpen
+          || state.forgeOpen
+        ) {
+          return null;
+        }
+        const event = getNextMapAdventure();
+        if (!event) return null;
+        state.mapAdventureId = event.id;
+        state.mapAdventureOpen = false;
+        state.mapAdventureTrigger = String(trigger || "全局随机发现").slice(0, 60);
+        return event;
+      }
+
+      function getMapAdventureRollDelay() {
+        return 12000 + Math.floor(Math.random() * 18000);
+      }
+
+      function armMapAdventureRoll(delay = getMapAdventureRollDelay()) {
+        state.mapAdventureNextRollAt = Date.now() + Math.max(1000, Math.round(delay));
+      }
+
+      function maybeTriggerGlobalMapAdventure(source = "全局游历") {
+        if (
+          !state.rootLocked
+          || (state.tutorialEnabled && !state.tutorialComplete)
+          || state.mapAdventureId
+        ) {
+          return null;
+        }
+        if (!state.mapAdventureNextRollAt) {
+          armMapAdventureRoll();
+          return null;
+        }
+        if (Date.now() < state.mapAdventureNextRollAt) {
+          return null;
+        }
+
+        // Re-arm before resolving the roll so a blocked scene does not cause
+        // repeated checks to fire on every timer tick.
+        armMapAdventureRoll(9000 + Math.floor(Math.random() * 9000));
+        if (Math.random() > 0.14) {
+          return null;
+        }
+        const event = triggerMapAdventure(`随机 · ${source}`);
+        if (!event) return null;
+        persistPreviewState();
+        render();
+        showToast("地图出现新的奇遇，点击地图栏查看", "reward");
+        return event;
+      }
+
+      function finishMapArrival(label) {
+        persistPreviewState();
+        render();
+        showToast("已抵达：" + label);
+      }
+
+      function openMapAdventure() {
+        if (!state.mapAdventureId || !MAP_ADVENTURES[state.mapAdventureId]) return;
+        state.tab = "map";
+        state.mapView = "local";
+        state.mapAdventureOpen = true;
+        render();
+      }
+
+      function closeMapAdventure() {
+        if (!state.mapAdventureOpen) return;
+        state.mapAdventureOpen = false;
+        render();
+        showToast("奇遇已暂存，地图栏橙点仍会保留");
+      }
+
+      function resolveMapAdventureChoice(eventId, optionId) {
+        const event = MAP_ADVENTURES[eventId];
+        const option = event?.options?.find((entry) => entry.id === optionId);
+        if (!event || !option || state.mapAdventureId !== eventId) return;
+        const effects = option.effects || {};
+        if (Number(effects.stones)) {
+          state.stones = Math.max(0, state.stones + Number(effects.stones));
+        }
+        if (Number(effects.energy)) {
+          state.energy = Math.max(0, state.energy + Number(effects.energy));
+        }
+        if (Number(effects.favor)) {
+          state.favor = Math.max(0, state.favor + Number(effects.favor));
+        }
+        if (Number(effects.insight)) {
+          state.stats.insight += Number(effects.insight);
+        }
+        if (Number(effects.cultivation)) {
+          state.cultivation = Math.min(
+            state.cultivationNeed,
+            state.cultivation + Number(effects.cultivation),
+          );
+        }
+        if (Number(effects.towerBlessing)) {
+          state.towerBlessing = Math.max(
+            0,
+            Math.min(3, state.towerBlessing + Number(effects.towerBlessing)),
+          );
+        }
+        state.mapAdventureHistory = [
+          ...(Array.isArray(state.mapAdventureHistory) ? state.mapAdventureHistory : []).slice(-29),
+          {
+            eventId,
+            optionId,
+            title: event.title,
+            trigger: state.mapAdventureTrigger,
+            at: Date.now(),
+          },
+        ];
+        state.mapAdventureId = "";
+        state.mapAdventureOpen = false;
+        state.mapAdventureNextRollAt = 0;
+        state.mapAdventureTrigger = "";
+        persistPreviewState();
+        render();
+        showToast(option.result, "reward");
+      }
+
       function moveToLocation(locationId) {
         const location = LOCATION_DATA[locationId];
         if (!location) return;
@@ -21396,8 +24120,7 @@
           if (queueLocationEvent(locationId)) {
             return;
           }
-          render();
-          showToast("已抵达：" + location.name);
+          finishMapArrival(location.name);
         };
 
         state.moveAnimationId = window.requestAnimationFrame(animate);
@@ -21632,6 +24355,27 @@
         });
       }
 
+      function claimTowerSpiritAd() {
+        if (state.adBusy) {
+          showToast("广告准备中，请稍候", "loading");
+          return;
+        }
+        void AdService.showRewarded({
+          placement: "tower_spirit",
+          onReward: () => {
+            state.energy = Math.max(0, state.energy + TOWER_SPIRIT_AD_REWARD);
+            state.towerMessage = `广告回气完成：灵气 +${TOWER_SPIRIT_AD_REWARD}，可继续登塔。`;
+            state.battleFeedback = {
+              kind: "reward",
+              label: "登塔回气",
+              detail: `灵气 +${TOWER_SPIRIT_AD_REWARD}`,
+            };
+            persistPreviewState();
+            render();
+          },
+        });
+      }
+
       function breakthrough() {
         if (state.cultivation < state.cultivationNeed) {
           showToast("修为未达到突破要求");
@@ -21757,12 +24501,25 @@
         state.towerBattleId = "";
         state.towerBlessing = 0;
         state.towerMessage = "";
+        state.towerFloorScores = {};
+        state.towerTotalScore = 0;
+        state.towerLastScore = null;
         state.activeAdventureId = "";
         state.adventureHistory = [];
+        state.mapAdventureId = "";
+        state.mapAdventureOpen = false;
+        state.mapAdventureTrigger = "";
+        state.mapAdventureHistory = [];
         state.storyNodeId = "n001";
         state.storyKind = "main";
         state.storyStarted = false;
         state.settingsOpen = false;
+        state.leaderboardOpen = false;
+        state.leaderboardLoading = false;
+        state.leaderboardSubmitting = false;
+        state.leaderboardError = "";
+        state.leaderboardList = [];
+        state.leaderboardRecord = null;
         state.taskSections = {
           chapter1: true,
           chapter2: false,
@@ -21780,6 +24537,10 @@
         state.detailModal = null;
         state.companionCultivationId = "";
         state.companionMessage = "";
+        state.companionPanel = "main";
+        state.companionInteractionLogs = [];
+        state.companionInteractionCounter = 0;
+        state.companionAdventureId = "";
         state.shardShopOpen = false;
         state.equipmentPickerSlot = "";
         state.eventTriggerMode = "confirm";
@@ -21789,6 +24550,9 @@
         state.saveConfirm = null;
         state.storyExitConfirmOpen = false;
         state.forgeOpen = false;
+        state.summonRateOpen = false;
+        state.forgePickerOpen = false;
+        state.forgeGuideOpen = false;
         state.forgeSelectedId = "";
         state.forgePhase = "idle";
         state.forgeResult = null;
@@ -21973,7 +24737,7 @@
 
       content.addEventListener("click", (event) => {
         const target = event.target.closest("[data-equipment-filter]");
-        if (!target) return;
+        if (!target || target.dataset.equipmentFilterValue === undefined) return;
         const filterType = target.dataset.equipmentFilter;
         const value = target.dataset.equipmentFilterValue;
         if (filterType === "slot") {
@@ -22210,6 +24974,12 @@
           ? event.target.closest("button")
           : null;
         if (!target) return;
+        if (
+          target.closest("#appHeader, #bottomNav, #overlayRoot")
+          || target.closest("[data-leaderboard-open]")
+        ) {
+          return;
+        }
 
         const now = performance.now();
         if (now < previewTapLockUntil) {
@@ -22218,6 +24988,25 @@
           return;
         }
         previewTapLockUntil = now + 220;
+      }, true);
+      content.addEventListener("click", (event) => {
+        const target = event.target instanceof Element
+          ? event.target.closest("button[data-companion-cultivate]")
+          : null;
+        if (!target || target.disabled || state.tab !== "summon") return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        openCompanionCultivation(target.dataset.companionCultivate);
+      }, true);
+      content.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        const target = event.target instanceof Element
+          ? event.target.closest("button[data-companion-cultivate]")
+          : null;
+        if (!target || target.disabled || state.tab !== "summon") return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        openCompanionCultivation(target.dataset.companionCultivate);
       }, true);
       content.addEventListener("click", (event) => {
         if (performance.now() >= suppressScrollClickUntil) return;
@@ -22229,6 +25018,27 @@
       overlayRoot.addEventListener("click", (event) => {
         const target = event.target.closest("button");
         if (!target) return;
+
+        if (target.dataset.mapAdventureLater !== undefined) {
+          closeMapAdventure();
+          return;
+        }
+
+        if (target.dataset.mapAdventureChoice) {
+          const [eventId, optionId] = target.dataset.mapAdventureChoice.split("::");
+          resolveMapAdventureChoice(eventId, optionId);
+          return;
+        }
+
+        if (target.dataset.leaderboardClose !== undefined) {
+          closeLeaderboard();
+          return;
+        }
+
+        if (target.dataset.leaderboardSubmitTower !== undefined) {
+          void submitTowerLeaderboardScore();
+          return;
+        }
 
         if (target.dataset.announcementClaim !== undefined) {
           claimPreviewUpdateReward();
@@ -22274,7 +25084,7 @@
         }
 
         if (target.dataset.companionPanel) {
-          state.companionPanel = ["gifts", "persona"].includes(target.dataset.companionPanel)
+          state.companionPanel = ["gifts", "persona", "logs"].includes(target.dataset.companionPanel)
             ? target.dataset.companionPanel
             : "main";
           render();
@@ -22291,8 +25101,29 @@
           return;
         }
 
+        if (target.dataset.companionPartner) {
+          formCompanionPartnership(target.dataset.companionPartner);
+          return;
+        }
+
         if (target.dataset.companionToggle) {
           toggleCompanionActive(target.dataset.companionToggle);
+          return;
+        }
+
+        if (target.dataset.companionExclusiveAd) {
+          claimCompanionExclusiveGift(target.dataset.companionExclusiveAd);
+          return;
+        }
+
+        if (target.dataset.companionAdventureStart) {
+          openCompanionAdventure(target.dataset.companionAdventureStart);
+          return;
+        }
+
+        if (target.dataset.companionAdventureChoice) {
+          const [companionId, optionId] = target.dataset.companionAdventureChoice.split("::");
+          resolveCompanionAdventureChoice(companionId, optionId);
           return;
         }
 
@@ -22474,6 +25305,11 @@
         const target = event.target.closest("button");
         if (!target) return;
 
+        if (target.dataset.leaderboardOpen !== undefined) {
+          openLeaderboard();
+          return;
+        }
+
         if (target.dataset.herbGardenClose !== undefined) {
           state.herbGardenOpen = false;
           render();
@@ -22513,6 +25349,12 @@
           }
           state.lastActionSignature = signature;
           state.lastActionAt = now;
+        }
+
+        if (target.dataset.summonRatesToggle !== undefined) {
+          state.summonRateOpen = !state.summonRateOpen;
+          render();
+          return;
         }
 
         if (target.dataset.summonVideoFive !== undefined) {
@@ -22650,6 +25492,8 @@
           }
           clearForgeAnimationTimers();
           state.forgeOpen = false;
+          state.forgePickerOpen = false;
+          state.forgeGuideOpen = false;
           state.forgePhase = "idle";
           state.forgeResult = null;
           render();
@@ -22661,9 +25505,34 @@
           return;
         }
 
+        if (target.dataset.forgeGuideToggle !== undefined) {
+          state.forgeGuideOpen = !state.forgeGuideOpen;
+          render();
+          return;
+        }
+
+        if (target.dataset.forgePickerOpen !== undefined) {
+          if (
+            (state.forgePhase !== "idle" && state.forgePhase !== "settled")
+            || (state.forgeResult && !state.forgeResult.saved)
+          ) {
+            showToast("完成当前淬炼后才能切换装备");
+            return;
+          }
+          state.forgePickerOpen = true;
+          render();
+          return;
+        }
+
+        if (target.dataset.forgePickerClose !== undefined) {
+          state.forgePickerOpen = false;
+          render();
+          return;
+        }
+
         if (target.dataset.forgeSelect) {
           if (state.forgePhase !== "idle" && state.forgePhase !== "settled") {
-          showToast("淬炼进行中，不可切换装备");
+            showToast("淬炼进行中，不可切换装备");
             return;
           }
           if (state.forgeResult && !state.forgeResult.saved) {
@@ -22672,6 +25541,7 @@
           }
           clearForgeAnimationTimers();
           state.forgeSelectedId = target.dataset.forgeSelect;
+          state.forgePickerOpen = false;
           state.forgePhase = "idle";
           state.forgeResult = null;
           render();
@@ -22680,7 +25550,7 @@
 
         if (target.dataset.forgeReplaceIndex !== undefined) {
           if (state.forgePhase !== "idle" && state.forgePhase !== "settled") {
-          showToast("淬炼进行中，不可更换装备");
+            showToast("淬炼进行中，不可更换装备");
             return;
           }
           if (state.forgeResult && !state.forgeResult.saved) {
@@ -22808,6 +25678,11 @@
 
         if (target.dataset.towerStart) {
           startTowerBattle(target.dataset.towerStart);
+          return;
+        }
+
+        if (target.dataset.towerSpiritAd !== undefined) {
+          claimTowerSpiritAd();
           return;
         }
 
@@ -23201,6 +26076,7 @@
           cancelPlayerMovement();
         }
         state.tab = nextTab;
+        state.mapAdventureOpen = nextTab === "map" && Boolean(state.mapAdventureId);
         if (state.tutorialEnabled && nextTab === "tasks" && state.tutorialStep === "chapter1_tasks") {
           state.taskSections.chapter1 = true;
           state.taskSections.chapter2 = true;
@@ -23224,6 +26100,18 @@
       });
 
       appHeader.addEventListener("click", (event) => {
+        const leaderboardTarget = event.target.closest("[data-leaderboard-open]");
+        if (leaderboardTarget) {
+          if (
+            state.storyActive
+            || state.battleActive
+            || state.rewardSettlementOpen
+          ) {
+            return;
+          }
+          openLeaderboard();
+          return;
+        }
         const target = event.target.closest("[data-event-settings]");
         if (!target || !state.rootLocked || state.storyActive) return;
         state.settingsOpen = true;
@@ -23237,12 +26125,12 @@
         const energyChanged = applyPassiveEnergyRegen();
         if (energyChanged) {
           persistPreviewState();
-          if (!state.storyActive && !state.battleActive && !state.rewardSettlementOpen) {
-            render();
-          } else {
-            updateHeader();
-          }
+          // Passive recovery only changes the header. Rebuilding the active
+          // screen here restarts entry animations and can flash in embedded
+          // previews that use a separate compositor surface.
+          updateHeader();
         }
+        maybeTriggerGlobalMapAdventure("全局游历");
         if (
           state.tab === "map"
           && state.regionId === "outer"
@@ -23270,7 +26158,7 @@
         }
         if (wasHidden && !state.adBusy) {
           wasHidden = false;
-          restorePreviewState();
+          restorePreviewState(undefined, { preserveTransientUi: true });
           applyPassiveEnergyRegen();
           prepareInitialTutorialOffer();
           render();
@@ -23290,7 +26178,7 @@
           Number(event.key.slice(PREVIEW_SAVE_KEY_PREFIX.length)),
         );
         if (changedSlot === state.activeSaveSlot) {
-          restorePreviewState(changedSlot);
+          restorePreviewState(changedSlot, { preserveTransientUi: true });
           prepareInitialTutorialOffer();
         }
         render();

@@ -1,0 +1,244 @@
+{
+  "chapter_id": "qi_01",
+  "title": "灰牌入山",
+  "realm": "qi_01",
+  "start_node": "intro_01",
+  "background": "bg_lanchuan_gate_dawn",
+  "bgm": "quiet_morning",
+  "required_power": 0,
+  "flags_on_start": [],
+  "nodes": {
+    "intro_01": {
+      "type": "narration",
+      "text": "你到山门时，值守弟子先叫出了你的名字。可你低头看灰牌，上面一片空白；身后的名册却写着“已入山”。牌和名册，对不上了。",
+      "next": "intro_02"
+    },
+    "intro_02": {
+      "type": "narration",
+      "text": "程守墨把灰牌翻了两遍才还给你：牌上没有字，名册却抢先写下了你。西廊今晚合门，入门前把这件东西找回来。",
+      "next": "intro_03"
+    },
+    "intro_03": {
+      "type": "narration",
+      "text": "西廊的门只认有字的牌。木傀阵已经起了，灰牌落进去之前，没人会替你留着这份资格。",
+      "next": "intro_04"
+    },
+    "intro_04": {
+      "type": "narration",
+      "text": "木傀考核一结束，西廊的门就会合上。名册边角那行湿墨还没干，像有人把答案留在门缝里。",
+      "next": "n101"
+    },
+    "n101": {
+      "type": "narration",
+      "text": "木傀考核开始前，名册边缘又渗出一行湿墨：你的名字，未入山。可你明明站在这里，甚至能看见那一行字正在变干。",
+      "next": "n102"
+    },
+    "n102": {
+      "type": "say",
+      "speaker": "程守墨",
+      "text": "别念。名册会借声音认人。程守墨按住湿墨，指尖却悬在那一笔上。",
+      "next": "n103"
+    },
+    "n103": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_neutral",
+      "position": "right",
+      "text": "灰牌不是废牌。名册若先写下你，考核输掉的就不只是一场比试，连你的来处也可能被它带走。",
+      "next": "n104"
+    },
+    "n104": {
+      "type": "choice",
+      "prompt": "木傀阵启动，灰牌掉进阵眼。阵里传来一声求救，你先救那道声音，还是先护住自己的牌？",
+      "options": [
+        {
+          "id": "help_zhao_ye",
+          "text": "把阵里的人拉出来",
+          "next": "n105",
+          "effects": [
+            {
+              "op": "add",
+              "key": "xu_zhao_tang_favor",
+              "value": 1
+            },
+            {
+              "op": "set_flag",
+              "key": "qi01_saved_zhao_ye",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "secure_position",
+          "text": "护住灰牌，完成考核",
+          "next": "n106",
+          "effects": [
+            {
+              "op": "add",
+              "key": "ling_shi",
+              "value": 10
+            },
+            {
+              "op": "set_flag",
+              "key": "qi01_self_first",
+              "value": true
+            }
+          ]
+        }
+      ]
+    },
+    "n105": {
+      "type": "say",
+      "speaker": "主角",
+      "portrait": "portrait_player_neutral",
+      "position": "left",
+      "text": "有人在阵里，把手给我。灰牌还能取，不能让阵眼把你的声音也吞进去。",
+      "next": "battle_101"
+    },
+    "n106": {
+      "type": "say",
+      "speaker": "程守墨",
+      "text": "顾住自己并不丢人。记住那行湿墨：你的名字还没入山。名册能改人，贸然伸手只会把自己也送进去。",
+      "next": "battle_101"
+    },
+    "battle_101": {
+      "type": "battle",
+      "stage_id": "stage_qi01_01_wooden_puppet",
+      "enemy_art": "enemy_wooden_puppet_basic",
+      "prompt": "木傀胸口的阵纹少了一笔。阵眼里的湿墨缓慢回流，像有人在等最后一画落下。",
+      "win_next": "n107",
+      "lose_next": "ad_qi01_battle_revive"
+    },
+    "ad_qi01_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi01",
+      "dialogue_before": "木傀擦过你的肩头，灰牌在地上划出一道白痕。你还可以稳住伤势，再挑战一次。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "battle_101",
+      "next": "n108"
+    },
+    "n108": {
+      "type": "narration",
+      "text": "木傀擦过你的肩头，灰牌在地上划出一道白痕。你没有倒下，却听见阵眼下传来一声极轻的铜响：别替我补完。",
+      "next": "n107"
+    },
+    "n107": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "这不是寻常阵芯。药圃有个叫许照棠的弟子，三年前来问过同一句话。她说自己有个哥哥，许照野。第二天，名册换了纸，连墨痕都没剩。也许这盏灯正在替某个人留名。",
+      "next": "n109"
+    },
+    "n109": {
+      "type": "choice",
+      "prompt": "石台裂缝里露出一盏缺口铜灯，灯沿刻着半个名字，最后一笔却还在移动。你怎么处理？",
+      "options": [
+        {
+          "id": "hide_lamp",
+          "text": "先藏起铜灯，追它正在补完的名字",
+          "next": "n110",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_took_copper_lamp",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "report_lamp",
+          "text": "按规矩上报，先保住自己的身份",
+          "next": "n111",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi01_reported_lamp",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n110": {
+      "type": "say",
+      "speaker": "灯里的旧声",
+      "text": "别让他们看见这个半姓。她还在外院，不能知道我来过；名册正在学我的名字。",
+      "next": "n112"
+    },
+    "n111": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "上报也好，藏起来也罢，都不能把它当普通铜器。规矩不会解释名册为何记住一个不存在的人。交上去，今晚自然有人来问你从哪里捡到的。",
+      "next": "n112"
+    },
+    "n112": {
+      "type": "reward",
+      "settlement_id": "qi01_opening_clear",
+      "items": [
+        {
+          "id": "old_iron_sword",
+          "count": 1
+        },
+        {
+          "id": "gray_badge",
+          "count": 1
+        },
+        {
+          "id": "qi_gathering_manual",
+          "count": 1
+        }
+      ],
+      "next": "ad_qi01_reward_double"
+    },
+    "ad_qi01_reward_double": {
+      "type": "ad",
+      "ad_type": "double_reward",
+      "ad_placement": "reward_double_qi01",
+      "dialogue_before": "入山考核的奖励已经放进存档。",
+      "ad_reward_text": "完整观看广告后，本次结算道具数量翻倍。",
+      "reward": {
+        "settlement_id": "qi01_opening_clear",
+        "multiplier": 2
+      },
+      "next": "n113"
+    },
+    "n113": {
+      "type": "narration",
+      "item_art": "item_copper_lamp_broken",
+      "text": "傍晚，灰牌终于落在外院西廊的登记簿上。你把旧铁剑挂在腰间，缺口铜灯藏在袖中。袖口里的纸条被夜风吹得发凉：若见许照野，来药圃。落款是许照棠。",
+      "next": "n114"
+    },
+    "n114": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "我叫许照棠。你见过我哥哥许照野吗？他说今天会进山，可名册里没有他的名字。还有这盏灯……为什么一直在叫他？",
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "qi_01",
+      "text": "第一场考核结束。西廊的登记簿合上了，纸条上的墨却还没干。",
+      "unlock": [
+        "qi_02",
+        "q_qi01_side_01",
+        "summon_xu_zhao_tang"
+      ]
+    }
+  }
+}

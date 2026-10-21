@@ -1,0 +1,271 @@
+{
+  "chapter_id": "qi_02",
+  "title": "无编号旧册",
+  "realm": "qi_01",
+  "start_node": "n201",
+  "background": "bg_lanchuan_gate_dawn",
+  "bgm": "quiet_night",
+  "required_power": 18,
+  "flags_on_start": [
+    "qi02_started"
+  ],
+  "nodes": {
+    "n201": {
+      "type": "narration",
+      "text": "交易小集开门后的第三天，外院下了一场怪雨。雨落在石阶上没有水花。你袖中的缺口铜灯每隔一刻亮一次，像有人催你去找什么。",
+      "next": "n202"
+    },
+    "n202": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "我记得他。他总把晚饭里最硬的灵米留给我。可我一问起他，大家就把碗推回来，像这样便能把一个人挡在话外。请你查名册，也看看他留下的日子。",
+      "next": "n203"
+    },
+    "n203": {
+      "type": "choice",
+      "prompt": "铜灯先指向交易小集，又指向藏经楼。灯芯里落出两粒铜屑，分别沾着药味和旧墨。",
+      "options": [
+        {
+          "id": "follow_lamp",
+          "text": "跟着药味去交易小集",
+          "next": "n204",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi02_followed_lamp",
+              "value": true
+            }
+          ]
+        },
+        {
+          "id": "find_reader",
+          "text": "跟着旧墨去藏经楼",
+          "next": "n205",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi02_sought_reader",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "guan_yan_qiu_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n204": {
+      "type": "say",
+      "speaker": "市集摊主",
+      "portrait": "portrait_cheng_shou_mo_neutral",
+      "position": "right",
+      "text": "空白名牌不卖给新人。前几日有人用三块下品灵石换走旧铜片，说要修一盏缺口灯。他没露正脸，右脚拖地，像受过阵伤。",
+      "next": "n206"
+    },
+    "n205": {
+      "type": "say",
+      "speaker": "关砚秋",
+      "portrait": "portrait_guan_yan_qiu_cold",
+      "position": "right",
+      "text": "归名阵原本把名字和记忆压回潮眼，用来挡住后山灾潮。它也能抹去一个人的记录。藏经楼那页禁注，写着它真正被拿来做过什么。",
+      "next": "n206"
+    },
+    "n206": {
+      "type": "narration",
+      "text": "药渍落在登记号旁，旧纹又在灯下显出同一处缺口。“七十三”不像职位，更像一个人留下的门槛。有人夜里还往那扇门里送药。",
+      "next": "n207"
+    },
+    "n207": {
+      "type": "choice",
+      "prompt": "程守墨在西廊拦住你，指尖压住刚换上的名册：你查的那个人，和你一样，都没有等到自己的名字写完。",
+      "options": [
+        {
+          "id": "ask_truth",
+          "text": "追问那扇没有名字的门",
+          "next": "n208",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi02_demanded_truth",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "ask_survival",
+          "text": "问他灰牌为什么还在我手上",
+          "next": "n209",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi02_asked_survival",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "cheng_shou_mo_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n208": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "雨里的裂口曾压住七个位置。六盏灯各承一份，最后一盏始终没亮。抄录人把那一行刮了，后来所有人只记得六盏。",
+      "next": "n210"
+    },
+    "n209": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_neutral",
+      "position": "right",
+      "text": "灰牌不是无处可去，是你的身份还没被写实。归名阵盯着这种不稳的名字。你现在还能走动，因为它还没拼出一个完整的你。",
+      "next": "n210"
+    },
+    "n210": {
+      "type": "battle",
+      "stage_id": "stage_qi02_01_nameless_guard",
+      "enemy_art": "enemy_paper_puppet_nameless",
+      "enemy_bundle": "map_library",
+      "prompt": "藏经楼后廊出现一具没有脸的纸傀。它不碰正式名牌，只想烧掉灰牌和旧册。",
+      "win_next": "n211",
+      "lose_next": "ad_qi02_battle_revive"
+    },
+    "ad_qi02_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi02",
+      "dialogue_before": "纸傀的火已经烧到旧册边缘。你还可以稳住伤势，再拦它一次。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "n210",
+      "next": "n212"
+    },
+    "n211": {
+      "type": "narration",
+      "text": "纸傀倒下后，腹中露出一截被火烤过的册页。纸上没有姓名，只有寿元、灵根和一行又一行被按下的手印。",
+      "next": "n213"
+    },
+    "n212": {
+      "type": "say",
+      "speaker": "关砚秋",
+      "portrait": "portrait_guan_yan_qiu_cold",
+      "position": "right",
+      "text": "你没拦住它，它只烧掉一页。有人不愿让你看见：有人被逼着交出名字，也有人为了家人，自己把名字递了上去。",
+      "next": "n213"
+    },
+    "n213": {
+      "type": "choice",
+      "prompt": "缺口铜灯照出一行新字：找回第七个名字，不等于让第七个人回来。灯芯正在变冷。你把它补全，还是让这道缺口继续留着？",
+      "options": [
+        {
+          "id": "repair_lamp",
+          "text": "把铜片嵌回灯沿",
+          "next": "n214",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi02_repaired_lamp",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "keep_gap",
+          "text": "把缺口留在原处",
+          "next": "n215",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi02_kept_lamp_gap",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n214": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "灯补全以后，照见的也许是一个名字，也许是一道把人拖回阵里的钩子。我不替那个人握灯。",
+      "next": "n216"
+    },
+    "n215": {
+      "type": "say",
+      "speaker": "主角",
+      "portrait": "portrait_player_focused",
+      "position": "left",
+      "text": "缺口不是损坏。灯少这一笔，留在后面的人就还有回头的余地。",
+      "next": "n216"
+    },
+    "n216": {
+      "type": "reward",
+      "settlement_id": "qi02_nameless_clue",
+      "item_bundle": "common_items",
+      "items": [
+        {
+          "id": "nameless_ledger_fragment",
+          "count": 1
+        },
+        {
+          "id": "lamp_copper_shard",
+          "count": 1
+        }
+      ],
+      "next": "ad_qi02_reward_double"
+    },
+    "ad_qi02_reward_double": {
+      "type": "ad",
+      "ad_type": "double_reward",
+      "ad_placement": "reward_double_qi02",
+      "dialogue_before": "无名册残页和铜灯碎片已经放进存档。",
+      "ad_reward_text": "完整观看广告后，本次结算道具数量翻倍。",
+      "reward": {
+        "settlement_id": "qi02_nameless_clue",
+        "multiplier": 2
+      },
+      "next": "n217"
+    },
+    "n217": {
+      "type": "narration",
+      "item_art": "item_copper_lamp_broken",
+      "text": "夜深后，你回到外院西廊。灰牌上浮出一笔墨痕，却不是你的名字。你这才明白，自己一直没被正式写下，不是疏忽，而是有人怕三年前那场没完的阵再次醒来。",
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "qi_02",
+      "text": "雨停时，“七十三”那一格仍在滴墨。裂口方向传来一声迟到的钟响。",
+      "unlock": [
+        "qi_03",
+        "map_rear_mountain_rift",
+        "forge_system",
+        "summon_su_wan_chao"
+      ]
+    }
+  }
+}

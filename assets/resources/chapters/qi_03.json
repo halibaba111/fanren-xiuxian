@@ -1,0 +1,297 @@
+{
+  "chapter_id": "qi_03",
+  "title": "石台还名",
+  "realm": "qi_01",
+  "start_node": "n301",
+  "background": "bg_rear_mountain_rift",
+  "background_bundle": "map_rear_mountain",
+  "bgm": "quiet_night",
+  "required_power": 32,
+  "flags_on_start": [
+    "qi03_started"
+  ],
+  "nodes": {
+    "n301": {
+      "type": "narration",
+      "text": "雨停后，你带着残缺名册和缺口铜灯来到后山裂口。这里是三年前归名阵封住的地方。灰牌上的墨痕第一次主动向前延伸，像在指路。",
+      "next": "n302"
+    },
+    "n302": {
+      "type": "say",
+      "speaker": "许照棠",
+      "portrait": "portrait_xu_zhao_tang_neutral",
+      "position": "right",
+      "text": "裂口里未必藏着他本人，更像藏着别人留给他的记忆。名字若被硬生生叫回来，醒来的东西未必还是我认识的哥哥。",
+      "next": "n303"
+    },
+    "n303": {
+      "type": "choice",
+      "prompt": "封锁线上有三种痕迹：新鲜药泥、录司墨线、被人反复擦过的石面。你先查哪一条？",
+      "options": [
+        {
+          "id": "follow_mud",
+          "text": "查药泥，找最近来过裂口的人",
+          "next": "n304",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_followed_mud",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "read_ink",
+          "text": "沿墨线追过去",
+          "next": "n305",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_read_ink",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "touch_stone",
+          "text": "摸石面，听擦痕留下的声音",
+          "next": "n306",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_touched_stone",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "guan_yan_qiu_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n304": {
+      "type": "say",
+      "speaker": "关砚秋",
+      "portrait": "portrait_guan_yan_qiu_cold",
+      "position": "right",
+      "text": "药泥里有外院药圃的回气草，也有裂口深处的白骨苔。来人不是送一趟药，是在给什么东西续命。可这里没有脚印，只有一串刻意拖长的鞋痕。",
+      "next": "n307"
+    },
+    "n305": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "墨线是记录，不是封印。当天发生的事都在上面，唯独第七个位置被跳过去了。三年前的抄录人知道那里有人，仍把空白留着。",
+      "next": "n307"
+    },
+    "n306": {
+      "type": "narration",
+      "text": "你按住石面，听见一句很轻的话：别叫我的名字。声音不是从裂口里传来，而是从灰牌背面传来。空白可能不是等待填写，而是一种保护。",
+      "next": "n307"
+    },
+    "n307": {
+      "type": "narration",
+      "text": "裂口深处亮起七盏小灯。六盏照着旧牌，最后一盏照着一块无名石。铜灯和石头同时发热，像本来就是一回事。",
+      "next": "n308"
+    },
+    "n308": {
+      "type": "choice",
+      "prompt": "苏晚潮想先把无名石带走，避免它继续被阵法消耗。关砚秋想先听完它的声音。你怎么做？",
+      "options": [
+        {
+          "id": "take_stone",
+          "text": "先带走无名石",
+          "next": "n309",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_took_nameless_stone",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "listen_stone",
+          "text": "留下来听完它的声音",
+          "next": "n310",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_listened_stone",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "guan_yan_qiu_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n309": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "无名石在你手里轻了下来，像终于卸掉一口气。可封锁线也裂开一道缝，山下的人会看见这里。你救出了它，也让宗门藏着的伤口露了出来。",
+      "next": "n311"
+    },
+    "n310": {
+      "type": "say",
+      "speaker": "关砚秋",
+      "portrait": "portrait_guan_yan_qiu_cold",
+      "position": "right",
+      "text": "它不是第七个人，是替那个人留下的“记忆壳”。它记得有人把“他还在”留进阵里，却不知道那个人有没有回头。石头离开阵心，旧牌一起响了。",
+      "next": "n311"
+    },
+    "n311": {
+      "type": "battle",
+      "stage_id": "stage_qi03_01_memory_shell",
+      "enemy_art": "enemy_paper_puppet_nameless",
+      "enemy_bundle": "map_library",
+      "prompt": "六枚旧牌旁的纸傀同时站起。它们重复一句话：留下一个，其他人才能回去。",
+      "win_next": "n312",
+      "lose_next": "ad_qi03_battle_revive"
+    },
+    "ad_qi03_battle_revive": {
+      "type": "ad",
+      "ad_type": "revive",
+      "ad_placement": "battle_revive_qi03",
+      "dialogue_before": "纸傀重新围住石台。你还可以稳住伤势，再冲破它们一次。",
+      "ad_reward_text": "完整观看广告后，恢复本场战斗并重新挑战。",
+      "revive_next": "n311",
+      "next": "n313"
+    },
+    "n312": {
+      "type": "narration",
+      "text": "纸傀散开后，六枚旧牌没有倒下。每一枚牌背后都刻着一个极短的愿望：有人想回家，有人想被记住，有人只求自己的弟弟能继续留在山门里。第七块牌是空的，六个人的愿望却都刻在它背面。",
+      "next": "n314"
+    },
+    "n313": {
+      "type": "say",
+      "speaker": "程守墨",
+      "portrait": "portrait_cheng_shou_mo_alert",
+      "position": "right",
+      "text": "纸傀没碎干净，你却看见了它护着什么。证据不总在胜利里，有时失败反而会把难看的真相掀出来。",
+      "next": "n314"
+    },
+    "n314": {
+      "type": "choice",
+      "prompt": "铜灯照出一个完整的姓。无名石还空着，灰牌也在发冷。",
+      "options": [
+        {
+          "id": "write_badge",
+          "text": "把这个姓写回灰牌，让这笔空白露出来",
+          "next": "n315",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_wrote_surname",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "sect_suspicion",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "leave_stone",
+          "text": "把这个姓留在无名石上",
+          "next": "n316",
+          "effects": [
+            {
+              "op": "set_flag",
+              "key": "qi03_left_surname",
+              "value": true
+            },
+            {
+              "op": "add",
+              "key": "su_wan_chao_favor",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n315": {
+      "type": "say",
+      "speaker": "主角",
+      "portrait": "portrait_player_focused",
+      "position": "left",
+      "text": "我不知道哪条路最好，但这里确实有人活过。总得有人把这句话留下。",
+      "next": "n317"
+    },
+    "n316": {
+      "type": "say",
+      "speaker": "苏晚潮",
+      "portrait": "portrait_su_wan_chao_concerned",
+      "position": "right",
+      "text": "你没有把他硬拽回来，也没有替宗门把旧记录修饰得体面。这块石头会记住你；有时它护人，有时也会把人拖进潮里。",
+      "next": "n317"
+    },
+    "n317": {
+      "type": "reward",
+      "settlement_id": "qi03_rift_evidence",
+      "item_bundle": "common_items",
+      "items": [
+        {
+          "id": "nameless_stone",
+          "count": 1
+        },
+        {
+          "id": "name_token",
+          "count": 1
+        }
+      ],
+      "next": "ad_qi03_reward_double"
+    },
+    "ad_qi03_reward_double": {
+      "type": "ad",
+      "ad_type": "double_reward",
+      "ad_placement": "reward_double_qi03",
+      "dialogue_before": "无名石和还名凭证已经放进存档。",
+      "ad_reward_text": "完整观看广告后，本次结算道具数量翻倍。",
+      "reward": {
+        "settlement_id": "qi03_rift_evidence",
+        "multiplier": 2
+      },
+      "next": "n318"
+    },
+    "n318": {
+      "type": "narration",
+      "text": "离开裂口时，山下传来钟声。六盏微灯熄灭了一盏，裂口里没有脚步声。灰牌上的姓仍缺一笔，缺口铜灯却第一次安静得像普通铜器。",
+      "next": "end"
+    },
+    "end": {
+      "type": "end",
+      "chapter_id": "qi_03",
+      "text": "六个人替一盏没点亮的灯守了三年。药圃那张纸条还在袖里发硬，许照棠等着一个能落到纸上的答案。",
+      "unlock": [
+        "qi_04",
+        "forge_system",
+        "summon_guan_yan_qiu"
+      ]
+    }
+  }
+}
